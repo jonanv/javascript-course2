@@ -5,3 +5,5 @@ const nombre = prompt('¿Cuál es tu nombre?');
 const contenido = document.querySelector('.contenido');
 contenido.innerHTML = `${ nombre } esta aprendiendo JavaScript Moderno`;
  */
+
+console.log('objecto')
