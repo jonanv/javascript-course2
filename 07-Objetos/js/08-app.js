@@ -7,7 +7,7 @@ const producto = {
     disponible: true
 }
 
-// Congelar un objeto
+// Congelar un objeto significa que no se puede agregar, eliminar o modificar propiedades del objeto.
 Object.freeze(producto);
 
 producto.disponible = false; // No se puede modificar
