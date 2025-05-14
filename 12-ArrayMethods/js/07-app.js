@@ -1,6 +1,8 @@
 // concat
 
 const meses = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio'];
+const meses2 = ['Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
+const meses3 = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio'];
 
 const carrito = [
     { nombre: 'Monitor 27 Pulgadas', precio: 500 },
@@ -13,3 +15,6 @@ const carrito = [
 
 const resultado = meses.concat(carrito);
 console.log(resultado);
+
+const mesesConcat = meses.concat(meses2, meses3);
+console.log(mesesConcat);
