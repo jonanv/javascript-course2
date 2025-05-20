@@ -4,6 +4,8 @@ const contenedorCarrito = document.querySelector('#lista-carrito tbody');
 const vaciarCarritoBtn = document.querySelector('#vaciar-carrito');
 const listaCursos = document.querySelector('#lista-cursos');
 
+let articulosCarrito = [];
+
 cargarEventListeners();
 function cargarEventListeners() {
     listaCursos.addEventListener('click', agregarCurso);
@@ -27,4 +29,23 @@ function leerDatosCurso(curso) {
         cantidad: 1
     }
 
+    // Revisa si un elemento ya existe en el carrito
+    const existe = articulosCarrito.some(curso => curso.id === infoCurso.id);
+    if (existe) {
+        // Actualiza la cantidad
+        const cursos = articulosCarrito.map(curso => {
+            if (curso.id === infoCurso.id) {
+                curso.cantidad++;
+                return curso; // Retorna el objeto actualizado
+            } else {
+                return curso; // Retorna los objetos que no se modifican
+            }
+        });
+        articulosCarrito = [...cursos];
+    } else {
+        // Agrega el curso al carrito
+        articulosCarrito = [...articulosCarrito, infoCurso];
+    }
+
+    console.log(articulosCarrito);
 }
