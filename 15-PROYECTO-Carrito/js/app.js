@@ -50,6 +50,8 @@ function leerDatosCurso(curso) {
 
     console.log(articulosCarrito);
     carritoHTML();
+}
+
 function carritoHTML() {
     // Limpiar el HTML
     limpiarHTML();
@@ -72,4 +74,13 @@ function carritoHTML() {
         contenedorCarrito.appendChild(row);
     });
 }
+
+function limpiarHTML() {
+    // Forma lenta
+    // contenedorCarrito.innerHTML = '';
+
+    // Forma rapida
+    while (contenedorCarrito.firstChild) {
+        contenedorCarrito.removeChild(contenedorCarrito.firstChild);
+    }
 }
