@@ -8,11 +8,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // Funciones
 function mostrarAutos() {
-    autos.forEach(auto => {
+    autos.forEach((auto) => {
         const autoHTML = document.createElement('p');
 
+        const { marca, modelo, year, precio, puertas, color, transmision } = auto;
         autoHTML.textContent = `
-            ${ auto.marca }
+            ${ marca } ${ modelo } ${ year } - Puertas: ${ puertas } - Transmision: ${ transmision } - Precio: $${ precio } - Color: ${ color }
         `;
 
         resultado.appendChild(autoHTML);
