@@ -34,6 +34,8 @@ document.addEventListener('DOMContentLoaded', function() {
     // Funciones
     function enviarEmail(e) {
         e.preventDefault();
+        btnEnviar.classList.add('opacity-50');
+        btnEnviar.disabled = true;
 
         spinner.classList.add('flex');
         spinner.classList.remove('hidden');
