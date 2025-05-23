@@ -24,16 +24,7 @@ marca.addEventListener('change', filtrarAutos);
 
 // Funciones
 function mostrarAutos() {
-    autos.forEach((auto) => {
-        const autoHTML = document.createElement('p');
-
-        const { marca, modelo, year, precio, puertas, color, transmision } = auto;
-        autoHTML.textContent = `
-            ${ marca } ${ modelo } ${ year } - Puertas: ${ puertas } - Transmision: ${ transmision } - Precio: $${ precio } - Color: ${ color }
-        `;
-
-        resultado.appendChild(autoHTML);
-    });
+    filtarAutos(autos);
 }
 
 function llenarSelect() {
@@ -51,7 +42,17 @@ function filtrarAutos(e) {
     // Limpiar resultado
     limpiarHTML();
     // Mostrar autos filtrados
-    autosFiltrados.forEach((auto) => {
+    filtarAutos(autosFiltrados);
+}
+
+function limpiarHTML() {
+    while (resultado.firstChild) {
+        resultado.removeChild(resultado.firstChild);
+    }
+}
+
+function filtarAutos(autos) {
+    autos.forEach((auto) => {
         const autoHTML = document.createElement('p');
 
         const { marca, modelo, year, precio, puertas, color, transmision } = auto;
@@ -61,10 +62,4 @@ function filtrarAutos(e) {
 
         resultado.appendChild(autoHTML);
     });
-}
-
-function limpiarHTML() {
-    while (resultado.firstChild) {
-        resultado.removeChild(resultado.firstChild);
-    }
 }
