@@ -1,12 +1,14 @@
 document.addEventListener('DOMContentLoaded', function() {
     const form = {
         email: '',
+        cc: '',
         asunto: '',
         mensaje: ''
     }
 
     // Seleccionar elementos de la interfaz
     const inputEmail = document.querySelector('#email');
+    const inputCc = document.querySelector('#cc');
     const inputAsunto = document.querySelector('#asunto');
     const inputMensaje = document.querySelector('#mensaje');
     const formulario = document.querySelector('#formulario');
@@ -18,6 +20,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Asignar eventos
     inputEmail.addEventListener('input', validar);
+    inputCc.addEventListener('input', validar);
     inputAsunto.addEventListener('input', validar);
     inputMensaje.addEventListener('input', validar);
 
@@ -58,10 +61,18 @@ document.addEventListener('DOMContentLoaded', function() {
         comprobarFormulario();
 
         const element = e.target;
-        if (e.target.value.trim() === '') {
+        if (e.target.value.trim() === '' && e.target.id !== 'cc') {
             mostrarError(`El campo ${e.target.id} es obligatorio`, e.target.parentElement);
             element.style.borderColor = 'red';
             return;
+        }
+
+        if (e.target.id === 'cc' && e.target.value.trim() !== '') {
+            if (!validarEmail(e.target.value)) {
+                mostrarError('Email no válido', e.target.parentElement);
+                element.style.borderColor = 'red';
+                return;
+            }
         }
 
         if (e.target.type === 'email') {
@@ -100,7 +111,11 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function comprobarFormulario() {
-        if (Object.values(form).includes('')) {
+        let fieldsRequired = Object.fromEntries(
+            Object.entries(form).filter(([key, value]) => key !== 'cc')
+        );
+        
+        if (Object.values(fieldsRequired).includes('')) {
             btnEnviar.classList.add('opacity-50');
             btnEnviar.disabled = true;
             return;
