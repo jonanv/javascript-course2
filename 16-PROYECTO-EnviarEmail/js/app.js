@@ -33,14 +33,16 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function mostrarError(mensaje, referencia) {
         limpiarError(referencia);
+        // Crear el mensaje de error
         const error = document.createElement('p');
         error.textContent = mensaje;
-        error.classList.add('error');
-        error.style.color = 'red';
+        error.classList.add('error', 'bg-red-600', 'text-white', 'p-2', 'rounded-lg');
+        // Inyecta el error
         referencia.appendChild(error);
     }
 
     function limpiarError(referencia) {
+        // Compruebar si ya existe un error
         const error = referencia.querySelector('.error');
         if (error) {
             referencia.removeChild(error);
