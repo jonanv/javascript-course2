@@ -11,6 +11,17 @@ const resultado = document.querySelector('#resultado');
 let max = new Date().getFullYear();
 let min = max - 10;
 
+// Generar un objeto con la busqueda
+const datosBusqueda = {
+    marca: '',
+    year: '',
+    minimo: '',
+    maximo: '',
+    puertas: '',
+    transmision: '',
+    color: '',
+}
+
 // Eventos
 document.addEventListener('DOMContentLoaded', () => {
     // Mostrar autos al cargar
