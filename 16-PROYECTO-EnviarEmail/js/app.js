@@ -14,31 +14,35 @@ document.addEventListener('DOMContentLoaded', function() {
     const btnEnviar = document.querySelector('#formulario button[type="submit"]');
     const btnReset = document.querySelector('#formulario button[type="reset"]');
 
+    const spinner = document.querySelector('#spinner');
+
     // Asignar eventos
     inputEmail.addEventListener('input', validar);
     inputAsunto.addEventListener('input', validar);
     inputMensaje.addEventListener('input', validar);
 
-    btnEnviar.addEventListener('click', (e) => {
-        e.preventDefault();
-        console.log('Enviado');
-    });
+    formulario.addEventListener('submit', enviarEmail);
 
     btnReset.addEventListener('click', (e) => {
         e.preventDefault();
-        // Reiniciar el objeto
-        form.email = '';
-        form.asunto = '';
-        form.mensaje = '';
-
-        // Reiniciar el formulario
-        formulario.reset();
-
-        // Deshabilitar el botón
-        comprobarFormulario();
+        resetearFormulario();
     });
 
     // Funciones
+    function enviarEmail(e) {
+        e.preventDefault();
+
+        spinner.classList.add('flex');
+        spinner.classList.remove('hidden');
+        
+        setTimeout(() => {
+            spinner.classList.remove('flex');
+            spinner.classList.add('hidden');
+
+            resetearFormulario();
+        }, 3000);
+    }
+
     function validar(e) {
         // Asignar los valores al objeto
         form[e.target.id] = e.target.value.trim();
@@ -94,5 +98,18 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         btnEnviar.classList.remove('opacity-50');
         btnEnviar.disabled = false;
+    }
+
+    function resetearFormulario() {
+        // Reiniciar el objeto
+        form.email = '';
+        form.asunto = '';
+        form.mensaje = '';
+
+        // Reiniciar el formulario
+        formulario.reset();
+
+        // Deshabilitar el botón
+        comprobarFormulario();
     }
 });
