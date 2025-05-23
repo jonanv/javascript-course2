@@ -5,7 +5,13 @@ document.addEventListener('DOMContentLoaded', function() {
     const inputMensaje = document.querySelector('#mensaje');
 
     // Asignar eventos
-    inputEmail.addEventListener('blur', function(e) {
-        console.log(e.target.value);
+    inputEmail.addEventListener('blur', validar);
+    inputAsunto.addEventListener('blur', validar);
+    inputMensaje.addEventListener('blur', validar);
     });
+
+    // Funciones
+    function validar(e) {
+        console.log(e.target.value);
+    }
 });
