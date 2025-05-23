@@ -40,6 +40,15 @@ document.addEventListener('DOMContentLoaded', function() {
             spinner.classList.add('hidden');
 
             resetearFormulario();
+
+            // Crear una alerta
+            const alertaExito = document.createElement('p');
+            alertaExito.textContent = 'El mensaje se envió correctamente';
+            alertaExito.classList.add('bg-green-500', 'text-white', 'p-2', 'text-center', 'rounded-lg', 'mt-10', 'font-bold', 'uppercase');
+            formulario.appendChild(alertaExito);
+            setTimeout(() => {
+                alertaExito.remove();
+            }, 3000);
         }, 3000);
     }
 
@@ -51,14 +60,12 @@ document.addEventListener('DOMContentLoaded', function() {
         const element = e.target;
         if (e.target.value.trim() === '') {
             mostrarError(`El campo ${e.target.id} es obligatorio`, e.target.parentElement);
-            element.style.borderColor = 'red';
             return;
         }
 
         if (e.target.type === 'email') {
             if (!validarEmail(e.target.value)) {
                 mostrarError('Email no válido', e.target.parentElement);
-                element.style.borderColor = 'red';
                 return;
             }
         }
