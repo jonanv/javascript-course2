@@ -60,12 +60,14 @@ document.addEventListener('DOMContentLoaded', function() {
         const element = e.target;
         if (e.target.value.trim() === '') {
             mostrarError(`El campo ${e.target.id} es obligatorio`, e.target.parentElement);
+            element.style.borderColor = 'red';
             return;
         }
 
         if (e.target.type === 'email') {
             if (!validarEmail(e.target.value)) {
                 mostrarError('Email no válido', e.target.parentElement);
+                element.style.borderColor = 'red';
                 return;
             }
         }
@@ -112,6 +114,11 @@ document.addEventListener('DOMContentLoaded', function() {
         form.email = '';
         form.asunto = '';
         form.mensaje = '';
+
+        for (const element in form) {
+            // console.log(formulario.elements[element]);
+            formulario.elements[element].style.borderColor = 'rgb(209 213 219 / var(--tw-border-opacity))';
+        }
 
         // Reiniciar el formulario
         formulario.reset();
