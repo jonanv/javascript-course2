@@ -18,6 +18,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Funciones
     function validar(e) {
+        // Asignar los valores al objeto
+        form[e.target.id] = e.target.value.trim();
+        comprobarFormulario();
+
         const element = e.target;
         if (e.target.value.trim() === '') {
             mostrarError(`El campo ${e.target.id} es obligatorio`, e.target.parentElement);
@@ -35,10 +39,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
         element.style.borderColor = 'green';
         limpiarError(e.target.parentElement);
-
-        // Asignar los valores al objeto
-        form[e.target.id] = e.target.value.trim();
-        comprobarEmail()
     }
 
     function mostrarError(mensaje, referencia) {
@@ -62,5 +62,15 @@ document.addEventListener('DOMContentLoaded', function() {
     function validarEmail(email) {
         const regex = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
         return regex.test(String(email).toLowerCase());
+    }
+
+    function comprobarFormulario() {
+        if (Object.values(form).includes('')) {
+            btnEnviar.classList.add('opacity-50');
+            btnEnviar.disabled = true;
+            return;
+        }
+        btnEnviar.classList.remove('opacity-50');
+        btnEnviar.disabled = false;
     }
 });
