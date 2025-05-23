@@ -10,10 +10,14 @@ document.addEventListener('DOMContentLoaded', function() {
     const inputAsunto = document.querySelector('#asunto');
     const inputMensaje = document.querySelector('#mensaje');
 
+    const btnEnviar = document.querySelector('#formulario button[type="submit"]');
     // Asignar eventos
     inputEmail.addEventListener('blur', validar);
     inputAsunto.addEventListener('blur', validar);
     inputMensaje.addEventListener('blur', validar);
+    btnEnviar.addEventListener('click', (e) => {
+        e.preventDefault();
+        console.log('Enviado');
     });
 
     // Funciones
