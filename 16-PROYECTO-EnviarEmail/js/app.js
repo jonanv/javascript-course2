@@ -1,4 +1,10 @@
 document.addEventListener('DOMContentLoaded', function() {
+    const form = {
+        email: '',
+        asunto: '',
+        mensaje: ''
+    }
+
     // Seleccionar elementos de la interfaz
     const inputEmail = document.querySelector('#email');
     const inputAsunto = document.querySelector('#asunto');
@@ -29,6 +35,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
         element.style.borderColor = 'green';
         limpiarError(e.target.parentElement);
+
+        // Asignar los valores al objeto
+        form[e.target.id] = e.target.value.trim();
+        comprobarEmail()
     }
 
     function mostrarError(mensaje, referencia) {
