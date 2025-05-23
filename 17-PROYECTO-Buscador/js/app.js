@@ -1,9 +1,13 @@
 // Variables
 const resultado = document.querySelector('#resultado');
+const year = document.querySelector('#year');
 
 // Eventos
 document.addEventListener('DOMContentLoaded', () => {
+    // Mostrar autos al cargar
     mostrarAutos();
+    // Llenar opcion de años
+    llenarSelect();
 });
 
 // Funciones
@@ -18,4 +22,15 @@ function mostrarAutos() {
 
         resultado.appendChild(autoHTML);
     });
+}
+
+function llenarSelect() {
+    let max = new Date().getFullYear();
+    let min = max - 10;
+    for (let i = max; i >= min; i--) {
+        const opcion = document.createElement('option');
+        opcion.value = i;
+        opcion.textContent = i;
+        year.appendChild(opcion);
+    }
 }
