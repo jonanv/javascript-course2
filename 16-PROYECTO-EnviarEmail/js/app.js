@@ -12,9 +12,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
     const btnEnviar = document.querySelector('#formulario button[type="submit"]');
     // Asignar eventos
-    inputEmail.addEventListener('blur', validar);
-    inputAsunto.addEventListener('blur', validar);
-    inputMensaje.addEventListener('blur', validar);
+    inputEmail.addEventListener('input', validar);
+    inputAsunto.addEventListener('input', validar);
+    inputMensaje.addEventListener('input', validar);
+
     btnEnviar.addEventListener('click', (e) => {
         e.preventDefault();
         console.log('Enviado');
