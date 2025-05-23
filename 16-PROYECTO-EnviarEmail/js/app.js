@@ -9,8 +9,11 @@ document.addEventListener('DOMContentLoaded', function() {
     const inputEmail = document.querySelector('#email');
     const inputAsunto = document.querySelector('#asunto');
     const inputMensaje = document.querySelector('#mensaje');
+    const formulario = document.querySelector('#formulario');
 
     const btnEnviar = document.querySelector('#formulario button[type="submit"]');
+    const btnReset = document.querySelector('#formulario button[type="reset"]');
+
     // Asignar eventos
     inputEmail.addEventListener('input', validar);
     inputAsunto.addEventListener('input', validar);
@@ -19,6 +22,20 @@ document.addEventListener('DOMContentLoaded', function() {
     btnEnviar.addEventListener('click', (e) => {
         e.preventDefault();
         console.log('Enviado');
+    });
+
+    btnReset.addEventListener('click', (e) => {
+        e.preventDefault();
+        // Reiniciar el objeto
+        form.email = '';
+        form.asunto = '';
+        form.mensaje = '';
+
+        // Reiniciar el formulario
+        formulario.reset();
+
+        // Deshabilitar el botón
+        comprobarFormulario();
     });
 
     // Funciones
