@@ -33,6 +33,7 @@ document.addEventListener('DOMContentLoaded', () => {
 // Eventos para los selects
 marca.addEventListener('change', (e) => {
     datosBusqueda.marca = e.target.value;
+    filtrarAuto();
 });
 
 year.addEventListener('change', (e) => {
@@ -70,12 +71,23 @@ function llenarSelect() {
     }
 }
 
-function filtrarAutos(datoBusqueda) {
-    const autosFiltrados = autos.filter(auto => auto.marca === datoBusqueda);
-    // Limpiar resultado
-    limpiarHTML();
-    // Mostrar autos filtrados
-    mostrarAutos(autosFiltrados);
+// Funciones de orden superior
+// Son funciones que reciben otras funciones como argumento o devuelven una funcion como resultado
+function filtrarAuto() {
+    const autosFiltrados = autos.filter(filtrarMarca);
+    console.log(autosFiltrados);
+    // // Limpiar resultado
+    // limpiarHTML();
+    // // Mostrar autos filtrados
+    // mostrarAutos(autosFiltrados);
+}
+
+function filtrarMarca(auto) {
+    const { marca } = datosBusqueda;
+    if (marca) {
+        return auto.marca === marca;
+    }
+    return auto;
 }
 
 function limpiarHTML() {
