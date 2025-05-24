@@ -25,7 +25,7 @@ const datosBusqueda = {
 // Eventos
 document.addEventListener('DOMContentLoaded', () => {
     // Mostrar autos al cargar
-    mostrarAutos();
+    mostrarAutos(autos);
     // Llenar opcion de años
     llenarSelect();
 });
@@ -70,13 +70,12 @@ function llenarSelect() {
     }
 }
 
-function filtrarAutos(e) {
-    const marcaSeleccionada = e.target.value;
-    const autosFiltrados = autos.filter(auto => auto.marca === marcaSeleccionada);
+function filtrarAutos(datoBusqueda) {
+    const autosFiltrados = autos.filter(auto => auto.marca === datoBusqueda);
     // Limpiar resultado
     limpiarHTML();
     // Mostrar autos filtrados
-    filtarAutos(autosFiltrados);
+    mostrarAutos(autosFiltrados);
 }
 
 function limpiarHTML() {
@@ -85,7 +84,7 @@ function limpiarHTML() {
     }
 }
 
-function filtarAutos(autos) {
+function mostrarAutos(autos) {
     autos.forEach((auto) => {
         const autoHTML = document.createElement('p');
 
