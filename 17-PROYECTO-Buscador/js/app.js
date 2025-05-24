@@ -101,7 +101,8 @@ function limpiarHTML() {
 // Funciones de orden superior
 // Son funciones que reciben otras funciones como argumento o devuelven una funcion como resultado
 function filtrarAuto() {
-    console.log(datosBusqueda);
+    // console.log(datosBusqueda);
+
     const autosFiltrados = autos
         .filter(filtrarMarca)
         .filter(filtrarYear)
@@ -111,10 +112,22 @@ function filtrarAuto() {
         .filter(filtrarTransmision)
         .filter(filtrarColor);
 
-    console.log(autosFiltrados);
-    
-    // Mostrar autos filtrados
-    mostrarAutos(autosFiltrados);
+    // console.log(autosFiltrados);
+
+    if (autosFiltrados.length) {
+        // Mostrar autos filtrados
+        mostrarAutos(autosFiltrados);
+    } else {
+        sinResultados();
+    }
+}
+
+function sinResultados() {
+    limpiarHTML();
+    const noResultados = document.createElement('div');
+    noResultados.classList.add('alerta', 'error');
+    noResultados.textContent = `No se encontraron resultados`;
+    resultado.appendChild(noResultados);
 }
 
 function filtrarMarca(auto) {
