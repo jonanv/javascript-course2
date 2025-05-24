@@ -37,7 +37,8 @@ marca.addEventListener('change', (e) => {
 });
 
 year.addEventListener('change', (e) => {
-    datosBusqueda.year = e.target.value;
+    datosBusqueda.year = parseInt(e.target.value);
+    filtrarAuto();
 });
 
 minimo.addEventListener('change', (e) => {
@@ -74,7 +75,7 @@ function llenarSelect() {
 // Funciones de orden superior
 // Son funciones que reciben otras funciones como argumento o devuelven una funcion como resultado
 function filtrarAuto() {
-    const autosFiltrados = autos.filter(filtrarMarca);
+    const autosFiltrados = autos.filter(filtrarMarca).filter(filtrarYear);
     console.log(autosFiltrados);
     // // Limpiar resultado
     // limpiarHTML();
@@ -86,6 +87,14 @@ function filtrarMarca(auto) {
     const { marca } = datosBusqueda;
     if (marca) {
         return auto.marca === marca;
+    }
+    return auto;
+}
+
+function filtrarYear(auto) {
+    const { year } = datosBusqueda;
+    if (year) {
+        return auto.year === year;
     }
     return auto;
 }
