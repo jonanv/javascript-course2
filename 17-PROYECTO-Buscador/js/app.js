@@ -72,15 +72,31 @@ function llenarSelect() {
     }
 }
 
+function mostrarAutos(autos) {
+    // Limpiar resultado
+    limpiarHTML();
+    
+    autos.forEach((auto) => {
+        const autoHTML = document.createElement('p');
+
+        const { marca, modelo, year, precio, puertas, color, transmision } = auto;
+        autoHTML.textContent = `
+            ${ marca } ${ modelo } ${ year } - Puertas: ${ puertas } - Transmision: ${ transmision } - Precio: $${ precio } - Color: ${ color }
+        `;
+
+        resultado.appendChild(autoHTML);
+    });
+}
+
 // Funciones de orden superior
 // Son funciones que reciben otras funciones como argumento o devuelven una funcion como resultado
 function filtrarAuto() {
-    const autosFiltrados = autos.filter(filtrarMarca).filter(filtrarYear);
-    console.log(autosFiltrados);
-    // // Limpiar resultado
-    // limpiarHTML();
-    // // Mostrar autos filtrados
-    // mostrarAutos(autosFiltrados);
+    const autosFiltrados = autos
+        .filter(filtrarMarca)
+        .filter(filtrarYear);
+    
+    // Mostrar autos filtrados
+    mostrarAutos(autosFiltrados);
 }
 
 function filtrarMarca(auto) {
@@ -103,17 +119,4 @@ function limpiarHTML() {
     while (resultado.firstChild) {
         resultado.removeChild(resultado.firstChild);
     }
-}
-
-function mostrarAutos(autos) {
-    autos.forEach((auto) => {
-        const autoHTML = document.createElement('p');
-
-        const { marca, modelo, year, precio, puertas, color, transmision } = auto;
-        autoHTML.textContent = `
-            ${ marca } ${ modelo } ${ year } - Puertas: ${ puertas } - Transmision: ${ transmision } - Precio: $${ precio } - Color: ${ color }
-        `;
-
-        resultado.appendChild(autoHTML);
-    });
 }
