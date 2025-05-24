@@ -42,11 +42,13 @@ year.addEventListener('change', (e) => {
 });
 
 minimo.addEventListener('change', (e) => {
-    datosBusqueda.minimo = e.target.value;
+    datosBusqueda.minimo = parseInt(e.target.value);
+    filtrarAuto();
 });
 
 maximo.addEventListener('change', (e) => {
-    datosBusqueda.maximo = e.target.value;
+    datosBusqueda.maximo = parseInt(e.target.value);
+    filtrarAuto();
 });
 
 puertas.addEventListener('change', (e) => {
@@ -61,7 +63,6 @@ color.addEventListener('change', (e) => {
     datosBusqueda.color = e.target.value;
 });
 
-
 // Funciones
 function llenarSelect() {
     for (let i = max; i >= min; i--) {
@@ -75,7 +76,7 @@ function llenarSelect() {
 function mostrarAutos(autos) {
     // Limpiar resultado
     limpiarHTML();
-    
+
     autos.forEach((auto) => {
         const autoHTML = document.createElement('p');
 
@@ -88,12 +89,23 @@ function mostrarAutos(autos) {
     });
 }
 
+function limpiarHTML() {
+    while (resultado.firstChild) {
+        resultado.removeChild(resultado.firstChild);
+    }
+}
+
 // Funciones de orden superior
 // Son funciones que reciben otras funciones como argumento o devuelven una funcion como resultado
 function filtrarAuto() {
+    console.log(datosBusqueda);
     const autosFiltrados = autos
         .filter(filtrarMarca)
-        .filter(filtrarYear);
+        .filter(filtrarYear)
+        .filter(filtrarMinimo)
+        .filter(filtrarMaximo);
+
+    console.log(autosFiltrados);
     
     // Mostrar autos filtrados
     mostrarAutos(autosFiltrados);
@@ -115,8 +127,18 @@ function filtrarYear(auto) {
     return auto;
 }
 
-function limpiarHTML() {
-    while (resultado.firstChild) {
-        resultado.removeChild(resultado.firstChild);
+function filtrarMinimo(auto) {
+    const { minimo } = datosBusqueda;
+    if (minimo) {
+        return auto.precio >= minimo;
     }
+    return auto;
+}
+
+function filtrarMaximo(auto) {
+    const { maximo } = datosBusqueda;
+    if (maximo) {
+        return auto.precio <= maximo;
+    }
+    return auto;
 }
