@@ -55,9 +55,18 @@ function createHTML() {
 
     if (tweets.length > 0) {
         tweets.forEach(({id, tweet}) => {
+            const btnDelete = document.createElement('a');
+            btnDelete.classList.add('borrar-tweet');
+            btnDelete.textContent = 'X';
+            btnDelete.onclick = () => {
+                deleteTweet(id);
+            };
+
             const li = document.createElement('li');
             li.innerHTML = tweet;
-            li.setAttribute('data-id', id)
+            li.setAttribute('data-id', id);
+            li.appendChild(btnDelete);
+
             tweetsList.appendChild(li);
         });
     }
@@ -78,5 +87,10 @@ function sincronizeStorage() {
 function loadStorage() {
     tweets = JSON.parse(localStorage.getItem('tweets')) || [];
     console.log(tweets);
+    createHTML();
+}
+
+function deleteTweet(id) {
+    tweets = tweets.filter(tweet => tweet.id !== id);
     createHTML();
 }
