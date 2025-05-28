@@ -1,6 +1,5 @@
 // Variables
 const form = document.querySelector('#formulario');
-const btnAdd = document.querySelector('.button button[type="submit"]');
 const tweetsList = document.querySelector('#lista-tweets');
 
 let tweets = [];
@@ -14,5 +13,27 @@ function eventsListeners() {
 // Functions
 function addTweet(e) {
     e.preventDefault();
-    console.log('Agregando tweet...');
+    
+    // Textarea donde el usuario tweetea
+    let tweet = document.querySelector('#tweet').value;
+
+    if (tweet === '') {
+        showError('un mensaje no puede ir vacío');
+        return;
+    }
+    console.log(tweet);
+}
+
+function showError(message) {
+    let error = document.createElement('p');
+    error.classList.add('error');
+    error.textContent = message;
+    
+    // Insertarlo en el contenido
+    const content = document.querySelector('#contenido');
+    content.appendChild(error);
+    // Elimina el error después de 3 segundos
+    setTimeout(() => {
+        error.remove();
+    }, 3000);
 }
