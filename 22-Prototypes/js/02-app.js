@@ -1,4 +1,12 @@
 // El problema de no usuar prototypes
+// En este ejemplo, creamos dos objetos diferentes para Cliente y Empresa,
+// lo que significa que cada uno tiene su propia implementación de la función
+// formatearCliente y formatearEmpresa, lo que puede llevar a duplicación de código
+// y dificultad para mantener el código a medida que crece la aplicación.
+// Además, si queremos agregar una nueva propiedad o método a ambos objetos,
+// tendríamos que hacerlo en dos lugares diferentes, lo que aumenta el riesgo de errores.
+// Esto es un ejemplo de código que no utiliza prototypes y puede ser mejorado
+// utilizando prototypes para compartir métodos y propiedades entre objetos similares.
 
 // Object constructor
 function Cliente(nombre, saldo) {
