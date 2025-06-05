@@ -23,9 +23,10 @@ UI.prototype.llenarOpciones = function() {
     }
 }
 
+// Instanciar UI
 const ui = new UI();
 console.log(ui);
 
 document.addEventListener('DOMContentLoaded', () => {
-
+    ui.llenarOpciones(); // Llena el select con los cambios
 });
