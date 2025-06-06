@@ -9,8 +9,10 @@ function UI() {
 
 }
 
+function UI() { }
+
 // LLenar las opciones de los años
-UI.prototype.llenarOpciones = function() {
+UI.prototype.llenarOpciones = () => {
     const year = document.querySelector('#year');
     let max = new Date().getFullYear();
     let min = max - 20;
@@ -21,6 +23,28 @@ UI.prototype.llenarOpciones = function() {
         option.textContent = i;
         year.appendChild(option);
     }
+}
+
+// Muestra alertas en pantalla
+UI.prototype.mostrarMensaje = (mensaje, tipo) => {
+    const div = document.createElement('div');
+
+    if (tipo === 'error') {
+        div.classList.add('error');
+    } else {
+        div.classList.add('correcto');
+    }
+
+    div.classList.add('mensaje', 'mt-10');
+    div.textContent = mensaje;
+
+    // Insertar HTML
+    const formulario = document.querySelector('#cotizar-seguro');
+    formulario.insertBefore(div, document.querySelector('#resultado'));
+
+    setTimeout(() => {
+        div.remove();
+    }, 3000);
 }
 
 // Instanciar UI
