@@ -32,10 +32,10 @@ Seguro.prototype.cotizarSeguro = function() {
     }
 
     // Leer el año
-    let diferencia = new Date.getFullYear() - this.year;
+    let diferencia = new Date().getFullYear() - this.anio;
 
     // Cada año que la diferencia es mayor, el costo va a reducirse un 3%
-    cantidad -= ((diferencia * 3) * cantidad) / 100;
+    cantidad += ((diferencia * 3) * cantidad) / 100;
 
     /*
         Si el seguro es básico se multiplica por un 30% más
