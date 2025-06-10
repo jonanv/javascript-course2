@@ -54,8 +54,8 @@ class UI {
     }
 
     agregarGastoListado(gastos) {
-        limpiarHTML();
-        
+        ui.limpiarHTML();
+
         gastos.forEach(({ id, nombre, cantidad }) => {
             // Crear un LI
             const nuevoGasto = document.createElement('li');
@@ -78,6 +78,12 @@ class UI {
             // Agregar al HTML
             gastoListado.appendChild(nuevoGasto);
         });
+    }
+
+    limpiarHTML() {
+        while(gastoListado.firstChild) {
+            gastoListado.removeChild(gastoListado.firstChild);
+        }
     }
 
     actualizarRestante(restante) {
@@ -135,8 +141,4 @@ function agregarGasto(e) {
 
     ui.mostrarAlerta('Gasto agregado correctamente');
     formulario.reset();
-function limpiarHTML() {
-    while(gastoListado.firstChild) {
-        gastoListado.removeChild(gastoListado.firstChild);
-    }
 }
