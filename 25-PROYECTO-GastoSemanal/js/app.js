@@ -13,12 +13,18 @@ function eventsListeners() {
 class Presupuesto {
     constructor(presupuesto) {
         this.presupuesto = Number(presupuesto);
-        this.restante = presupuesto;
+        this.restante = Number(presupuesto);
         this.gastos = [];
     }
 
     nuevoGasto(gasto) {
         this.gastos = [...this.gastos, gasto];
+        this.calcularRestante(gasto.cantidad);
+    }
+
+    calcularRestante() {
+        this.gastado = this.gastos.reduce((total, gasto) => total + gasto.cantidad, 0);
+        this.restante = this.presupuesto - this.gastado;
     }
 }
 
@@ -73,6 +79,10 @@ class UI {
             gastoListado.appendChild(nuevoGasto);
         });
     }
+
+    actualizarRestante(restante) {
+        document.querySelector('#restante').textContent = restante;
+    }
 }
 
 // Instanciado UI
@@ -119,13 +129,12 @@ function agregarGasto(e) {
 
     presupuesto.nuevoGasto(gasto);
 
-    const { gastos } = presupuesto;
+    const { gastos, restante } = presupuesto;
     ui.agregarGastoListado(gastos);
+    ui.actualizarRestante(restante);
 
     ui.mostrarAlerta('Gasto agregado correctamente');
     formulario.reset();
-}
-
 function limpiarHTML() {
     while(gastoListado.firstChild) {
         gastoListado.removeChild(gastoListado.firstChild);
