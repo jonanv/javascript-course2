@@ -14,3 +14,9 @@ const citaObj = {
     fecha: '',
     sintomas: '',
 }
+
+// Events
+pacienteInput.addEventListener('change', (e) => {
+    citaObj.paciente = e.target.value;
+    console.log(citaObj);
+});
