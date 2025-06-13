@@ -29,16 +29,13 @@ formulario.addEventListener('submit', enviarFormulario);
 // Functions
 function llenarCampoCita(e) {
     citaObj[e.target.name] = e.target.value;
-    console.log(citaObj);
+    // console.log(citaObj);
 }
 
 function enviarFormulario(e) {
     e.preventDefault();
 
-    const { paciente, propietario, email, fecha, sintomas } = citaObj;
-    if (paciente.trim() === '' || 
-        propietario.trim() === '' ||
-        email.trim() === '') {
+    if (Object.values(citaObj).some(value => value.trim() === '')) {
         console.log(`Todos los campos estan vacíos.`);
         return;
     }
