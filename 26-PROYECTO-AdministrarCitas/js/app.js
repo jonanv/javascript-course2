@@ -5,6 +5,8 @@ const emailInput = document.querySelector('#email');
 const fechaInput = document.querySelector('#fecha');
 const sintomasInput = document.querySelector('#sintomas');
 
+const formulario = document.querySelector('#formulario-cita');
+
 // Objecto de la cita
 // Object literal
 const citaObj = {
@@ -22,8 +24,14 @@ emailInput.addEventListener('change', llenarCampoCita);
 fechaInput.addEventListener('change', llenarCampoCita);
 sintomasInput.addEventListener('change', llenarCampoCita);
 
+formulario.addEventListener('submit', enviarFormulario);
+
 // Functions
 function llenarCampoCita(e) {
     citaObj[e.target.name] = e.target.value;
     console.log(citaObj);
+}
+
+function enviarFormulario(e) {
+    e.preventDefault();
 }
