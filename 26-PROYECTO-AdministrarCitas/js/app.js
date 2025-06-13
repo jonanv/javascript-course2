@@ -34,4 +34,12 @@ function llenarCampoCita(e) {
 
 function enviarFormulario(e) {
     e.preventDefault();
+
+    const { paciente, propietario, email, fecha, sintomas } = citaObj;
+    if (paciente.trim() === '' || 
+        propietario.trim() === '' ||
+        email.trim() === '') {
+        console.log(`Todos los campos estan vacíos.`);
+        return;
+    }
 }
