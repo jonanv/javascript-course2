@@ -26,24 +26,6 @@ sintomasInput.addEventListener('change', llenarCampoCita);
 
 formulario.addEventListener('submit', enviarFormulario);
 
-// Functions
-function llenarCampoCita(e) {
-    citaObj[e.target.name] = e.target.value;
-    // console.log(citaObj);
-}
-
-function enviarFormulario(e) {
-    e.preventDefault();
-
-    if (Object.values(citaObj).some(value => value.trim() === '')) {
-        new Notificacion({
-            texto: 'Todos los campos estan vacíos.', 
-            tipo: 'error'
-        });
-        return;
-    }
-}
-
 // Class
 class Notificacion {
     constructor({texto, tipo}) {
@@ -76,4 +58,38 @@ class Notificacion {
             alerta.remove();
         }, 3000);
     }
+}
+
+class AdminCitas {
+    constructor() {
+        this.citas = [];
+    }
+
+    agregarCita(cita) {
+        this.citas = [...this.citas, cita];
+
+        console.log(this.citas);
+    }
+}
+
+// Functions
+function llenarCampoCita(e) {
+    citaObj[e.target.name] = e.target.value;
+    // console.log(citaObj);
+}
+
+const adminCitas = new AdminCitas();
+
+function enviarFormulario(e) {
+    e.preventDefault();
+
+    if (Object.values(citaObj).some(value => value.trim() === '')) {
+        new Notificacion({
+            texto: 'Todos los campos estan vacíos.', 
+            tipo: 'error'
+        });
+        return;
+    }
+
+    adminCitas.agregarCita(citaObj);
 }
