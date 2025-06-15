@@ -89,8 +89,9 @@ class AdminCitas {
                 <span class="font-bold uppercase">Paciente: </span>${ cita.paciente }
             `;
 
+            // Agregar paciente al div
             divCita.appendChild(paciente);
-
+            // Agregar div al contenedor
             contenedorCitas.appendChild(divCita);
         });
     }
