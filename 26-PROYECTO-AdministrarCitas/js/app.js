@@ -12,6 +12,7 @@ const contenedorCitas = document.querySelector('#citas');
 // Objecto de la cita
 // Object literal
 const citaObj = {
+    id: generarId(),
     paciente: '',
     propietario: '',
     email: '',
@@ -181,8 +182,13 @@ function reiniciarObjectoCita() {
     for (const element in citaObj) {
         citaObj[element] = '';
     }
+    citaObj.id = generarId();
 
     formulario.reset();
+}
+
+function generarId() {
+    return Math.random().toString(36).substring(2) + Date.now();
 }
 
 function cargarEdicion(cita) {
