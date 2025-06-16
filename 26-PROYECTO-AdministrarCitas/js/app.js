@@ -91,6 +91,12 @@ class AdminCitas {
             contenedorCitas.removeChild(contenedorCitas.firstChild);
         }
 
+        // Si no hay citas
+        if(this.citas.length === 0) {
+            contenedorCitas.innerHTML = '<p class="text-xl mt-5 mb-10 text-center">No Hay Pacientes</p>';
+            return;
+        }
+
         // Generando las citas
         this.citas.forEach((cita) => {
             const divCita = document.createElement('div');
