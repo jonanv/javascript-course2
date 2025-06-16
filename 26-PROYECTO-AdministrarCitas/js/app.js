@@ -140,5 +140,13 @@ function enviarFormulario(e) {
     }
 
     adminCitas.agregarCita(citaObj);
+    reiniciarObjectoCita();
+}
+
+function reiniciarObjectoCita() {
+    for (const element in citaObj) {
+        citaObj[element] = '';
+    }
+
     formulario.reset();
 }
