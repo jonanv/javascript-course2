@@ -139,7 +139,7 @@ function enviarFormulario(e) {
         });
     }
 
-    adminCitas.agregarCita(citaObj);
+    adminCitas.agregarCita({...citaObj});
     reiniciarObjectoCita();
 }
 
