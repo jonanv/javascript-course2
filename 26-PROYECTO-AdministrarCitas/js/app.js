@@ -165,6 +165,22 @@ function enviarFormulario(e) {
 }
 
 function reiniciarObjectoCita() {
+    // Reiniciar objecto
+    // citaObj.paciente = '';
+    // citaObj.propietario = '';
+    // citaObj.email = '';
+    // citaObj.fecha = '';
+    // citaObj.sintomas = '';
+
+    // Reiniciar objeto con assign
+    // Object.assign(citaObj, {
+    //     paciente: '',
+    //     propietario: '',
+    //     email: '',
+    //     fecha: '',
+    //     sintomas: '',
+    // });
+
     for (const element in citaObj) {
         citaObj[element] = '';
     }
