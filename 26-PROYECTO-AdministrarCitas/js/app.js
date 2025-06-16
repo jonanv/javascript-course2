@@ -80,6 +80,11 @@ class AdminCitas {
         this.mostrarCitas();
     }
 
+    eliminarCita(id) {
+        this.citas = this.citas.filter((cita) => cita.id !== id);
+        this.mostrarCitas();
+    }
+
     mostrarCitas() {
         // Limpiar el HTML
         while(contenedorCitas.firstChild) {
@@ -121,6 +126,8 @@ class AdminCitas {
             const btnEliminar = document.createElement('button');
             btnEliminar.classList.add('py-2', 'px-10', 'bg-red-600', 'hover:bg-red-700', 'text-white', 'font-bold', 'uppercase', 'rounded-lg', 'flex', 'items-center', 'gap-2');
             btnEliminar.innerHTML = 'Eliminar <svg fill="none" class="h-5 w-5" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor"><path d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>';
+            // Event handler
+            btnEliminar.onclick = () => eliminarCita(cita);
 
             const contenedorBotones = document.createElement('div');
             contenedorBotones.classList.add('flex', 'justify-between', 'mt-10');
@@ -219,4 +226,8 @@ function cargarEdicion(cita) {
 
     editando = true;
     btnFormulario.value = 'Guardar cambios';
+}
+
+function eliminarCita(cita) {
+    adminCitas.eliminarCita(cita.id);
 }
