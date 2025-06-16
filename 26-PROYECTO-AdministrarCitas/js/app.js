@@ -6,8 +6,9 @@ const fechaInput = document.querySelector('#fecha');
 const sintomasInput = document.querySelector('#sintomas');
 
 const formulario = document.querySelector('#formulario-cita');
-
 const contenedorCitas = document.querySelector('#citas');
+
+let editando = false;
 
 // Objecto de la cita
 // Object literal
@@ -192,8 +193,13 @@ function generarId() {
 }
 
 function cargarEdicion(cita) {
-    console.log(cita);
-    for (const element in cita) {
-        citaObj[element] = cita[element];
-    }
+    Object.assign(citaObj, cita);
+    
+    pacienteInput.value = cita.paciente;
+    propietarioInput.value = cita.propietario;
+    emailInput.value = cita.email;
+    fechaInput.value = cita.fecha;
+    sintomasInput.value = cita.sintomas;
+
+    editando = true;
 }
