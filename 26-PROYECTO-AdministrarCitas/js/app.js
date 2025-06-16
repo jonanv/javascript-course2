@@ -114,7 +114,13 @@ function enviarFormulario(e) {
             tipo: 'error'
         });
         return;
+    } else {
+        new Notificacion({
+            texto: 'Se registro correctamente la cita', 
+            tipo: 'success'
+        });
     }
 
     adminCitas.agregarCita(citaObj);
+    formulario.reset();
 }
