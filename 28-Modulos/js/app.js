@@ -1,7 +1,13 @@
 // Básico de los módulos en JavaScript
 
 import nuevaFuncion, 
-    { mostrarInformacion, nombreCliente as alias, ahorro, tieneSaldo, Cliente } from "./cliente.js";
+    {   
+        mostrarInformacion, 
+        nombreCliente as alias, 
+        ahorro, 
+        tieneSaldo, 
+        Cliente 
+    } from "./cliente.js";
 import { Empresa } from "./empresa.js";
 
 // Variables
