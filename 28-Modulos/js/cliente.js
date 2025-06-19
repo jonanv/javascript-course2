@@ -19,4 +19,16 @@
 })();
 
 export const nombreCliente = 'Juan';
-export const saldo = 200;
+export const ahorro = 200;
+
+export function mostrarInformacion(nombre, ahorro) {
+    return `Cliente: ${ nombre }, Ahorro: ${ ahorro }`;
+}
+
+export function tieneSaldo(ahorro) {
+    if (ahorro) {
+        return 'Si tiene saldo';
+    } else {
+        return 'No tiene saldo';
+    }
+}

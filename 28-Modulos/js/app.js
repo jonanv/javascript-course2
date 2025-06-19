@@ -1,6 +1,11 @@
 // Básico de los módulos en JavaScript
 
-import { nombreCliente, saldo } from "./cliente.js";
+import { mostrarInformacion, nombreCliente, ahorro, tieneSaldo } from "./cliente.js";
 
+// Variables
 console.log(nombreCliente);
-console.log(saldo);
+console.log(ahorro);
+
+// Funciones
+console.log(mostrarInformacion(nombreCliente, ahorro));
+console.log(tieneSaldo(ahorro));
