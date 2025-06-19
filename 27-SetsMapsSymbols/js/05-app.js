@@ -42,4 +42,5 @@ cliente[nombreCliente] = 'Pedro';
 
 console.log(cliente);
 console.log(cliente[nombreCliente]);
-console.log(nombreCliente);
+console.log(nombreCliente); // Acceder a la descripción
+console.log(nombreCliente.description); // Acceder a la descripción
