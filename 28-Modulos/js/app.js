@@ -1,18 +1,19 @@
 // Básico de los módulos en JavaScript
 
-import { mostrarInformacion, nombreCliente, ahorro, tieneSaldo, Cliente } from "./cliente.js";
+import nuevaFuncion, 
+    { mostrarInformacion, nombreCliente as alias, ahorro, tieneSaldo, Cliente } from "./cliente.js";
 import { Empresa } from "./empresa.js";
 
 // Variables
-console.log(nombreCliente);
+console.log(alias);
 console.log(ahorro);
 
 // Funciones
-console.log(mostrarInformacion(nombreCliente, ahorro));
+console.log(mostrarInformacion(alias, ahorro));
 tieneSaldo(ahorro);
 
 // Clases
-const cliente = new Cliente(nombreCliente, ahorro);
+const cliente = new Cliente(alias, ahorro);
 console.log(cliente);
 console.log(cliente.mostrarInformacion());
 
@@ -20,3 +21,6 @@ console.log(cliente.mostrarInformacion());
 const empresa = new Empresa('Codigo con Juan', 100, 'Tech');
 console.log(empresa);
 console.log(empresa.mostrarInformacion());
+
+// Export default
+nuevaFuncion();

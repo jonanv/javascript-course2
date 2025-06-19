@@ -43,3 +43,14 @@ export class Cliente {
         return `Cliente: ${ this.nombre }, Ahorro: ${ this.ahorro }`;
     }
 }
+
+// Solo puede haber 1 export default por archivo, no puede haber mas de 1
+// Puede ir sin nombre
+/*
+export default function() {
+    console.log('Este es un export default');
+}
+*/
+export default function nuevaFuncion() {
+    console.log('Este es un export default');
+}
