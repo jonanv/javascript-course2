@@ -27,8 +27,19 @@ export function mostrarInformacion(nombre, ahorro) {
 
 export function tieneSaldo(ahorro) {
     if (ahorro) {
-        return 'Si tiene saldo';
+        console.log('Si tiene saldo');
     } else {
-        return 'No tiene saldo';
+        console.log('No tiene saldo');
+    }
+}
+
+export class Cliente {
+    constructor(nombre, ahorro) {
+        this.nombre = nombre;
+        this.ahorro = ahorro;
+    }
+
+    mostrarInformacion() {
+        return `Cliente: ${ this.nombre }, Ahorro: ${ this.ahorro }`;
     }
 }
