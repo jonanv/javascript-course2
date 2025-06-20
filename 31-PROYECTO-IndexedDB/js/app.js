@@ -146,6 +146,7 @@ class AdminCitas {
                 const btnEditar = document.createElement('button');
                 btnEditar.classList.add('py-2', 'px-10', 'bg-indigo-600', 'hover:bg-indigo-700', 'text-white', 'font-bold', 'uppercase', 'rounded-lg', 'flex', 'items-center', 'gap-2');
                 btnEditar.innerHTML = 'Editar <svg fill="none" class="h-5 w-5" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor"><path d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path></svg>';
+                const cita = cursor.value;
                 // Event handler
                 btnEditar.onclick = () => cargarEdicion(cita);
 
@@ -199,12 +200,7 @@ function enviarFormulario(e) {
 
     if (editando) {
         adminCitas.editarCita({...citaObj});
-        new Notificacion({
-            texto: 'Guardado correctamente', 
-            tipo: 'success'
-        });
-        btnFormulario.value = 'Registrar Paciente';
-        editando = false;
+        editarCita({...citaObj});
     } else {
         adminCitas.agregarCita({...citaObj});
         crearCita({...citaObj});
@@ -296,11 +292,10 @@ function createDB() {
     }
 }
 
-function crearCita(nuevoCliente) {
+function crearCita(citaNueva) {
     let transaction = DB.transaction(['citas'], 'readwrite');
     const objectStore = transaction.objectStore('citas');
-    const peticion = objectStore.add(nuevoCliente);
-    console.log(peticion);
+    objectStore.add(citaNueva);
     
     transaction.oncomplete = function() {
         console.log('Transacción completada');
@@ -308,6 +303,26 @@ function crearCita(nuevoCliente) {
             texto: 'Paciente registrado', 
             tipo: 'success'
         });
+    }
+
+    transaction.onerror = function() {
+        console.log('Hubo un error en la transacción');
+    }
+}
+
+function editarCita(citaEditada) {
+    let transaction = DB.transaction(['citas'], 'readwrite');
+    const objectStore = transaction.objectStore('citas');
+    objectStore.put(citaEditada);
+
+    transaction.oncomplete = function() {
+        console.log('Transacción completada');
+        new Notificacion({
+            texto: 'Guardado correctamente', 
+            tipo: 'success'
+        });
+        btnFormulario.value = 'Registrar Paciente';
+        editando = false;
     }
 
     transaction.onerror = function() {
