@@ -199,7 +199,7 @@ function enviarFormulario(e) {
     }
 
     if (editando) {
-        editarCita({...citaObj});
+        actualizarCita({...citaObj});
     } else {
         crearCita({...citaObj});
     }
@@ -255,12 +255,13 @@ function eliminarCita(cita) {
     objectStore.delete(cita.id);
 
     transaction.oncomplete = function() {
-        console.log('Transacción completada');
+        adminCitas.eliminarCita(cita.id);
         new Notificacion({
             texto: `Cita ${ cita.id } eliminada correctamente`, 
             tipo: 'success'
         });
-        adminCitas.eliminarCita(cita.id);
+
+        console.log('Transacción completada');
     }
 
     transaction.onerror = function() {
@@ -325,7 +326,7 @@ function crearCita(citaNueva) {
     }
 }
 
-function editarCita(citaEditada) {
+function actualizarCita(citaEditada) {
     let transaction = DB.transaction(['citas'], 'readwrite');
     const objectStore = transaction.objectStore('citas');
     objectStore.put(citaEditada);
