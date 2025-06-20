@@ -22,14 +22,24 @@ const citaObj = {
     sintomas: '',
 }
 
-// Events
-pacienteInput.addEventListener('change', llenarCampoCita);
-propietarioInput.addEventListener('change', llenarCampoCita);
-emailInput.addEventListener('change', llenarCampoCita);
-fechaInput.addEventListener('change', llenarCampoCita);
-sintomasInput.addEventListener('change', llenarCampoCita);
+let DB;
 
-formulario.addEventListener('submit', enviarFormulario);
+window.onload = () => {
+    eventListeners();
+
+    createDB();
+};
+
+// Events
+function eventListeners() {
+    pacienteInput.addEventListener('change', llenarCampoCita);
+    propietarioInput.addEventListener('change', llenarCampoCita);
+    emailInput.addEventListener('change', llenarCampoCita);
+    fechaInput.addEventListener('change', llenarCampoCita);
+    sintomasInput.addEventListener('change', llenarCampoCita);
+    
+    formulario.addEventListener('submit', enviarFormulario);
+}
 
 // Class
 class Notificacion {
@@ -236,4 +246,40 @@ function cargarEdicion(cita) {
 
 function eliminarCita(cita) {
     adminCitas.eliminarCita(cita.id);
+}
+
+function createDB() {
+    // Crear la base de datos en version 1.o
+    const citasDB = window.indexedDB.open('citas', 1);
+
+    // Error
+    citasDB.onerror = function() {
+        console.log('Hubo un error');
+    }
+    
+    // Success
+    citasDB.onsuccess = function() {
+        console.log('Base de datos creada');
+        DB = citasDB.result;
+    }
+
+    // Configuration - Definir el schema
+    citasDB.onupgradeneeded = function(e) {
+        const db = e.target.result;
+
+        const objectStore = db.createObjectStore('citas', {
+            keyPath: 'id',
+            autoIncrement: true
+        });
+
+        // Definir las columnas
+        objectStore.createIndex('id', 'id', { unique: true });
+        objectStore.createIndex('paciente', 'paciente', { unique: false });
+        objectStore.createIndex('propietario', 'propietario', { unique: false });
+        objectStore.createIndex('email', 'email', { unique: true });
+        objectStore.createIndex('fecha', 'fecha', { unique: false });
+        objectStore.createIndex('sintomas', 'sintomas', { unique: false });
+
+        console.log('Columnas creadas');
+    }
 }
