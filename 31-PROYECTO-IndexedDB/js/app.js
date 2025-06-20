@@ -199,10 +199,8 @@ function enviarFormulario(e) {
     }
 
     if (editando) {
-        adminCitas.editarCita({...citaObj});
         editarCita({...citaObj});
     } else {
-        adminCitas.agregarCita({...citaObj});
         crearCita({...citaObj});
     }
 
@@ -259,7 +257,7 @@ function eliminarCita(cita) {
     transaction.oncomplete = function() {
         console.log('Transacción completada');
         new Notificacion({
-            texto: 'Eliminada correctamente', 
+            texto: `Cita ${ cita.id } eliminada correctamente`, 
             tipo: 'success'
         });
         adminCitas.eliminarCita(cita.id);
@@ -313,11 +311,13 @@ function crearCita(citaNueva) {
     objectStore.add(citaNueva);
     
     transaction.oncomplete = function() {
-        console.log('Transacción completada');
+        adminCitas.agregarCita(citaNueva);
         new Notificacion({
             texto: 'Paciente registrado', 
             tipo: 'success'
         });
+
+        console.log('Transacción completada');
     }
 
     transaction.onerror = function() {
@@ -331,13 +331,15 @@ function editarCita(citaEditada) {
     objectStore.put(citaEditada);
 
     transaction.oncomplete = function() {
-        console.log('Transacción completada');
+        adminCitas.editarCita(citaEditada);
         new Notificacion({
             texto: 'Guardado correctamente', 
             tipo: 'success'
         });
         btnFormulario.value = 'Registrar Paciente';
         editando = false;
+
+        console.log('Transacción completada');
     }
 
     transaction.onerror = function() {
