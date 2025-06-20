@@ -252,7 +252,22 @@ function cargarEdicion(cita) {
 }
 
 function eliminarCita(cita) {
-    adminCitas.eliminarCita(cita.id);
+    let transaction = DB.transaction(['citas'], 'readwrite');
+    const objectStore = transaction.objectStore('citas');
+    objectStore.delete(cita.id);
+
+    transaction.oncomplete = function() {
+        console.log('Transacción completada');
+        new Notificacion({
+            texto: 'Eliminada correctamente', 
+            tipo: 'success'
+        });
+        adminCitas.eliminarCita(cita.id);
+    }
+
+    transaction.onerror = function() {
+        console.log('Hubo un error en la transacción');
+    }
 }
 
 function createDB() {
