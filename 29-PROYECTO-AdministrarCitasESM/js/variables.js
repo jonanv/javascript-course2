@@ -1,6 +1,8 @@
 import { generarId } from "./funciones.js";
 
-let editando = false;
+let editando = {
+    value: false
+};
 
 // Objecto de la cita
 // Object literal

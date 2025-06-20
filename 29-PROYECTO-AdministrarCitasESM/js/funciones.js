@@ -22,14 +22,14 @@ export function enviarFormulario(e) {
         return;
     }
 
-    if (editando) {
+    if (editando.value) {
         adminCitas.editarCita({...citaObj});
         new Notificacion({
             texto: 'Guardado correctamente', 
             tipo: 'success'
         });
         btnFormulario.value = 'Registrar Paciente';
-        editando = false;
+        editando.value = false;
     } else {
         adminCitas.agregarCita({...citaObj});
         new Notificacion({
@@ -79,7 +79,7 @@ export function cargarEdicion(cita) {
     fechaInput.value = cita.fecha;
     sintomasInput.value = cita.sintomas;
 
-    editando = true;
+    editando.value = true;
     btnFormulario.value = 'Guardar cambios';
 }
 
