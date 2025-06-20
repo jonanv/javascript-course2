@@ -69,5 +69,7 @@ function crearCliente() {
     }
 
     const peticion = objectStore.add(nuevoCliente);
+    // put => actualizar
+    // delete => eliminar
     console.log(peticion);
 }
