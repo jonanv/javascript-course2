@@ -193,10 +193,7 @@ function enviarFormulario(e) {
         editando = false;
     } else {
         adminCitas.agregarCita({...citaObj});
-        new Notificacion({
-            texto: 'Paciente registrado', 
-            tipo: 'success'
-        });
+        crearCita({...citaObj});
     }
 
     reiniciarObjectoCita();
@@ -281,5 +278,24 @@ function createDB() {
         objectStore.createIndex('sintomas', 'sintomas', { unique: false });
 
         console.log('Columnas creadas');
+    }
+}
+
+function crearCita(nuevoCliente) {
+    let transaction = DB.transaction(['citas'], 'readwrite');
+    const objectStore = transaction.objectStore('citas');
+    const peticion = objectStore.add(nuevoCliente);
+    console.log(peticion);
+    
+    transaction.oncomplete = function() {
+        console.log('Transacción completada');
+        new Notificacion({
+            texto: 'Paciente registrado', 
+            tipo: 'success'
+        });
+    }
+
+    transaction.onerror = function() {
+        console.log('Hubo un error en la transacción');
     }
 }
