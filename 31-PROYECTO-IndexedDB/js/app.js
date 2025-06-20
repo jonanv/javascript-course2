@@ -101,66 +101,80 @@ class AdminCitas {
             contenedorCitas.removeChild(contenedorCitas.firstChild);
         }
 
+        const objectStore = DB.transaction('citas').objectStore('citas');
+
         // Si no hay citas
-        if(this.citas.length === 0) {
-            contenedorCitas.innerHTML = '<p class="text-xl mt-5 mb-10 text-center">No Hay Pacientes</p>';
-            return;
+        const totalCitas = objectStore.count();
+        totalCitas.onsuccess = function() {
+            if(totalCitas.result === 0) {
+                contenedorCitas.innerHTML = '<p class="text-xl mt-5 mb-10 text-center">No Hay Pacientes</p>';
+                return;
+            }
         }
 
-        // Generando las citas
-        this.citas.forEach((cita) => {
-            const divCita = document.createElement('div');
-            divCita.classList.add('mx-5', 'my-10', 'bg-white', 'shadow-md', 'px-5', 'py-10', 'rounded-xl', 'p-3');
+        objectStore.openCursor().onsuccess = function(e) {
+            // console.log(e.target.result);
+            const cursor = e.target.result;
 
-            const paciente = document.createElement('p');
-            paciente.classList.add('font-normal', 'mb-3', 'text-gray-700', 'normal-case');
-            paciente.innerHTML = `<span class="font-bold uppercase">Paciente: </span> ${cita.paciente}`;
+            if (cursor) {
+                const { paciente, propietario, email, fecha, sintomas } = cursor.value;
 
-            const propietario = document.createElement('p');
-            propietario.classList.add('font-normal', 'mb-3', 'text-gray-700', 'normal-case');
-            propietario.innerHTML = `<span class="font-bold uppercase">Propietario: </span> ${cita.propietario}`;
+                const divCita = document.createElement('div');
+                divCita.classList.add('mx-5', 'my-10', 'bg-white', 'shadow-md', 'px-5', 'py-10', 'rounded-xl', 'p-3');
 
-            const email = document.createElement('p');
-            email.classList.add('font-normal', 'mb-3', 'text-gray-700', 'normal-case');
-            email.innerHTML = `<span class="font-bold uppercase">E-mail: </span> ${cita.email}`;
+                const pacienteHTML = document.createElement('p');
+                pacienteHTML.classList.add('font-normal', 'mb-3', 'text-gray-700', 'normal-case');
+                pacienteHTML.innerHTML = `<span class="font-bold uppercase">Paciente: </span> ${paciente}`;
 
-            const fecha = document.createElement('p');
-            fecha.classList.add('font-normal', 'mb-3', 'text-gray-700', 'normal-case')
-            fecha.innerHTML = `<span class="font-bold uppercase">Fecha: </span> ${cita.fecha}`;
+                const propietarioHTML = document.createElement('p');
+                propietarioHTML.classList.add('font-normal', 'mb-3', 'text-gray-700', 'normal-case');
+                propietarioHTML.innerHTML = `<span class="font-bold uppercase">Propietario: </span> ${propietario}`;
 
-            const sintomas = document.createElement('p');
-            sintomas.classList.add('font-normal', 'mb-3', 'text-gray-700', 'normal-case');
-            sintomas.innerHTML = `<span class="font-bold uppercase">Síntomas: </span> ${cita.sintomas}`;
+                const emailHTML = document.createElement('p');
+                emailHTML.classList.add('font-normal', 'mb-3', 'text-gray-700', 'normal-case');
+                emailHTML.innerHTML = `<span class="font-bold uppercase">E-mail: </span> ${email}`;
 
-            // Botones de eliminar y editar
-            const btnEditar = document.createElement('button');
-            btnEditar.classList.add('py-2', 'px-10', 'bg-indigo-600', 'hover:bg-indigo-700', 'text-white', 'font-bold', 'uppercase', 'rounded-lg', 'flex', 'items-center', 'gap-2');
-            btnEditar.innerHTML = 'Editar <svg fill="none" class="h-5 w-5" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor"><path d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path></svg>';
-            // Event handler
-            btnEditar.onclick = () => cargarEdicion(cita);
+                const fechaHTML = document.createElement('p');
+                fechaHTML.classList.add('font-normal', 'mb-3', 'text-gray-700', 'normal-case')
+                fechaHTML.innerHTML = `<span class="font-bold uppercase">Fecha: </span> ${fecha}`;
 
-            const btnEliminar = document.createElement('button');
-            btnEliminar.classList.add('py-2', 'px-10', 'bg-red-600', 'hover:bg-red-700', 'text-white', 'font-bold', 'uppercase', 'rounded-lg', 'flex', 'items-center', 'gap-2');
-            btnEliminar.innerHTML = 'Eliminar <svg fill="none" class="h-5 w-5" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor"><path d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>';
-            // Event handler
-            btnEliminar.onclick = () => eliminarCita(cita);
+                const sintomasHTML = document.createElement('p');
+                sintomasHTML.classList.add('font-normal', 'mb-3', 'text-gray-700', 'normal-case');
+                sintomasHTML.innerHTML = `<span class="font-bold uppercase">Síntomas: </span> ${sintomas}`;
 
-            const contenedorBotones = document.createElement('div');
-            contenedorBotones.classList.add('flex', 'justify-between', 'mt-10');
+                // Botones de eliminar y editar
+                const btnEditar = document.createElement('button');
+                btnEditar.classList.add('py-2', 'px-10', 'bg-indigo-600', 'hover:bg-indigo-700', 'text-white', 'font-bold', 'uppercase', 'rounded-lg', 'flex', 'items-center', 'gap-2');
+                btnEditar.innerHTML = 'Editar <svg fill="none" class="h-5 w-5" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor"><path d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path></svg>';
+                // Event handler
+                btnEditar.onclick = () => cargarEdicion(cita);
 
-            contenedorBotones.appendChild(btnEditar);
-            contenedorBotones.appendChild(btnEliminar);
+                const btnEliminar = document.createElement('button');
+                btnEliminar.classList.add('py-2', 'px-10', 'bg-red-600', 'hover:bg-red-700', 'text-white', 'font-bold', 'uppercase', 'rounded-lg', 'flex', 'items-center', 'gap-2');
+                btnEliminar.innerHTML = 'Eliminar <svg fill="none" class="h-5 w-5" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor"><path d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>';
+                // Event handler
+                btnEliminar.onclick = () => eliminarCita(cita);
 
-            // Agregar al HTML
-            divCita.appendChild(paciente);
-            divCita.appendChild(propietario);
-            divCita.appendChild(email);
-            divCita.appendChild(fecha);
-            divCita.appendChild(sintomas);
-            divCita.appendChild(contenedorBotones);
-            // Agregar div al contenedor
-            contenedorCitas.appendChild(divCita);
-        });
+                const contenedorBotones = document.createElement('div');
+                contenedorBotones.classList.add('flex', 'justify-between', 'mt-10');
+
+                contenedorBotones.appendChild(btnEditar);
+                contenedorBotones.appendChild(btnEliminar);
+
+                // Agregar al HTML
+                divCita.appendChild(pacienteHTML);
+                divCita.appendChild(propietarioHTML);
+                divCita.appendChild(emailHTML);
+                divCita.appendChild(fechaHTML);
+                divCita.appendChild(sintomasHTML);
+                divCita.appendChild(contenedorBotones);
+                // Agregar div al contenedor
+                contenedorCitas.appendChild(divCita);
+
+                // Ir al siguiente elemento
+                cursor.continue();
+            }
+        }
     }
 }
 
@@ -258,6 +272,7 @@ function createDB() {
     citasDB.onsuccess = function() {
         console.log('Base de datos creada');
         DB = citasDB.result;
+        adminCitas.mostrarCitas();
     }
 
     // Configuration - Definir el schema
