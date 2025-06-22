@@ -15,6 +15,7 @@
 
         crearDB.onsuccess = () => {
             DB = crearDB.result;
+            listarClientes();
         };
 
         crearDB.onupgradeneeded = (e) => {
@@ -33,5 +34,30 @@
 
             console.log('DB creada');
         };
+    }
+
+    function listarClientes() {
+        const objectStore = DB.transaction('crm').objectStore('crm');
+
+        // Si no hay clientes
+        const totalClientes = objectStore.count();
+        totalClientes.onsuccess = () => {
+            if (totalClientes.result === 0) {
+                return;
+            }
+        }
+
+        // Listar clientes
+        objectStore.openCursor().onsuccess = (e) => {
+            const cursor = e.target.result;
+
+            if (cursor) {
+                
+
+                // Ir al siguiente elemento
+                cursor.continue();
+            }
+        }
+
     }
 })();
