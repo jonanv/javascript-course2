@@ -87,6 +87,11 @@
         transaction.oncomplete = () => {
             console.log('Transacción completada');
             imprimirAlerta('Cliente agregado correctamente');
+
+            formulario.reset();
+            setTimeout(() => {
+                window.location.href = 'index.html';
+            }, 3000);
         }
     }
 })();
