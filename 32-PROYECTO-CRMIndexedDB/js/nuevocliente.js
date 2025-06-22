@@ -37,6 +37,15 @@
             imprimirAlerta('Todos los campos son obligatorios', 'error');
             return;
         }
+
+        const cliente = {
+            id: generarId(),
+            nombre,
+            email,
+            telefono,
+            empresa,
+        };
+        crearCliente(cliente);
     }
 
     function imprimirAlerta(mensaje, tipo) {
@@ -58,6 +67,26 @@
             setTimeout(() => {
                 divMensaje.remove();
             }, 3000);
+        }
+    }
+
+    function generarId() {
+        return Math.random().toString(36).substring(2) + Date.now();
+    }
+
+    function crearCliente(cliente) {
+        const transaction = DB.transaction(['crm'], 'readwrite');
+        const objectStore = transaction.objectStore('crm');
+        objectStore.add(cliente);
+
+        transaction.onerror = () => {
+            console.error('Hubo un error en la transacción');
+            imprimirAlerta('Hubo un error en la transacción', 'error');
+        }
+
+        transaction.oncomplete = () => {
+            console.log('Transacción completada');
+            imprimirAlerta('Cliente agregado correctamente');
         }
     }
 })();
