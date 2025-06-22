@@ -27,9 +27,9 @@
 
             objectStore.createIndex('id', 'id', { unique: true });
             objectStore.createIndex('nombre', 'nombre', { unique: false });
-            objectStore.createIndex('correo', 'correo', { unique: true });
+            objectStore.createIndex('email', 'email', { unique: true });
             objectStore.createIndex('telefono', 'telefono', { unique: false });
-            objectStore.createIndex('empreas', 'empreas', { unique: false });
+            objectStore.createIndex('empresa', 'empresa', { unique: false });
 
             console.log('DB creada');
         };
