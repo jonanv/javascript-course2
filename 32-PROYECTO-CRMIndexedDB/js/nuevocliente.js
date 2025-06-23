@@ -18,7 +18,7 @@
 
         abrirConexion.onsuccess = () => {
             DB = abrirConexion.result;
-        }
+        };
     }
 
     function validarCliente(e) {
