@@ -1,5 +1,6 @@
 (function() {
     let DB;
+    let idCliente;
 
     const nombreInput = document.querySelector('#nombre');
     const emailInput = document.querySelector('#email');
@@ -7,12 +8,14 @@
     const empresaInput = document.querySelector('#empresa');
 
     const formulario = document.querySelector('#formulario');
-    formulario.addEventListener('submit', enviarFormulario);
 
     document.addEventListener('DOMContentLoaded', () => {
+        // Actualiza el registro
+        formulario.addEventListener('submit', enviarFormulario);
+
         // Verificar el id de la URL
         const parametrosURL = new URLSearchParams(window.location.search);
-        const idCliente = parametrosURL.get('id');
+        idCliente = parametrosURL.get('id');
         if (idCliente) {
             obtenerCliente(idCliente);
         }
@@ -57,8 +60,16 @@
     function enviarFormulario(e) {
         e.preventDefault();
 
+        if (nombreInput.value.trim() === '' ||
+            emailInput.value.trim() === '' ||
+            telefonoInput.value.trim() === '' ||
+            empresaInput.value.trim() === '') {
+            imprimirAlerta('Todos los campos son obligatorios', 'error');
+            return;
+        }
+
         const clienteActualizado = {
-            id: new URLSearchParams(window.location.search).get('id'),
+            id: idCliente,
             nombre: nombreInput.value,
             email: emailInput.value,
             telefono: telefonoInput.value,
@@ -68,6 +79,20 @@
     }
 
     function actualizarCliente(cliente) {
-        console.log(cliente);
+        const transaction = DB.transaction(['crm'], 'readwrite');
+        const objectStore = transaction.objectStore('crm');
+        objectStore.put(cliente);
+
+        transaction.onerror = () => {
+            imprimirAlerta('Hubo un error en la transacción', 'error');
+        }
+
+        transaction.oncomplete = () => {
+            imprimirAlerta('Cliente actualizado');
+
+            setTimeout(() => {
+                window.location.href = 'index.html';
+            }, 1000);
+        }
     }
 })();
