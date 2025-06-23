@@ -1,5 +1,4 @@
-// Ejemplo de callbacks
-
+// Ejemplo de Callbacks
 const paises = ['Francia', 'Italia', 'Inglaterra', 'Portugal', 'Australia'];
 
 function mostrarPaises() {
