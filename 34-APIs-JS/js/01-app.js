@@ -1,4 +1,6 @@
 // Notification API
+// Permite mostrar notificaciones al usuario, incluso si la página no está abierta.
+// Se utiliza para mostrar alertas, recordatorios, etc.
 
 const btnNotificar = document.querySelector('#notificar');
 
