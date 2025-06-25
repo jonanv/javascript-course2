@@ -9,6 +9,16 @@ window.addEventListener('load', () => {
 function buscarClima(e) {
     e.preventDefault();
 
+    // Validar
+    const ciudad = document.querySelector('#ciudad').value;
+    const pais = document.querySelector('#pais').value;
 
+    if (ciudad.trim() === '' || pais.trim() === '') {
+        mostrarError('Los campos son obligatorios');
+        return;
+    }
+}
+
+function mostrarError(mensaje) {
     
 }
