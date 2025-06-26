@@ -19,7 +19,20 @@ function iniciarApp() {
 
         fetch(URL)
             .then((response) => response.json())
-            .then(console.log)
+            .then((categorias) => mostrarCategorias(categorias.categories))
             .catch((error) => console.error(error));
+    }
+
+    function mostrarCategorias(categorias) {
+        console.log(categorias);
+        const categoriasHTML = document.querySelector('#categorias');
+        
+        categorias.forEach((categoria) => {
+            const opcion = document.createElement('option');
+            opcion.value = categoria.idCategory;
+            opcion.textContent = categoria.strCategory;
+            categoriasHTML.appendChild(opcion);
+        });
+
     }
 }
