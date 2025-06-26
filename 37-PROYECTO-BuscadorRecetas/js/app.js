@@ -23,14 +23,16 @@ function iniciarApp() {
             .catch((error) => console.error(error));
     }
 
-    function mostrarCategorias(categorias) {
-        console.log(categorias);
+    function mostrarCategorias(categorias = []) {
         const categoriasHTML = document.querySelector('#categorias');
         
         categorias.forEach((categoria) => {
+            const { idCategory, strCategory } = categoria;
+            
             const opcion = document.createElement('option');
-            opcion.value = categoria.idCategory;
-            opcion.textContent = categoria.strCategory;
+            opcion.dataset.id = idCategory;
+            opcion.value = strCategory;
+            opcion.textContent = strCategory;
             categoriasHTML.appendChild(opcion);
         });
 
