@@ -48,6 +48,9 @@ function consultarAPI(ciudad, pais) {
     fetch(url)
         .then((response) => response.json())
         .then((datos) => {
+            // Limpiar HTML
+            limpiarHTML();
+            
             if (datos.cod == 404) {
                 mostrarError('Ciudad no encontrada');
                 return;
@@ -58,20 +61,29 @@ function consultarAPI(ciudad, pais) {
 }
 
 function mostraClima(datos) {
-    // Limpiar HTML
-    limpiarHTML();
-
     const { main: { temp, temp_max, temp_min } } = datos;
 
     const centigrados = kelvinACentigrados(temp);
+    const max = kelvinACentigrados(temp_max);
+    const min = kelvinACentigrados(temp_min);
 
     const actual = document.createElement('p');
     actual.innerHTML = `${ centigrados } &#8451;`;
     actual.classList.add('font-bold', 'text-6xl');
 
+    const tempMaxima = document.createElement('p');
+    tempMaxima.innerHTML = `Máxima: ${ max } &#8451;`;
+    tempMaxima.classList.add('text-xl');
+
+    const tempMimina = document.createElement('p');
+    tempMimina.innerHTML = `Mínima: ${ min } &#8451;`;
+    tempMimina.classList.add('text-xl');
+
     const resultadoDiv = document.createElement('div');
     resultadoDiv.classList.add('text-center', 'text-white');
     resultadoDiv.appendChild(actual);
+    resultadoDiv.appendChild(tempMaxima);
+    resultadoDiv.appendChild(tempMimina);
 
     resultado.appendChild(resultadoDiv);
 }
