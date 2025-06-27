@@ -153,11 +153,14 @@ function iniciarApp() {
         // Boton de favorito y cerrar
         const btnFavorito = document.createElement('BUTTON');
         btnFavorito.classList.add('btn', 'btn-danger', 'col');
-        btnFavorito.textContent = 'Guardar favorito';
+        btnFavorito.textContent = existeStorage(idMeal) 
+                                    ? 'Eliminar favorito'
+                                    : 'Guardar favorito';
         // Event handler
         btnFavorito.onclick = function() {
             if (existeStorage(idMeal)){
                 eliminarFavorito(idMeal);
+                btnFavorito.textContent = 'Guardar favorito';
                 return;
             }
 
@@ -166,6 +169,7 @@ function iniciarApp() {
                 titulo: strMeal,
                 imagen: strMealThumb
             });
+            btnFavorito.textContent = 'Eliminar favorito';
         }
 
         const btnCerrar = document.createElement('BUTTON');
