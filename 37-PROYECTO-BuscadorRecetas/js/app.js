@@ -53,7 +53,10 @@ function iniciarApp() {
 
         fetch(URL)
             .then((response) => response.json())
-            .then((recetas) => mostrarRecetas(recetas.meals))
+            .then((recetas) => {
+                limpiarHTML();
+                mostrarRecetas(recetas.meals);
+            })
             .catch((error) => console.error(error));
     }
 
@@ -90,8 +93,14 @@ function iniciarApp() {
             recetaCard.appendChild(recetaCardBody);
 
             contenedorRecetas.appendChild(recetaCard);
-            
+
             resultadoHTML.appendChild(contenedorRecetas);
         });
+    }
+
+    function limpiarHTML() {
+        while (resultadoHTML.firstChild) {
+            resultadoHTML.removeChild(resultadoHTML.firstChild);
+        }
     }
 }
