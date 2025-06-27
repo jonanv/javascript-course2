@@ -120,13 +120,34 @@ function iniciarApp() {
 
         const modalTitle = document.querySelector('.modal .modal-title');
         modalTitle.textContent = strMeal;
+
         const modalBody = document.querySelector('.modal .modal-body');
         modalBody.innerHTML = `
             <img class="img-fluid" src=${ strMealThumb } alt="Receta ${ strMeal }"/>
             <h3 class="my-3">Instrucciones</h3>
             <p>${ strInstructions }</p>
+            <h3 class="my-3">Ingredientes y cantidades</h3>
         `;
 
+        const listGroup = document.createElement('UL');
+        listGroup.classList.add('list-group');
+
+        // Mostrar cantidades
+        for (let i = 1; i < 20; i++) {
+            let ingrediente = receta[`strIngredient${ i }`];
+            let cantidad = receta[`strMeasure${ i }`];
+
+            if (ingrediente !== '' && ingrediente !== null) {
+                const ingredienteLi = document.createElement('LI');
+                ingredienteLi.classList.add('list-group-item');
+                ingredienteLi.textContent = `${ ingrediente } - ${ cantidad }`;
+
+                listGroup.appendChild(ingredienteLi);
+            }
+        }
+        modalBody.appendChild(listGroup);
+
+        // Muestra el modal
         modalHTML.show();
     }
 
