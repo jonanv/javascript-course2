@@ -66,7 +66,7 @@ function iniciarApp() {
         resultadoHTML.appendChild(heading);
 
         recetas.forEach((receta) => {
-            const { strMeal, strMealThumb } = receta;
+            const { idMeal, strMeal, strMealThumb } = receta;
 
             const contenedorRecetas = document.createElement('DIV');
             contenedorRecetas.classList.add('col-md-4');
@@ -89,6 +89,12 @@ function iniciarApp() {
             const recetaButton = document.createElement('BUTTON');
             recetaButton.classList.add('btn', 'btn-danger', 'w-100');
             recetaButton.textContent = 'Ver receta';
+            recetaButton.dataset.bsTarget = '#modal';
+            recetaButton.dataset.bsToggle = 'modal';
+            // Event handler
+            recetaButton.onclick = () => {
+                obtenerReceta(idMeal);
+            }
 
             recetaCardBody.appendChild(recetaHeading);
             recetaCardBody.appendChild(recetaButton);
@@ -100,6 +106,20 @@ function iniciarApp() {
 
             resultadoHTML.appendChild(contenedorRecetas);
         });
+    }
+
+    function obtenerReceta(idMeal) {
+        const enpoint = `/1/lookup.php?i=${ idMeal }`;
+        const URL = `${ PROTOCOLO }${ DOMINIO }${ PATH }${ VERSION }${ enpoint }`;
+
+        fetch(URL)
+            .then((response) => response.json())
+            .then((receta) => mostrarReceta(receta.meals[0]))
+            .catch((error) => console.error(error));
+    }
+
+    function mostrarReceta(receta) {
+        console.log(receta);
     }
 
     function limpiarHTML(selector) {
