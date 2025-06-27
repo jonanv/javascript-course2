@@ -11,6 +11,12 @@ function iniciarApp() {
     const PATH = '/api/json';
     const VERSION = '/v1';
 
+    // Selectores
+    const categoriasHTML = document.querySelector('#categorias');
+
+    // Eventos
+    categoriasHTML.addEventListener('change', seleccionarCategoria);
+
     obtenerCategorias();
 
     function obtenerCategorias() {
@@ -24,17 +30,29 @@ function iniciarApp() {
     }
 
     function mostrarCategorias(categorias = []) {
-        const categoriasHTML = document.querySelector('#categorias');
-        
         categorias.forEach((categoria) => {
             const { idCategory, strCategory } = categoria;
-            
+
             const opcion = document.createElement('option');
             opcion.dataset.id = idCategory;
             opcion.value = strCategory;
             opcion.textContent = strCategory;
             categoriasHTML.appendChild(opcion);
         });
+    }
 
+    function seleccionarCategoria(e) {
+        let filtro = e.target.value;
+        filtrarCategorias(filtro);
+    }
+
+    function filtrarCategorias(filtro) {
+        const enpoint = `/1/filter.php?c=${ filtro }`;
+        const URL = `${ PROTOCOLO }${ DOMINIO }${ PATH }${ VERSION }${ enpoint }`;
+
+        fetch(URL)
+            .then((response) => response.json())
+            .then((recetas) => console.log(recetas.meals))
+            .catch((error) => console.error(error));
     }
 }
