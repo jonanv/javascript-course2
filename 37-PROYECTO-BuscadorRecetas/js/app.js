@@ -156,13 +156,16 @@ function iniciarApp() {
         btnFavorito.textContent = 'Guardar favorito';
         // Event handler
         btnFavorito.onclick = function() {
-            if (!existeStorage(idMeal)){
-                agregarFavorito({
-                    id: idMeal,
-                    titulo: strMeal,
-                    imagen: strMealThumb
-                });
+            if (existeStorage(idMeal)){
+                eliminarFavorito(idMeal);
+                return;
             }
+
+            agregarFavorito({
+                id: idMeal,
+                titulo: strMeal,
+                imagen: strMealThumb
+            });
         }
 
         const btnCerrar = document.createElement('BUTTON');
@@ -184,6 +187,12 @@ function iniciarApp() {
     function agregarFavorito(receta) {
         const favoritos = JSON.parse(localStorage.getItem('favoritos')) ?? [];
         localStorage.setItem('favoritos', JSON.stringify([...favoritos, receta]));
+    }
+    
+    function eliminarFavorito(id) {
+        const favoritos = JSON.parse(localStorage.getItem('favoritos')) ?? [];
+        const nuevosFavoritos = favoritos.filter((favorito) => favorito.id !== id);
+        localStorage.setItem('favoritos', JSON.stringify(nuevosFavoritos));
     }
 
     function existeStorage(id) {
