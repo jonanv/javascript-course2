@@ -53,16 +53,20 @@ function iniciarApp() {
 
         fetch(URL)
             .then((response) => response.json())
-            .then((recetas) => {
-                limpiarHTML();
-                mostrarRecetas(recetas.meals);
-            })
+            .then((recetas) => mostrarRecetas(recetas.meals))
             .catch((error) => console.error(error));
     }
 
     function mostrarRecetas(recetas = []) {
+        limpiarHTML(resultadoHTML);
+
+        const heading = document.createElement('H2');
+        heading.classList.add('text-center', 'text-black', 'my-5');
+        heading.textContent = recetas.length ? 'Resultados' : 'No hay resultados';
+        resultadoHTML.appendChild(heading);
+
         recetas.forEach((receta) => {
-            const { idMeal, strMeal, strMealThumb } = receta;
+            const { strMeal, strMealThumb } = receta;
 
             const contenedorRecetas = document.createElement('DIV');
             contenedorRecetas.classList.add('col-md-4');
@@ -98,9 +102,9 @@ function iniciarApp() {
         });
     }
 
-    function limpiarHTML() {
-        while (resultadoHTML.firstChild) {
-            resultadoHTML.removeChild(resultadoHTML.firstChild);
+    function limpiarHTML(selector) {
+        while (selector.firstChild) {
+            selector.removeChild(selector.firstChild);
         }
     }
 }
