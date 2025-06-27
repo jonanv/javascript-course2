@@ -10,11 +10,18 @@ function iniciarApp() {
     const categoriasHTML = document.querySelector('#categorias');
     const resultadoHTML = document.querySelector('#resultado');
     const modalHTML = new bootstrap.Modal('#modal', {});
+    
+    if (categoriasHTML) {
+        // Eventos
+        categoriasHTML.addEventListener('change', seleccionarCategoria);
+        obtenerCategorias();
+    }
 
-    // Eventos
-    categoriasHTML.addEventListener('change', seleccionarCategoria);
+    const favoritosDiv = document.querySelector('.favoritos');
+    if (favoritosDiv) {
+        obtenerFavoritos();
+    }
 
-    obtenerCategorias();
 
     function obtenerCategorias() {
         const enpoint = '/1/categories.php';
@@ -73,14 +80,14 @@ function iniciarApp() {
             const recetaImagen = document.createElement('IMG');
             recetaImagen.classList.add('card-img-top');
             recetaImagen.alt = `Imagen de la receta ${ strMeal }`;
-            recetaImagen.src = strMealThumb;
+            recetaImagen.src = strMealThumb ?? receta.imagen;
 
             const recetaCardBody = document.createElement('DIV');
             recetaCardBody.classList.add('card-body');
 
             const recetaHeading = document.createElement('H3');
             recetaHeading.classList.add('card-title', 'mb-3');
-            recetaHeading.textContent = strMeal;
+            recetaHeading.textContent = strMeal ?? receta.titulo;
 
             const recetaButton = document.createElement('BUTTON');
             recetaButton.classList.add('btn', 'btn-danger', 'w-100');
@@ -90,7 +97,7 @@ function iniciarApp() {
             // Event handler
             // Si lo usas como callback, espera que ocurra el evento onclick y con function previene a que ocurra el evento onclick
             recetaButton.onclick = function() {
-                obtenerReceta(idMeal);
+                obtenerReceta(idMeal ?? receta.id);
             }
 
             recetaCardBody.appendChild(recetaHeading);
@@ -214,6 +221,20 @@ function iniciarApp() {
         toastBody.textContent = mensaje;
 
         toast.show();
+    }
+
+    function obtenerFavoritos() {
+        const favoritos = JSON.parse(localStorage.getItem('favoritos')) ?? [];
+        
+        if (favoritos.length) {
+            mostrarRecetas(favoritos);
+            return;
+        }
+
+        const noFavoritos = document.createElement('P');
+        noFavoritos.classList.add('fs-4', 'text-center', 'font-bold', 'mt-5');
+        noFavoritos.textContent = 'No hay favoritos aún';
+        favoritosDiv.appendChild(noFavoritos);
     }
 
     function limpiarHTML(selector) {
