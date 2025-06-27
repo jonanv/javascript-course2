@@ -87,7 +87,8 @@ function iniciarApp() {
             recetaButton.dataset.bsTarget = '#modal';
             recetaButton.dataset.bsToggle = 'modal';
             // Event handler
-            recetaButton.onclick = () => {
+            // Si lo usas como callback, espera que ocurra el evento onclick y con function previene a que ocurra el evento onclick
+            recetaButton.onclick = function() {
                 obtenerReceta(idMeal);
             }
 
