@@ -33,7 +33,7 @@ function iniciarApp() {
         categorias.forEach((categoria) => {
             const { idCategory, strCategory } = categoria;
 
-            const opcion = document.createElement('option');
+            const opcion = document.createElement('OPTION');
             opcion.dataset.id = idCategory;
             opcion.value = strCategory;
             opcion.textContent = strCategory;
@@ -42,12 +42,12 @@ function iniciarApp() {
     }
 
     function seleccionarCategoria(e) {
-        let filtro = e.target.value;
-        filtrarCategorias(filtro);
+        let categoria = e.target.value;
+        obtenerRecetas(categoria);
     }
 
-    function filtrarCategorias(filtro) {
-        const enpoint = `/1/filter.php?c=${ filtro }`;
+    function obtenerRecetas(categoria) {
+        const enpoint = `/1/filter.php?c=${ categoria }`;
         const URL = `${ PROTOCOLO }${ DOMINIO }${ PATH }${ VERSION }${ enpoint }`;
 
         fetch(URL)
