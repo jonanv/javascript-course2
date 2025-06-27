@@ -9,6 +9,7 @@ function iniciarApp() {
     // Selectores
     const categoriasHTML = document.querySelector('#categorias');
     const resultadoHTML = document.querySelector('#resultado');
+    const modalHTML = new bootstrap.Modal('#modal', {});
 
     // Eventos
     categoriasHTML.addEventListener('change', seleccionarCategoria);
@@ -84,8 +85,8 @@ function iniciarApp() {
             const recetaButton = document.createElement('BUTTON');
             recetaButton.classList.add('btn', 'btn-danger', 'w-100');
             recetaButton.textContent = 'Ver receta';
-            recetaButton.dataset.bsTarget = '#modal';
-            recetaButton.dataset.bsToggle = 'modal';
+            // recetaButton.dataset.bsTarget = '#modal';
+            // recetaButton.dataset.bsToggle = 'modal';
             // Event handler
             // Si lo usas como callback, espera que ocurra el evento onclick y con function previene a que ocurra el evento onclick
             recetaButton.onclick = function() {
@@ -110,12 +111,23 @@ function iniciarApp() {
 
         fetch(URL)
             .then((response) => response.json())
-            .then((receta) => mostrarReceta(receta.meals[0]))
+            .then((receta) => mostrarRecetaModal(receta.meals[0]))
             .catch((error) => console.error(error));
     }
 
-    function mostrarReceta(receta) {
-        console.log(receta);
+    function mostrarRecetaModal(receta) {
+        const { idMeal, strInstructions, strMeal, strMealThumb } = receta;
+
+        const modalTitle = document.querySelector('.modal .modal-title');
+        modalTitle.textContent = strMeal;
+        const modalBody = document.querySelector('.modal .modal-body');
+        modalBody.innerHTML = `
+            <img class="img-fluid" src=${ strMealThumb } alt="Receta ${ strMeal }"/>
+            <h3 class="my-3">Instrucciones</h3>
+            <p>${ strInstructions }</p>
+        `;
+
+        modalHTML.show();
     }
 
     function limpiarHTML(selector) {
