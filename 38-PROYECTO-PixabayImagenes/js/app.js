@@ -4,6 +4,9 @@ const formulario = document.querySelector('#formulario');
 const ENDPOINT = 'https://pixabay.com/api/';
 const APIKEY = '810851-e6ebb600d0c88c05a42d011a2';
 
+const registrosPorPagina = 40;
+let totalPaginas;
+
 window.onload = () => {
     formulario.addEventListener('submit', validarFormulario);
 }
@@ -45,8 +48,15 @@ function buscarImagenes(terminoBusqueda) {
 
     fetch(URL)
         .then((response) => response.json())
-        .then(imagenes => mostrarImagenes(imagenes.hits))
+        .then(imagenes => {
+            totalPaginas = calcularPaginas(imagenes.totalHits);
+            mostrarImagenes(imagenes.hits);
+        })
         .catch((error) => console.error(error));
+}
+
+function calcularPaginas(total) {
+    return parseInt(Math.ceil(total / registrosPorPagina));
 }
 
 function mostrarImagenes(imagenes = []) {
