@@ -45,7 +45,10 @@ function buscarImagenes(terminoBusqueda) {
 
     fetch(URL)
         .then((response) => response.json())
-        .then(console.log)
+        .then(imagenes => mostrarImagenes(imagenes.hits))
         .catch((error) => console.error(error));
 }
+
+function mostrarImagenes(imagenes = []) {
+    console.log(imagenes);
 }
