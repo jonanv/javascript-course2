@@ -1,6 +1,9 @@
 const resultado = document.querySelector('#resultado');
 const formulario = document.querySelector('#formulario');
 
+const ENDPOINT = 'https://pixabay.com/api/';
+const APIKEY = '810851-e6ebb600d0c88c05a42d011a2';
+
 window.onload = () => {
     formulario.addEventListener('submit', validarFormulario);
 }
@@ -14,6 +17,8 @@ function validarFormulario(e) {
         mostrarAlerta('Agrega un termino de búsqueda');
         return;
     }
+
+    buscarImagenes(terminoBusqueda);
 }
 
 function mostrarAlerta(mensaje) {
@@ -33,4 +38,14 @@ function mostrarAlerta(mensaje) {
     setTimeout(() => {
         alerta.remove();
     }, 3000);
+}
+
+function buscarImagenes(terminoBusqueda) {
+    const URL = `${ ENDPOINT }?key=${ APIKEY }&q=${ terminoBusqueda }`;
+
+    fetch(URL)
+        .then((response) => response.json())
+        .then(console.log)
+        .catch((error) => console.error(error));
+}
 }
