@@ -6,6 +6,7 @@ const APIKEY = '810851-e6ebb600d0c88c05a42d011a2';
 
 const registrosPorPagina = 40;
 let totalPaginas;
+let iterador;
 
 window.onload = () => {
     formulario.addEventListener('submit', validarFormulario);
@@ -55,6 +56,13 @@ function buscarImagenes(terminoBusqueda) {
         .catch((error) => console.error(error));
 }
 
+// Generador de va a registrar la cantidad de elementos de acuerdo a las paginas
+function *crearPaginador(total) {
+    for (let i = 1; i <= total; i++) {
+        yield i;
+    }
+}
+
 function calcularPaginas(total) {
     return parseInt(Math.ceil(total / registrosPorPagina));
 }
@@ -84,6 +92,13 @@ function mostrarImagenes(imagenes = []) {
             </div>
         `;
     });
+
+    imprimirPaginador();
+}
+
+function imprimirPaginador() {
+    iterador = crearPaginador(totalPaginas);
+    iterador.next();
 }
 
 function limpiarHTML(selector) {
