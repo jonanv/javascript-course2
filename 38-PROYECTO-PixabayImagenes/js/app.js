@@ -2,9 +2,6 @@ const resultado = document.querySelector('#resultado');
 const formulario = document.querySelector('#formulario');
 const paginacion = document.querySelector('#paginacion');
 
-const ENDPOINT = 'https://pixabay.com/api/';
-const APIKEY = '810851-e6ebb600d0c88c05a42d011a2';
-
 const registrosPorPagina = 40;
 let totalPaginas;
 let iterador;
@@ -49,6 +46,8 @@ function mostrarAlerta(mensaje) {
 function buscarImagenes() {
     const terminoBusqueda = document.querySelector('#termino').value;
 
+    const ENDPOINT = 'https://pixabay.com/api/';
+    const APIKEY = '810851-e6ebb600d0c88c05a42d011a2';
     const URL = `${ ENDPOINT }?key=${ APIKEY }&q=${ terminoBusqueda }&per_page=${ registrosPorPagina }&page=${ paginaActual }`;
 
     fetch(URL)
