@@ -8,6 +8,7 @@ const APIKEY = '810851-e6ebb600d0c88c05a42d011a2';
 const registrosPorPagina = 40;
 let totalPaginas;
 let iterador;
+let paginaActual = 1;
 
 window.onload = () => {
     formulario.addEventListener('submit', validarFormulario);
@@ -23,7 +24,7 @@ function validarFormulario(e) {
         return;
     }
 
-    buscarImagenes(terminoBusqueda);
+    buscarImagenes();
 }
 
 function mostrarAlerta(mensaje) {
@@ -45,8 +46,10 @@ function mostrarAlerta(mensaje) {
     }, 3000);
 }
 
-function buscarImagenes(terminoBusqueda) {
-    const URL = `${ ENDPOINT }?key=${ APIKEY }&q=${ terminoBusqueda }&per_page=${ registrosPorPagina }`;
+function buscarImagenes() {
+    const terminoBusqueda = document.querySelector('#termino').value;
+
+    const URL = `${ ENDPOINT }?key=${ APIKEY }&q=${ terminoBusqueda }&per_page=${ registrosPorPagina }&page=${ paginaActual }`;
 
     fetch(URL)
         .then((response) => response.json())
@@ -70,7 +73,6 @@ function calcularPaginas(total) {
 
 function mostrarImagenes(imagenes = []) {
     limpiarHTML(resultado);
-    console.log(imagenes);
 
     imagenes.forEach((imagen) => {
         const { previewURL, likes, views, largeImageURL } = imagen;
@@ -111,7 +113,12 @@ function imprimirPaginador() {
         boton.href = '#';
         boton.dataset.pagina = value;
         boton.textContent = value;
-        boton.classList.add('siguiente', 'bg-yellow-400', 'px-4', 'py-1', 'mr-2', 'font-bold', 'mb-4', 'uppercase', 'rounded');
+        boton.classList.add('siguiente', 'bg-yellow-400', 'px-4', 'py-1', 'mr-2', 'font-bold', 'mb-4', 'rounded');
+
+        boton.onclick = () => {
+            paginaActual = value;
+            buscarImagenes();
+        }
 
         paginacion.appendChild(boton);
     }
