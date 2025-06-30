@@ -70,5 +70,17 @@ function enviarFormulario(e) {
 }
 
 function mostraAlerta(mensaje) {
-    console.log(mensaje);
+    // Eliminar alertas duplicadas
+    const alertaPrevia = document.querySelector('.alert');
+    alertaPrevia?.remove();
+
+    const mensajeDiv = document.createElement('DIV');
+    mensajeDiv.classList.add('error', 'alert');
+    mensajeDiv.textContent = mensaje;
+
+    formulario.appendChild(mensajeDiv);
+
+    setTimeout(() => {
+        mensajeDiv.remove();
+    }, 3000);
 }
