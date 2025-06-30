@@ -63,7 +63,12 @@ function enviarFormulario(e) {
     // Validar
     const { moneda, criptomoneda } = objBusqueda;
 
-    if (moneda.trim() === '' && criptomoneda.trim() === '') {
-        console.log('Debes seleccionar los campos');
+    if (moneda === '' || criptomoneda === '') {
+        mostraAlerta('Debes seleccionar los campos');
+        return;
     }
+}
+
+function mostraAlerta(mensaje) {
+    console.log(mensaje);
 }
