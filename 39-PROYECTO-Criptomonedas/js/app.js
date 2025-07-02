@@ -67,6 +67,9 @@ function enviarFormulario(e) {
         mostraAlerta('Debes seleccionar los campos');
         return;
     }
+
+    // Consultar la API de los resultados
+    consultarAPI();
 }
 
 function mostraAlerta(mensaje) {
@@ -83,4 +86,22 @@ function mostraAlerta(mensaje) {
     setTimeout(() => {
         mensajeDiv.remove();
     }, 3000);
+}
+
+function consultarAPI() {
+    const { moneda, criptomoneda } = objBusqueda;
+
+    // const PATH = '/data/price';
+    // const endpoint = `?fsym=${ criptomoneda }&tsyms=${ moneda }`;
+
+    const PATH = '/data/pricemultifull';
+    const endpoint = `?fsyms=${ criptomoneda }&tsyms=${ moneda }`;
+    const URL = `${ PROTOCOLO }${ DOMINIO }${ PATH }${ endpoint }`;
+
+    fetch(URL)
+        .then((response) => response.json())
+        .then((cotizacion) => {
+            console.log(cotizacion.DISPLAY[criptomoneda][moneda]);
+        })
+        .catch((error) => console.error(error));
 }
