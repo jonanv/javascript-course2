@@ -1,0 +1,34 @@
+{
+    "platillos": [
+        {
+            "id": 1,
+            "nombre": "Hamburguesa con papas",
+            "precio": 150,
+            "categoria": "Comida Rápida"
+        },
+        {
+            "id": 2,
+            "nombre": "Pizza Margarita",
+            "precio": 200,
+            "categoria": "Comida Rápida"
+        },
+        {
+            "id": 3,
+            "nombre": "Ensalada César",
+            "precio": 120,
+            "categoria": "Ensaladas"
+        },
+        {
+            "id": 4,
+            "nombre": "Sopa de Verduras",
+            "precio": 80,
+            "categoria": "Sopas"
+        },
+        {
+            "id": 5,
+            "nombre": "Tacos al Pastor",
+            "precio": 100,
+            "categoria": "Comida Mexicana"
+        }
+    ]
+}
