@@ -99,7 +99,7 @@ function consultarAPI() {
     const endpoint = `?fsyms=${ criptomoneda }&tsyms=${ moneda }`;
     const URL = `${ PROTOCOLO }${ DOMINIO }${ PATH }${ endpoint }`;
 
-    spinner();
+    mostrarSpinner();
 
     fetch(URL)
         .then((response) => response.json())
@@ -143,9 +143,9 @@ function limpiarHTML() {
     }
 }
 
-function spinner() {
+function mostrarSpinner() {
     limpiarHTML();
-    
+
     const contenedorSpinner = document.createElement('DIV');
     contenedorSpinner.classList.add('spinner');
     contenedorSpinner.innerHTML = `
