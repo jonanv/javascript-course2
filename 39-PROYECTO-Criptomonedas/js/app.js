@@ -1,3 +1,6 @@
+const PROTOCOLO = 'https://';
+const DOMINIO = 'min-api.cryptocompare.com';
+
 const monedaSelect = document.querySelector('#moneda');
 const criptomonedasSelect = document.querySelector('#criptomonedas');
 const formulario = document.querySelector('#formulario');
@@ -27,8 +30,6 @@ function seleccionarMoneda(e) {
 }
 
 function consultarCriptomonedas() {
-    const PROTOCOLO = 'https://';
-    const DOMINIO = 'min-api.cryptocompare.com';
     const PATH = '/data/top/mktcapfull';
     const endpoint = `?limit=10&tsym=USD`;
     const URL = `${ PROTOCOLO }${ DOMINIO }${ PATH }${ endpoint }`;
