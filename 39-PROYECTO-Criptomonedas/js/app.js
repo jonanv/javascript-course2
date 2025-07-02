@@ -38,7 +38,7 @@ function consultarCriptomonedas() {
         .then((response) => response.json())
         .then((resultado) => obtenerCriptomonedas(resultado.Data))
         .then((criptomonedas) => mostrarCriptomonedas(criptomonedas))
-        .catch((error) => console.log(error));
+        .catch((error) => console.error(error));
 }
 
 function mostrarCriptomonedas(criptomonedas) {
@@ -54,8 +54,7 @@ function mostrarCriptomonedas(criptomonedas) {
 }
 
 function leerValor(e) {
-    objBusqueda[e.target.name] = e.target.value; 
-    console.log(objBusqueda);
+    objBusqueda[e.target.name] = e.target.value;
 }
 
 function enviarFormulario(e) {
