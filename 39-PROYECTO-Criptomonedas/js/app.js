@@ -99,6 +99,8 @@ function consultarAPI() {
     const endpoint = `?fsyms=${ criptomoneda }&tsyms=${ moneda }`;
     const URL = `${ PROTOCOLO }${ DOMINIO }${ PATH }${ endpoint }`;
 
+    spinner();
+
     fetch(URL)
         .then((response) => response.json())
         .then((cotizacion) => {
@@ -109,7 +111,7 @@ function consultarAPI() {
 
 function mostrarCotizacionHTML(cotizacion) {
     limpiarHTML();
-    
+
     const { PRICE, HIGHDAY, LOWDAY, CHANGEPCT24HOUR, LASTUPDATE } = cotizacion;
 
     const precio = document.createElement('P');
@@ -139,4 +141,17 @@ function limpiarHTML() {
     while (resultado.firstChild) {
         resultado.removeChild(resultado.firstChild);
     }
+}
+
+function spinner() {
+    limpiarHTML();
+    
+    const contenedorSpinner = document.createElement('DIV');
+    contenedorSpinner.classList.add('spinner');
+    contenedorSpinner.innerHTML = `
+        <div class="bounce1"></div>
+        <div class="bounce2"></div>
+        <div class="bounce3"></div>
+    `;
+    resultado.appendChild(contenedorSpinner);
 }
