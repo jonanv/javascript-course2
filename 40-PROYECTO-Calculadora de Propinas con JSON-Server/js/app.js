@@ -28,11 +28,24 @@ function guardarCliente() {
     modalBootstrap.hide();
 
     mostrarSecciones();
+    obtenerPlatillos();
 }
 
 function mostrarSecciones() {
     const seccionesOcultas = document.querySelectorAll('.d-none');
     seccionesOcultas.forEach((seccion) => seccion.classList.remove('d-none'));
+}
+
+function obtenerPlatillos() {
+    const DOMINIO = 'http://localhost';
+    const PUERTO = ':4000';
+    const ENDPOINT = '/platillos';
+    const URL = `${ DOMINIO }${ PUERTO }${ ENDPOINT }`;
+
+    fetch(URL)
+        .then((response) => response.json())
+        .then((platillos) => console.log(platillos))
+        .catch((error) => console.error(error))
 }
 
 function mostrarAlerta(mensaje) {
