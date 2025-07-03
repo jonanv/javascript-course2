@@ -1,5 +1,5 @@
 let cliente = {
-    mensa: '',
+    mesa: '',
     hora: '',
     pedido: []
 };
@@ -17,9 +17,15 @@ function guardarCliente() {
     if (camposVacios) {
         mostrarAlerta('Los campos son obligatorios');
         return;
-    } else {
-        mostrarAlerta('Todos los campos estan llenos');
     }
+
+    // Asignar datos del formulario
+    cliente = { ...cliente, mesa, hora };
+
+    // Oculatar modal
+    const modalFormulario = document.querySelector('#formulario');
+    const modalBootstrap = bootstrap.Modal.getInstance(modalFormulario);
+    modalBootstrap.hide();
 }
 
 function mostrarAlerta(mensaje) {
