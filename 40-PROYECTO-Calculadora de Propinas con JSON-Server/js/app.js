@@ -110,13 +110,16 @@ function agregarPlatillo(producto) {
 
     // Revisar que la cantidad sea mayor a cero
     if (producto.cantidad > 0) {
-        let exiteProducto = cliente.pedido.find((p) => p.id === producto.id);
+        let exiteProducto = cliente.pedido.some((p) => p.id === producto.id);
         if (exiteProducto) {
-            exiteProducto.cantidad = producto.cantidad;
+            const p = cliente.pedido.find((p) => p.id === producto.id);
+            p.cantidad = producto.cantidad;
         } else {
             cliente.pedido = [...pedido, producto];
         }
-        
+    } else {
+        const nuevoPedido = cliente.pedido.filter((p) => p.id !== producto.id);
+        cliente.pedido = [...nuevoPedido];
     }
 
     console.log(cliente.pedido);
