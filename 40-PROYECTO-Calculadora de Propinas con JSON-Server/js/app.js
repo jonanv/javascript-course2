@@ -105,7 +105,21 @@ function mostrarPlatillos(platillos) {
 }
 
 function agregarPlatillo(producto) {
-    console.log(producto);
+    // Extraer pedido
+    let { pedido } = cliente;
+
+    // Revisar que la cantidad sea mayor a cero
+    if (producto.cantidad > 0) {
+        let exiteProducto = cliente.pedido.find((p) => p.id === producto.id);
+        if (exiteProducto) {
+            exiteProducto.cantidad = producto.cantidad;
+        } else {
+            cliente.pedido = [...pedido, producto];
+        }
+        
+    }
+
+    console.log(cliente.pedido);
 }
 
 function mostrarAlerta(mensaje) {
