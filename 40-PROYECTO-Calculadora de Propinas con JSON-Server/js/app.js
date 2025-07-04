@@ -44,8 +44,26 @@ function obtenerPlatillos() {
 
     fetch(URL)
         .then((response) => response.json())
-        .then((platillos) => console.log(platillos))
+        .then((platillos) => mostrarPlatillos(platillos))
         .catch((error) => console.error(error))
+}
+
+function mostrarPlatillos(platillos) {
+    const contenido = document.querySelector('#platillos .contenido');
+
+    platillos.forEach((platillo) => {
+        const { id, nombre, categoria, precio } = platillo;
+
+        const row = document.createElement('DIV');
+        row.classList.add('row');
+
+        const nombreDiv = document.createElement('DIV');
+        nombreDiv.classList.add('col-md-4');
+        nombreDiv.textContent = nombre;
+
+        row.appendChild(nombreDiv);
+        contenido.appendChild(row);
+    });
 }
 
 function mostrarAlerta(mensaje) {
