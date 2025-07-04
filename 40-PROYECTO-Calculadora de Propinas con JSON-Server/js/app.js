@@ -82,6 +82,14 @@ function mostrarPlatillos(platillos) {
         inputCantidad.id = `product-${ id }`;
         inputCantidad.value = 0;
 
+        // Función que detecta la cantidad y el platillo que se esta agregando
+        // No se usa addEventListener porque no se puede agregar un evento a un elemento que aún no existe en el DOM
+        // Event handler
+        inputCantidad.onchange = function() {
+            const cantidad = parseInt(inputCantidad.value);
+            agregarPlatillo({ ...platillo, cantidad });
+        };
+
         const agregarDiv = document.createElement('DIV');
         agregarDiv.classList.add('col-md-2');
 
@@ -94,6 +102,10 @@ function mostrarPlatillos(platillos) {
 
         contenido.appendChild(row);
     });
+}
+
+function agregarPlatillo(producto) {
+    console.log(producto);
 }
 
 function mostrarAlerta(mensaje) {
