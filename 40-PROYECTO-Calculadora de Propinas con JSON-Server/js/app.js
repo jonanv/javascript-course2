@@ -123,8 +123,7 @@ function agregarPlatillo(producto) {
     }
 
     // Limpiar contenido
-    const contenido = document.querySelector('#resumen .contenido');
-    limpiarHTML(contenido);
+    limpiarHTML();
 
     // Actualizar resumen
     actualizarResumen();
@@ -160,7 +159,7 @@ function actualizarResumen() {
 
     // Título de la sección
     const titulo = document.createElement('H3');
-    titulo.textContent = 'Platillso consumidos';
+    titulo.textContent = 'Platillos consumidos';
     titulo.classList.add('my-4', 'text-center');
 
     // Iterar sobre el array de pedidos
@@ -242,7 +241,15 @@ function actualizarResumen() {
 }
 
 function eliminarProducto(id) {
-    console.log(id);
+    const { pedido } = cliente;
+    const nuevoPedido = pedido.filter((producto) => producto.id !== id);
+    cliente.pedido = [...nuevoPedido];
+
+    // Limpiar contenido
+    limpiarHTML();
+
+    // Actualizar resumen
+    actualizarResumen();
 }
 
 function calcularSubtotal(precio, cantidad) {
@@ -265,8 +272,9 @@ function mostrarAlerta(mensaje) {
     }, 3000);
 }
 
-function limpiarHTML(selector) {
-    while (selector.firstChild) {
-        selector.removeChild(selector.firstChild);
+function limpiarHTML() {
+    const contenido = document.querySelector('#resumen .contenido');
+    while (contenido.firstChild) {
+        contenido.removeChild(contenido.firstChild);
     }
 }
