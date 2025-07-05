@@ -370,9 +370,55 @@ function calcularPropina() {
     });
 
     const propinaSeleccionada = document.querySelector('input[name="propina"]:checked').value;
-    const propina = parseInt(propinaSeleccionada);
-    total = subtotal + (subtotal * propina / 100);
-    return total;
+    const propina = (subtotal * parseInt(propinaSeleccionada) / 100);
+    total = subtotal + propina;
+    
+    mostrarTotalHTML(subtotal, total, propina);
+}
+
+function mostrarTotalHTML(subtotal, total, propina) {
+    const divTotales = document.createElement('DIV');
+    divTotales.classList.add('total-pagar');
+
+    // Subtotal
+    const subtotalEl = document.createElement('P');
+    subtotalEl.classList.add('fs-3', 'fw-bold', 'mt-5');
+    subtotalEl.textContent = 'Subtotal consumo: ';
+
+    const subtotalValor = document.createElement('SPAN');
+    subtotalValor.classList.add('fw-normal');
+    subtotalValor.textContent = `$${ subtotal }`;
+
+    subtotalEl.appendChild(subtotalValor);
+
+    // Propina
+    const propinaEl = document.createElement('P');
+    propinaEl.classList.add('fs-3', 'fw-bold', 'mt-5');
+    propinaEl.textContent = 'Propina: ';
+
+    const propinaValor = document.createElement('SPAN');
+    propinaValor.classList.add('fw-normal');
+    propinaValor.textContent = `$${ propina }`;
+
+    propinaEl.appendChild(propinaValor);
+
+    // Total
+    const totalEl = document.createElement('P');
+    totalEl.classList.add('fs-3', 'fw-bold', 'mt-5');
+    totalEl.textContent = 'TOTAL: ';
+
+    const totalValor = document.createElement('SPAN');
+    totalValor.classList.add('fw-normal');
+    totalValor.textContent = `$${ total }`;
+
+    totalEl.appendChild(totalValor);
+
+    divTotales.appendChild(subtotalEl);
+    divTotales.appendChild(propinaEl);
+    divTotales.appendChild(totalEl);
+
+    const formulario = document.querySelector('.formulario > div');
+    formulario.appendChild(divTotales);
 }
 
 function mostrarAlerta(mensaje) {
