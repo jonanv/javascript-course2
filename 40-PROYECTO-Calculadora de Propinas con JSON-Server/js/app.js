@@ -208,7 +208,7 @@ function actualizarResumen() {
 
         const subtotalValor = document.createElement('SPAN');
         subtotalValor.classList.add('fw-normal');
-        subtotalValor.textContent = `$${ precio * cantidad }`;
+        subtotalValor.textContent = calcularSubtotal(precio, cantidad);
 
         subtotalEl.appendChild(subtotalValor);
 
@@ -229,6 +229,10 @@ function actualizarResumen() {
     resumen.appendChild(grupo);
 
     contenido.appendChild(resumen);
+}
+
+function calcularSubtotal(precio, cantidad) {
+    return `$${ precio * cantidad }`
 }
 
 function mostrarAlerta(mensaje) {
