@@ -125,8 +125,13 @@ function agregarPlatillo(producto) {
     // Limpiar contenido
     limpiarHTML();
 
-    // Actualizar resumen
-    actualizarResumen();
+    if (cliente.pedido.length) {
+        // Actualizar resumen
+        actualizarResumen();
+    } else {
+        mensajePedidoVacio();
+    }
+
 }
 
 function actualizarResumen() {
@@ -248,12 +253,30 @@ function eliminarProducto(id) {
     // Limpiar contenido
     limpiarHTML();
 
-    // Actualizar resumen
-    actualizarResumen();
+    if (cliente.pedido.length) {
+        // Actualizar resumen
+        actualizarResumen();
+    } else {
+        mensajePedidoVacio();
+    }
+
+    // Producto se elimino por lo tanto regresamos la cantidad a cero
+    const producto = document.querySelector(`#product-${ id }`);
+    producto.value = 0;
 }
 
 function calcularSubtotal(precio, cantidad) {
-    return `$${ precio * cantidad }`
+    return `$${ precio * cantidad }`;
+}
+
+function mensajePedidoVacio() {
+    const contenido = document.querySelector('#resumen .contenido');
+
+    const resumen = document.createElement('P');
+    resumen.classList.add('text-center');
+    resumen.textContent = 'Añade los elementos del pedido';
+
+    contenido.appendChild(resumen);
 }
 
 function mostrarAlerta(mensaje) {
