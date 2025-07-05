@@ -134,7 +134,7 @@ function actualizarResumen() {
     const contenido = document.querySelector('#resumen .contenido');
 
     const resumen = document.createElement('DIV');
-    resumen.classList.add('col-md-6');
+    resumen.classList.add('col-md-6', 'card', 'py-5', 'px-3', 'shadow');
 
     // Informacion de la mesa
     const mesa = document.createElement('P');
@@ -145,7 +145,7 @@ function actualizarResumen() {
     mesaSpan.textContent = cliente.mesa;
     mesaSpan.classList.add('fw-normal');
 
-    // Informacion de la hora
+    // Información de la hora
     const hora = document.createElement('P');
     hora.textContent = 'Hora: ';
     hora.classList.add('fw-bold');
@@ -154,11 +154,21 @@ function actualizarResumen() {
     horaSpan.textContent = cliente.hora;
     horaSpan.classList.add('fw-normal');
 
+    // Agregar los elementos al padre
     mesa.appendChild(mesaSpan);
     hora.appendChild(horaSpan);
 
-    contenido.appendChild(mesa);
-    contenido.appendChild(hora);
+    // Título de la sección
+    const titulo = document.createElement('H3');
+    titulo.textContent = 'Platillso consumidos';
+    titulo.classList.add('my-4', 'text-center');
+
+    // Agregar contenido
+    resumen.appendChild(mesa);
+    resumen.appendChild(hora);
+    resumen.appendChild(titulo);
+
+    contenido.appendChild(resumen);
 }
 
 function mostrarAlerta(mensaje) {
