@@ -201,10 +201,22 @@ function actualizarResumen() {
 
         precioEl.appendChild(precioValor);
 
+        // Subtotal
+        const subtotalEl = document.createElement('P');
+        subtotalEl.classList.add('fw-bold');
+        subtotalEl.textContent = 'Subtotal: ';
+
+        const subtotalValor = document.createElement('SPAN');
+        subtotalValor.classList.add('fw-normal');
+        subtotalValor.textContent = `$${ precio * cantidad }`;
+
+        subtotalEl.appendChild(subtotalValor);
+
         // Agregar elementos al LI
         lista.appendChild(nombreEl);
         lista.appendChild(cantidadEl);
         lista.appendChild(precioEl);
+        lista.appendChild(subtotalEl);
 
         // Agregar lista al grupo principal
         grupo.appendChild(lista);
