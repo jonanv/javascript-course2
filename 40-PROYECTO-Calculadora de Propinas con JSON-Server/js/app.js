@@ -122,6 +122,10 @@ function agregarPlatillo(producto) {
         cliente.pedido = [...nuevoPedido];
     }
 
+    // Limpiar contenido
+    const contenido = document.querySelector('#resumen .contenido');
+    limpiarHTML(contenido);
+
     // Actualizar resumen
     actualizarResumen();
 }
@@ -141,8 +145,6 @@ function actualizarResumen() {
     mesaSpan.textContent = cliente.mesa;
     mesaSpan.classList.add('fw-normal');
 
-    mesa.appendChild(mesaSpan);
-
     // Informacion de la hora
     const hora = document.createElement('P');
     hora.textContent = 'Hora: ';
@@ -152,6 +154,7 @@ function actualizarResumen() {
     horaSpan.textContent = cliente.hora;
     horaSpan.classList.add('fw-normal');
 
+    mesa.appendChild(mesaSpan);
     hora.appendChild(horaSpan);
 
     contenido.appendChild(mesa);
@@ -172,4 +175,10 @@ function mostrarAlerta(mensaje) {
     setTimeout(() => {
         alerta.remove();
     }, 3000);
+}
+
+function limpiarHTML(selector) {
+    while (selector.firstChild) {
+        selector.removeChild(selector.firstChild);
+    }
 }
