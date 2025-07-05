@@ -372,17 +372,17 @@ function calcularPropina() {
     const propinaSeleccionada = document.querySelector('input[name="propina"]:checked').value;
     const propina = (subtotal * parseInt(propinaSeleccionada) / 100);
     total = subtotal + propina;
-    
+
     mostrarTotalHTML(subtotal, total, propina);
 }
 
 function mostrarTotalHTML(subtotal, total, propina) {
     const divTotales = document.createElement('DIV');
-    divTotales.classList.add('total-pagar');
+    divTotales.classList.add('total-pagar', 'my-5');
 
     // Subtotal
     const subtotalEl = document.createElement('P');
-    subtotalEl.classList.add('fs-3', 'fw-bold', 'mt-5');
+    subtotalEl.classList.add('fs-4', 'fw-bold', 'mt-2');
     subtotalEl.textContent = 'Subtotal consumo: ';
 
     const subtotalValor = document.createElement('SPAN');
@@ -393,7 +393,7 @@ function mostrarTotalHTML(subtotal, total, propina) {
 
     // Propina
     const propinaEl = document.createElement('P');
-    propinaEl.classList.add('fs-3', 'fw-bold', 'mt-5');
+    propinaEl.classList.add('fs-4', 'fw-bold', 'mt-2');
     propinaEl.textContent = 'Propina: ';
 
     const propinaValor = document.createElement('SPAN');
@@ -404,7 +404,7 @@ function mostrarTotalHTML(subtotal, total, propina) {
 
     // Total
     const totalEl = document.createElement('P');
-    totalEl.classList.add('fs-3', 'fw-bold', 'mt-5');
+    totalEl.classList.add('fs-4', 'fw-bold', 'mt-2');
     totalEl.textContent = 'TOTAL: ';
 
     const totalValor = document.createElement('SPAN');
@@ -412,6 +412,12 @@ function mostrarTotalHTML(subtotal, total, propina) {
     totalValor.textContent = `$${ total }`;
 
     totalEl.appendChild(totalValor);
+
+    // Eliminar contenido duplicado
+    const divTotalPagar = document.querySelector('.total-pagar');
+    if (divTotalPagar) {
+        divTotalPagar.remove();
+    }
 
     divTotales.appendChild(subtotalEl);
     divTotales.appendChild(propinaEl);
