@@ -37,6 +37,9 @@
     }
 
     function mostrarAlerta(mensaje) {
+        const alertaPrevia = document.querySelector('.alerta');
+        alertaPrevia?.remove();
+        
         const alerta = document.createElement('DIV');
         alerta.classList.add('alerta');
         
