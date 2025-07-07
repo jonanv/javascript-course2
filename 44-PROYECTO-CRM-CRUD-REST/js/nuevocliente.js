@@ -1,3 +1,5 @@
+import { mostrarAlerta } from "./funciones.js";
+
 (function() {
     const formulario = document.querySelector('#formulario');
 
@@ -21,7 +23,7 @@
         };
 
         if (validar(cliente)) {
-            mostrarAlerta('Todos los campos son obligatorios');
+            mostrarAlerta('Todos los campos son obligatorios', 'error');
             return;
         }
 
@@ -33,21 +35,6 @@
     }
 
     function crearCliente(cliente) {
-        console.log(cliente);
-    }
-
-    function mostrarAlerta(mensaje) {
-        const alertaPrevia = document.querySelector('.alerta');
-        alertaPrevia?.remove();
-        
-        const alerta = document.createElement('DIV');
-        alerta.classList.add('alerta');
-        
-        const alertaEl = document.createElement('P');
-        alertaEl.classList.add();
-        alertaEl.textContent = mensaje;
-
-        alerta.appendChild(alertaEl);
-        formulario.appendChild(alerta);
+        mostrarAlerta(cliente);
     }
 })();
