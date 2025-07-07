@@ -30,16 +30,28 @@ function seleccionarMoneda(e) {
     obtenerCriptomonedas(moneda);
 }
 
-function consultarCriptomonedas() {
+async function consultarCriptomonedas() {
     const PATH = '/data/top/mktcapfull';
     const endpoint = `?limit=10&tsym=USD`;
     const URL = `${ PROTOCOLO }${ DOMINIO }${ PATH }${ endpoint }`;
 
-    fetch(URL)
-        .then((response) => response.json())
-        .then((resultado) => obtenerCriptomonedas(resultado.Data))
-        .then((criptomonedas) => mostrarCriptomonedas(criptomonedas))
-        .catch((error) => console.error(error));
+    // Con promises
+    // fetch(URL)
+    //     .then((response) => response.json())
+    //     .then((resultado) => obtenerCriptomonedas(resultado.Data))
+    //     .then((criptomonedas) => mostrarCriptomonedas(criptomonedas))
+    //     .catch((error) => console.error(error));
+
+    // Con async await
+    try {
+        const response = await fetch(URL);
+        const result = await response.json();
+        const criptomonedas = await obtenerCriptomonedas(result.Data);
+        mostrarCriptomonedas(criptomonedas);
+    } catch (error) {
+        console.error(error);
+    }
+
 }
 
 function mostrarCriptomonedas(criptomonedas) {
@@ -89,7 +101,7 @@ function mostraAlerta(mensaje) {
     }, 3000);
 }
 
-function consultarAPI() {
+async function consultarAPI() {
     const { moneda, criptomoneda } = objBusqueda;
 
     // const PATH = '/data/price';
@@ -101,12 +113,22 @@ function consultarAPI() {
 
     mostrarSpinner();
 
-    fetch(URL)
-        .then((response) => response.json())
-        .then((cotizacion) => {
-            mostrarCotizacionHTML(cotizacion.DISPLAY[criptomoneda][moneda]);
-        })
-        .catch((error) => console.error(error));
+    // Con promises
+    // fetch(URL)
+    //     .then((response) => response.json())
+    //     .then((cotizacion) => {
+    //         mostrarCotizacionHTML(cotizacion.DISPLAY[criptomoneda][moneda]);
+    //     })
+    //     .catch((error) => console.error(error));
+
+    // Con async await
+    try {
+        const response = await fetch(URL);
+        const result = await response.json();
+        mostrarCotizacionHTML(result.DISPLAY[criptomoneda][moneda]);
+    } catch (error) {
+        console.error(error);
+    }
 }
 
 function mostrarCotizacionHTML(cotizacion) {
