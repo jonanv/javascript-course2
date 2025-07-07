@@ -1,8 +1,4 @@
-// Primer ejemplo de Async-await y que es lo que hace
-// async-await es una forma de manejar promesas de una manera mas sencilla
-// y legible, es una sintaxis que nos permite escribir código asíncrono de manera más
-// similar al código síncrono, lo que facilita la lectura y el mantenimiento del código.
-
+// Async await en function expression y function declaration
 function descargarCliente() {
     return new Promise((resolve, reject) => {
         const error = false;
@@ -17,8 +13,8 @@ function descargarCliente() {
     });
 }
 
-// Async await function declaration
-async function ejecutar() {
+// Async await function expression
+const ejecutar = async () => {
     try {
         console.log(1);
         const respuesta = await descargarCliente();
