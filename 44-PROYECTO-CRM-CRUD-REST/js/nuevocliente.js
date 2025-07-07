@@ -21,7 +21,7 @@
         };
 
         if (validar(cliente)) {
-            console.log('Todos los campos son obligatorios');
+            mostrarAlerta('Todos los campos son obligatorios');
             return;
         }
 
@@ -34,5 +34,17 @@
 
     function crearCliente(cliente) {
         console.log(cliente);
+    }
+
+    function mostrarAlerta(mensaje) {
+        const alerta = document.createElement('DIV');
+        alerta.classList.add('alerta');
+        
+        const alertaEl = document.createElement('P');
+        alertaEl.classList.add();
+        alertaEl.textContent = mensaje;
+
+        alerta.appendChild(alertaEl);
+        formulario.appendChild(alerta);
     }
 })();
