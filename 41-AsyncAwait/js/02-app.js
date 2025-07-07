@@ -17,4 +17,17 @@ function descargarCliente() {
     });
 }
 
-descargarCliente();
+// Async await
+async function ejecutar() {
+    try {
+        console.log(1);
+        const respuesta = await descargarCliente();
+
+        console.log(2 + 2);
+        console.log(respuesta);
+    } catch (error) {
+        console.error(error);
+    }
+}
+
+ejecutar();
