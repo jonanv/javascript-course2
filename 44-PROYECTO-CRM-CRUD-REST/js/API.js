@@ -61,3 +61,19 @@ export const obtenerCliente = async (id) => {
         console.error(error);
     }
 }
+
+// Actualizar cliente
+export const actulizarCliente = async (cliente) => {
+    try {
+        await fetch(`${ URL }/${ cliente.id }`, {
+            method: 'PUT',
+            body: JSON.stringify(cliente),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+        window.location.href = 'index.html';
+    } catch (error) {
+        console.error(error);
+    }
+}

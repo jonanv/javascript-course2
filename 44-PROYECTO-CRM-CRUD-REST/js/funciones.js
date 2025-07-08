@@ -13,6 +13,10 @@ export function mostrarAlerta(mensaje, tipo) {
     formulario.appendChild(alerta);
 
     setTimeout(() => {
-        // alerta.remove();
+        alerta.remove();
     }, 3000);
+}
+
+export function validar(obj) {
+    return !Object.values(obj).every((prop) => prop.trim() !== '');
 }
