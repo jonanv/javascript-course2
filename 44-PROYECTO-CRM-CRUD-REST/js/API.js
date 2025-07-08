@@ -50,3 +50,14 @@ export const eliminarCliente = async (id) => {
         console.error(error);
     }
 }
+
+// Obtener cliente
+export const obtenerCliente = async (id) => {
+    try {
+        const response = await fetch(`${ URL }/${ id }`);
+        const cliente = await response.json();
+        return cliente;
+    } catch (error) {
+        console.error(error);
+    }
+}
