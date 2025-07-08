@@ -1,3 +1,4 @@
+import { nuevoCliente } from "./API.js";
 import { mostrarAlerta } from "./funciones.js";
 
 (function() {
@@ -27,14 +28,10 @@ import { mostrarAlerta } from "./funciones.js";
             return;
         }
 
-        crearCliente(cliente);
+        nuevoCliente(cliente);
     }
 
     function validar(obj) {
         return !Object.values(obj).every((prop) => prop.trim() !== '');
-    }
-
-    function crearCliente(cliente) {
-        mostrarAlerta(cliente);
     }
 })();
