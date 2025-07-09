@@ -39,7 +39,19 @@ self.addEventListener('install', (e) => {
 // Activar el service worker
 self.addEventListener('activate', (e) => {
     console.log('Service worker activado');
-    console.log(e);
+    // console.log(e);
+
+    e.waitUntil(
+        caches.keys()
+            .then((keys) => {
+                // console.log(keys);
+                return Promise.all(
+                    keys.filter((key) => key !== nombreCache)
+                      .map((key) => caches.delete(key)) // Borra los demas
+                )
+            })
+            .catch((error) => console.error(error))
+    );
 });
 
 // Evento fetch para descargar archivos estaticos
