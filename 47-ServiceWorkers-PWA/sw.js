@@ -9,10 +9,30 @@
 
 // No se puede usar el objecto window por eso se usa self
 
+const nombreCache = 'apv-v1';
+// Caching archivos para que funcione sin conexion a internet
+const archivos = [
+    './',
+    './index.html',
+    './css/bootstrap.css',
+    './css/styles.css',
+    './js/app.js',
+    './js/apv.js'
+];
+
 // Cuando se instala el service worker, solo se ejecuta una sola vez hasta que es instalado
 self.addEventListener('install', (e) => {
     console.log('Instalando el service worker');
-    console.log(e);
+    // console.log(e);
+
+    e.waitUntil(
+        caches.open(nombreCache)
+            .then((cache) => {
+                console.log('Cacheando...');
+                cache.addAll(archivos);
+            })
+            .catch((error) => console.error(error))
+    );
 });
 
 // Activar el service worker
