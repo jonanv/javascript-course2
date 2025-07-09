@@ -14,6 +14,7 @@ const nombreCache = 'apv-v1';
 const archivos = [
     './',
     './index.html',
+    './error.html',
     './css/bootstrap.css',
     './css/styles.css',
     './js/app.js',
@@ -51,7 +52,7 @@ self.addEventListener('fetch', (e) => {
                 if (respuestaCache) return respuestaCache;
                 return fetch(e.request);
             })
-            .catch((error) => console.error(error))
+            .catch(() => caches.match('./error.html'))
 
         // Otra forma de hacerlo con async-await
         // (async () => {
