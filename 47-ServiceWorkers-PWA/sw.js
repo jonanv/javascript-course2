@@ -44,4 +44,23 @@ self.addEventListener('activate', (e) => {
 // Evento fetch para descargar archivos estaticos
 self.addEventListener('fetch', (e) => {
     console.log('Fetch...', e);
+
+    e.respondWith(
+        caches.match(e.request)
+            .then((respuestaCache) => {
+                if (respuestaCache) return respuestaCache;
+                return fetch(e.request);
+            })
+            .catch((error) => console.error(error))
+
+        // Otra forma de hacerlo con async-await
+        // (async () => {
+        //     // Try to get the response from a cache.
+        //     const cachedResponse = await caches.match(e.request);
+        //     // Return it if we found one.
+        //     if (cachedResponse) return cachedResponse;
+        //     // If we didn't find a match in the cache, use the network.
+        //     return fetch(e.request);
+        // })(),
+    );
 });
