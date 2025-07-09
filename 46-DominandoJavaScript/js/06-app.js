@@ -13,6 +13,9 @@ console.log(auto);
 
 
 // Window binding
+// Es una forma de referirse al objeto global en un entorno de navegador.
+// En un navegador, el objeto global es window. Cuando se accede a una variable sin
+// un contexto específico, se refiere a una propiedad del objeto window.
 window.color = 'Negro';
 
 function hola() {
