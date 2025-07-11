@@ -126,6 +126,8 @@ function mostrarCotizacionHTML(cotizacion) {
 
     const { PRICE, HIGHDAY, LOWDAY, CHANGEPCT24HOUR, LASTUPDATE } = cotizacion;
 
+    debugger;
+
     const precio = document.createElement('P');
     precio.classList.add('precio');
     precio.innerHTML = `El precio es: <span>${ PRICE }</span>`;
