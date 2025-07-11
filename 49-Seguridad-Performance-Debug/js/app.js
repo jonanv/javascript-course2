@@ -44,6 +44,13 @@ function consultarCriptomonedas() {
 
 function mostrarCriptomonedas(criptomonedas) {
     console.log(criptomonedas);
+
+    // Conocer el tiempo de ejecucion
+    const inicio = performance.now();
+
+    // Otra forma
+    // console.time('performance');
+
     criptomonedas.forEach((criptomoneda) => {
         const { Name, FullName } = criptomoneda.CoinInfo;
 
@@ -52,6 +59,11 @@ function mostrarCriptomonedas(criptomonedas) {
         opcion.textContent = FullName;
         criptomonedasSelect.appendChild(opcion);
     });
+
+    const fin = performance.now();
+    console.log(fin - inicio);
+
+    // console.timeEnd('performance');
 }
 
 function leerValor(e) {
