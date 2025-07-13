@@ -6,13 +6,13 @@ describe('Testing al carrito de compras', () => {
     test('Comprar que sea un arreglo', () => {
         expect(
             Array.isArray(carrito)
-        ).toBe(true)
+        ).toBe(true);
     });
 
     test('Comprobar que el arreglo tenga 3 elementos', () => {
         expect(
             carrito
-        ).toHaveLength(3)
+        ).toHaveLength(3);
     });
 
     test('Comprobar que el arreglo no este vacío', () => {
