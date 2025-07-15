@@ -1,7 +1,7 @@
 /// <reference types="cypress" />
 
-describe('Name of the group', () => {
-    it('should ', () => {
+describe('Llena los campos para una nueva cita y la muestra', () => {
+    it('Campos nueva cita', () => {
         cy.visit('/index.html');
 
         cy.get('[data-cy="mascota-input"]')
@@ -29,6 +29,5 @@ describe('Name of the group', () => {
 
         cy.get('[data-cy="alerta"]')
             .should('have.class', 'alert-success');
-
     });
 });
