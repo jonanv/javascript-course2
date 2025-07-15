@@ -29,8 +29,6 @@ class UI {
         setTimeout( () => {
             divMensaje.remove();
         }, 3000);
-    
-      
    }
 
    imprimirCitas({citas}) { // Se puede aplicar destructuring desde la función...
