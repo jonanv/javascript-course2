@@ -8,9 +8,12 @@ class UI {
     }
 
     imprimirAlerta(mensaje, tipo) {
+        const alertaPrevia = document.querySelector('.alerta');
+        alertaPrevia?.remove();
+
         // Crea el div
         const divMensaje = document.createElement('div');
-        divMensaje.classList.add('text-center', 'alert', 'd-block', 'col-12');
+        divMensaje.classList.add('alerta', 'text-center', 'alert', 'd-block', 'col-12');
         
         // Si es de tipo error agrega una clase
         if(tipo === 'error') {
