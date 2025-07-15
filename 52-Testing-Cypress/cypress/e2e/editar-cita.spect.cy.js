@@ -45,5 +45,12 @@ describe('Llena los campos para una nueva cita y la edita', () => {
 
         cy.get('[data-cy="submit-cita"]')
             .click();
+
+        cy.get('[data-cy="alerta"]')
+            .invoke('text')
+            .should('equal', 'Guardado Correctamente');
+
+        cy.get('[data-cy="alerta"]')
+            .should('have.class', 'alert-success');
     });
 });
