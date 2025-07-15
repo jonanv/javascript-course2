@@ -1,7 +1,7 @@
-// Sintaxis de CommonJS
+// Sintaxis de CommonJS, no necesita el "type": "module" en el package.json
 // const express = require('express');
 
-// Sintaxis de imports and exports
+// Sintaxis de imports and exports, en el package.json debe de ir el "type":"module" para que funcione
 import express from 'express';
 
 const app = express();
