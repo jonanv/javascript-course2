@@ -3,31 +3,15 @@
 
 // Sintaxis de imports and exports, en el package.json debe de ir el "type":"module" para que funcione
 import express from 'express';
+import router from './routes/index.js';
 
 const app = express();
 
 // Definir puerto
 const port = process.env.PORT || 4000;
 
-// req - lo que enviamos
-// res - lo que express nos responde
-app.get('/', (request, response) => {
-    response.send('Inicio');
-
-    // response.json({
-    //     id: 1
-    // });
-
-    // response.render();
-});
-
-app.get('/nosotros', (request, response) => {
-    response.send('Nosotros');
-});
-
-app.get('/Contacto', (request, response) => {
-    response.send('Contacto');
-});
+// Agregar router
+app.use('/', router);
 
 app.listen(port, () => {
     console.log(`El servidor esta funcionando en el puerto ${ port }`);
