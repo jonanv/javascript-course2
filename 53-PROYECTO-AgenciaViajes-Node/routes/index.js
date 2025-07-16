@@ -15,11 +15,7 @@ router.get('/', (request, response) => {
 });
 
 router.get('/nosotros', (request, response) => {
-    response.send('Nosotros');
-});
-
-router.get('/Contacto', (request, response) => {
-    response.send('Contacto');
+    response.render('nosotros.pug');
 });
 
 export default router;
