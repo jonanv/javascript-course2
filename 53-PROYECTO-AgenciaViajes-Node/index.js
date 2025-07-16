@@ -17,7 +17,8 @@ app.set('view engine', 'pug');
 app.use((request, response, next) => {
     const date = new Date();
 
-    response.locals.currentYear = date.getFullYear();
+    response.locals.anioActual = date.getFullYear();
+    response.locals.tituloPagina = 'Agencia de Viajes';
     next();
 });
 
