@@ -14,7 +14,7 @@ const port = process.env.PORT || 4000;
 app.set('view engine', 'pug');
 
 // Definir la carpera pública
-
+app.use(express.static('public'));
 
 // Agregar router
 app.use('/', router);
