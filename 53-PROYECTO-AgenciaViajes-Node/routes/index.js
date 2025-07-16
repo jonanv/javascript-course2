@@ -6,16 +6,13 @@ const router = express.Router();
 // res - lo que express nos responde
 router.get('/', (request, response) => {
     response.send('Inicio');
-
-    // response.json({
-    //     id: 1
-    // });
-
-    // response.render();
 });
 
 router.get('/nosotros', (request, response) => {
-    response.render('nosotros.pug');
+    const viajes = 'Viaje a Alemania';
+    response.render('nosotros.pug', {
+        viajes
+    });
 });
 
 export default router;
