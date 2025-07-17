@@ -1,3 +1,5 @@
+import { Viaje } from '../models/Viaje.js'
+
 // req - lo que enviamos
 // res - lo que express nos responde
 const paginaInicio = (request, response) => {
@@ -12,9 +14,13 @@ const paginaNosotros = (request, response) => {
     });
 };
 
-const paginaViajes = (request, response) => {
+const paginaViajes = async (request, response) => {
+    // Consultar DB
+    const viajes = await Viaje.findAll();
+
     response.render('viajes', {
-        pagina: 'Viajes'
+        pagina: 'Viajes',
+        viajes
     });
 };
 
