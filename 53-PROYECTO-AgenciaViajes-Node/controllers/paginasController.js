@@ -30,9 +30,26 @@ const paginaTestimonios = (request, response) => {
     });
 };
 
+const paginaDetalleViaje = async (request, response) => {
+    // Consultar DB
+    const { slug } = request.params;
+    
+    try {
+        const viaje = await Viaje.findOne({ where: { slug } });
+
+        response.render('detalle-viaje', {
+            pagina: 'Información viaje',
+            viaje
+        });
+    } catch (error) {
+        console.log(error);
+    }
+};
+
 export {
     paginaInicio,
     paginaNosotros,
     paginaViajes,
-    paginaTestimonios
+    paginaTestimonios,
+    paginaDetalleViaje
 }
