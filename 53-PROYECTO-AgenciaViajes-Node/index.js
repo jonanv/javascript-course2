@@ -31,6 +31,9 @@ app.use((request, response, next) => {
 // Definir la carpera pública
 app.use(express.static('public'));
 
+// Agregar body parser para leer los datos del formulario
+app.use(express.urlencoded({ extended: true }));
+
 // Agregar router
 app.use('/', router);
 

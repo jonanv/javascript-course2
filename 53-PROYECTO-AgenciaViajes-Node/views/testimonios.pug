@@ -10,15 +10,15 @@ block contenido
 
             .row.justify-content-center.col
                 .col-md-8
-                    form(action="", method="POST")
+                    form(action="/testimonios", method="POST")
                         .form-group
                             label(for="nombre") Nombre:
-                            input#nombre.form-control(type="text", name="nombre", placeholder="Nombre", required)
+                            input#nombre.form-control(type="text", name="nombre", placeholder="Nombre")
                         .form-group
                             label(for="correo") Correo Electrónico:
-                            input#correo.form-control(type="email", name="nombre", placeholder="Nombre", required)
+                            input#correo.form-control(type="email", name="correo", placeholder="Correo Electrónico")
                         .form-group
                             label(for="mensaje") Mensaje:
-                            textarea#mensaje.form-control(name="mensaje", rows="3", placeholder="mensaje", required)
+                            textarea#mensaje.form-control(name="mensaje", rows="3", placeholder="mensaje")
 
                         button.btn.btn-success.btn-block(type="submit") Enviar
