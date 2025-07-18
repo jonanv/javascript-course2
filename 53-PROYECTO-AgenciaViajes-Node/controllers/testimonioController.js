@@ -1,3 +1,5 @@
+import router from "../routes/index.js";
+
 const guardarTestimonio = ((request, response) => {
     // Validar formulario
     const { nombre, correo, mensaje } = request.body;
@@ -10,10 +12,21 @@ const guardarTestimonio = ((request, response) => {
         errores.push({ mensaje: 'El campo correo esta vacio' });
     } 
     if (mensaje.trim() === '') {
-        errores.push({ mensaje: 'El campo errores esta vacio' });
+        errores.push({ mensaje: 'El campo mensaje esta vacio' });
     } 
     
-    console.log(errores);
+    if (errores.length > 0) {
+        // Mostrar la vista con errores
+        response.render('testimonios', {
+            pagina: 'Testimonios',
+            errores,
+            nombre,
+            correo,
+            mensaje
+        });
+    } else {
+        
+    }
 });
 
 export {
