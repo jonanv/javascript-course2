@@ -1,6 +1,7 @@
+import { Testimonio } from "../models/Testimonios.js";
 import router from "../routes/index.js";
 
-const guardarTestimonio = ((request, response) => {
+const guardarTestimonio = async (request, response) => {
     // Validar formulario
     const { nombre, correo, mensaje } = request.body;
     const errores = [];
@@ -25,9 +26,20 @@ const guardarTestimonio = ((request, response) => {
             mensaje
         });
     } else {
-        
+        // Almacenarlo en la base de datos
+        try {
+            await Testimonio.create({
+                nombre,
+                correo,
+                mensaje
+            });
+
+            response.redirect('/testimonios');
+        } catch (error) {
+            console.error(error);
+        }
     }
-});
+};
 
 export {
     guardarTestimonio
