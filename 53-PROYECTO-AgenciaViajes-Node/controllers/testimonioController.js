@@ -1,5 +1,4 @@
 import { Testimonio } from "../models/Testimonios.js";
-import router from "../routes/index.js";
 
 const guardarTestimonio = async (request, response) => {
     // Validar formulario

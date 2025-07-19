@@ -5,6 +5,19 @@ block contenido
         h1.text-center.mb-1 #{ pagina }
 
         .row 
+            if testimonios.length > 0
+                each testimonio in testimonios
+                    .col-md-4.mb-4
+                        .card
+                            .card-body
+                                h2.card-title #{ testimonio.nombre }
+                                p.card-text #{ testimonio.mensaje }
+                                p.card-text 
+                                    small.text-muted #{ testimonio.fecha }
+
+            else
+                .col-md-12.text-center
+                    p No hay testimonios disponibles.
 
             .col-md-12
                 h2.d-block.w-100.text-center Agrega un testimonio

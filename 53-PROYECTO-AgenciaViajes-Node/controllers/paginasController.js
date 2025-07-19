@@ -1,3 +1,4 @@
+import { Testimonio } from '../models/Testimonios.js';
 import { Viaje } from '../models/Viaje.js'
 
 // req - lo que enviamos
@@ -24,9 +25,13 @@ const paginaViajes = async (request, response) => {
     });
 };
 
-const paginaTestimonios = (request, response) => {
+const paginaTestimonios = async (request, response) => {
+    // Consultar DB
+    const testimonios = await Testimonio.findAll();
+
     response.render('testimonios', {
-        pagina: 'Testimonios'
+        pagina: 'Testimonios',
+        testimonios
     });
 };
 
