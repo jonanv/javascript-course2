@@ -16,23 +16,31 @@ const paginaNosotros = (request, response) => {
 };
 
 const paginaViajes = async (request, response) => {
-    // Consultar DB
-    const viajes = await Viaje.findAll();
-
-    response.render('viajes', {
-        pagina: 'Viajes',
-        viajes
-    });
+    try {
+        // Consultar DB
+        const viajes = await Viaje.findAll();
+    
+        response.render('viajes', {
+            pagina: 'Viajes',
+            viajes
+        });
+    } catch (error) {
+        console.error(error);
+    }
 };
 
 const paginaTestimonios = async (request, response) => {
-    // Consultar DB
-    const testimonios = await Testimonio.findAll();
-
-    response.render('testimonios', {
-        pagina: 'Testimonios',
-        testimonios
-    });
+    try {
+        // Consultar DB
+        const testimonios = await Testimonio.findAll();
+    
+        response.render('testimonios', {
+            pagina: 'Testimonios',
+            testimonios
+        });
+    } catch (error) {
+        console.error(error);
+    }
 };
 
 const paginaDetalleViaje = async (request, response) => {
