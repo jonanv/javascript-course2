@@ -5,7 +5,8 @@ import { Viaje } from '../models/Viaje.js'
 // res - lo que express nos responde
 const paginaInicio = (request, response) => {
     response.render('inicio', {
-        pagina: 'Inicio'
+        pagina: 'Inicio',
+        clase: 'home'
     });
 };
 
