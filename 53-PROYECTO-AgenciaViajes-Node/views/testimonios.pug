@@ -4,6 +4,7 @@ block contenido
     main.container.mt-5 
         h1.text-center.mb-1 #{ pagina }
 
+        blockquote.text-center Lee sobre nuestros clientes y sus experiencias
         .row 
             if testimonios.length > 0
                 each testimonio in testimonios
@@ -17,8 +18,9 @@ block contenido
 
             else
                 .col-md-12.text-center
-                    p No hay testimonios disponibles.
+                    p No hay testimonios disponibles..
 
+        .row
             .col-md-12
                 h2.d-block.w-100.text-center Agrega un testimonio
 
