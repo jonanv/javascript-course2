@@ -16,9 +16,13 @@ const guardarTestimonio = async (request, response) => {
     } 
     
     if (errores.length > 0) {
+        // Consultar DB
+        const testimonios = await Testimonio.findAll();
+
         // Mostrar la vista con errores
         response.render('testimonios', {
             pagina: 'Testimonios',
+            testimonios,
             errores,
             nombre,
             correo,
