@@ -4,17 +4,20 @@ import { Viaje } from '../models/Viaje.js'
 // req - lo que enviamos
 // res - lo que express nos responde
 const paginaInicio = async (request, response) => {
-    // Consultar 3 vajes del modelo Viaje
+    // Consultar 3 viajes del modelo Viaje
+    // Consultar 3 testimonios del modelo Testimonio
 
     try {
-        const viajes = await Viaje.findAll({ limit: 3 });
-        const testimonios = await Testimonio.findAll({ limit: 3 });
+        const resultado = await Promise.all([
+            Viaje.findAll({ limit: 3 }),
+            Testimonio.findAll({ limit: 3 })
+        ]);
     
         response.render('inicio', {
             pagina: 'Inicio',
             clase: 'home',
-            viajes,
-            testimonios
+            viajes: resultado[0],
+            testimonios: resultado[1]
         });
     } catch (error) {
         console.error(error);

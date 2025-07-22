@@ -3,7 +3,7 @@ block bloque_viajes
         each viaje in viajes
             .col-md-6.col-lg-4.mb-4
                 .card
-                    img.card-img-top(src=`/img/destinos_${viaje.imagen}.jpg`, alt=viaje.titulo)
+                    img.card-img-top(src=`/img/destinos_${ viaje.imagen }.jpg`, alt=viaje.titulo)
                     .card-body
                         h2.card-title #{viaje.titulo}
                         p
