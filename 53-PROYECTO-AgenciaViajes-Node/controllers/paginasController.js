@@ -7,14 +7,14 @@ const paginaInicio = async (request, response) => {
     // Consultar 3 vajes del modelo Viaje
 
     try {
-        const viajes = await Viaje.findAll({
-            limit: 3,
-        });
+        const viajes = await Viaje.findAll({ limit: 3 });
+        const testimonios = await Testimonio.findAll({ limit: 3 });
     
         response.render('inicio', {
             pagina: 'Inicio',
             clase: 'home',
-            viajes
+            viajes,
+            testimonios
         });
     } catch (error) {
         console.error(error);
