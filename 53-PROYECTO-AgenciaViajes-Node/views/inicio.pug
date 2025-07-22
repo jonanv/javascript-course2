@@ -1,0 +1,33 @@
+extends ./layout/index
+
+block slider
+    .slider
+        h1 Rio de Janeiro
+        em aventura
+
+block contenido
+    main.container.mt-5 
+        h2.text-center.mb-5 Sobre Nosotros 
+        .row.mb-5
+            .col-md-6
+                p Somos una agencia de viajes con más de 10 años de experiencia en el sector, ofreciendo los mejores destinos y servicios personalizados para nuestros clientes.
+                p Nuestro equipo de expertos está comprometido en brindarte una experiencia única y memorable, adaptando cada viaje a tus necesidades y preferencias.
+            .col-md-6
+                img(src="/img/inicio_nosotros.jpg", alt="imagen nosotros", class="img-fluid")
+
+        include ./layout/bloque_viajes
+
+    .descuento 
+        .container
+            .row
+                .col-md-6
+                    .contenido
+                        h3 5% de Descuento
+                        p.titulo Viaje a Canada
+                        p.fecha 20 de Marzo de 2024 - 30 de Marzo de 2024
+                        p.precio $1,500 USD
+                        a(href="/viajes", class="btn btn-primary") Ver Viajes
+
+    .container 
+        h2.mt-5.text-center Testimonios
+        include ./layout/bloque_testimonios

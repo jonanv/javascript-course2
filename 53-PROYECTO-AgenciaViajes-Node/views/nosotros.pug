@@ -1,0 +1,33 @@
+extends ./layout/index
+
+block contenido
+    main.container.mt-5
+        h1.text-center.mb-1 #{ pagina }
+
+        .row 
+            .col-md-5
+                img(src="/img/nosotros.jpg", alt="Imagen Nosotros", class="img-fluid")
+            .col-md-7
+                blockquote Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc a lorem finibus, mattis diam sed, sollicitudin ipsum. Integer sagittis, turpis eu molestie accumsan, purus lectus maximus massa, congue hendrerit metus nulla sed metus. Etiam sit amet velit eget eros sollicitudin posuere. Vivamus mollis velit urna, ac ullamcorper libero gravida sit amet.
+
+                p In pellentesque sapien ante, in vestibulum felis finibus commodo. Etiam nec orci vehicula, imperdiet sapien sit amet, mattis sapien. Etiam eget suscipit arcu, vitae lobortis eros. Curabitur eleifend ipsum in massa auctor dictum. Sed mauris nibh, convallis id felis porttitor, elementum tristique magna.
+
+                p Morbi felis eros, porttitor id hendrerit eu, cursus eget lorem. Pellentesque vel sodales diam. Aliquam odio erat, molestie eu euismod quis, mattis id dolor. Vestibulum commodo est ut justo tristique hendrerit. Aenean porttitor quam vestibulum elit pretium ultrices. Etiam a urna quis tellus malesuada malesuada in nec nunc. Praesent finibus ante vitae gravida iaculis.
+
+    .listado-iconos
+        .container.mt-5.py-5.text-center
+            .row
+                .col-md-4
+                    img(src="/img/icono_seguridad.svg", alt="Icono seguridad" class="img-fluid mb-4")
+                    h2.mb-4 Seguridad
+                    p  In pellentesque sapien ante, in vestibulum felis finibus commodo. Etiam nec orci vehicula, imperdiet sapien sit amet, mattis sapien. Etiam eget suscipit arcu, vitae lobortis eros.
+
+                .col-md-4
+                    img(src="/img/icono_destinos.svg", alt="Icono destinos" class="img-fluid mb-4")
+                    h2.mb-4 Mejores destinos
+                    p  In pellentesque sapien ante, in vestibulum felis finibus commodo. Etiam nec orci vehicula, imperdiet sapien sit amet, mattis sapien. Etiam eget suscipit arcu, vitae lobortis eros.
+
+                .col-md-4
+                    img(src="/img/icono_precios.svg", alt="Icono precios" class="img-fluid mb-4")
+                    h2.mb-4 Mejores precios
+                    p  In pellentesque sapien ante, in vestibulum felis finibus commodo. Etiam nec orci vehicula, imperdiet sapien sit amet, mattis sapien. Etiam eget suscipit arcu, vitae lobortis eros.
