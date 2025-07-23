@@ -1,6 +1,6 @@
 function App() {
   return (
-    <h1>Hola mundo</h1>
+    <h1 className="text-6xl font-extrabold">Hola mundo</h1>
   )
 }
 
