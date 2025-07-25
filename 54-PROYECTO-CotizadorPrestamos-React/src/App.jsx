@@ -3,9 +3,11 @@ import { useState } from 'react'
 import Header from "./components/Header"
 
 function App() {
-
   const [cantidad, setCantidad] = useState(10000);
-  console.log(cantidad);
+
+  const MIN = 0;
+  const MAX = 20000;
+  const STEP = 100;
 
   function handleChange(e) {
     setCantidad(Number(e.target.value));
@@ -19,11 +21,13 @@ function App() {
         type="range"
         className="w-full h-6 bg-gray-200 accent-lime-500 hover:accent-lime-600"
         onChange={ handleChange }
+        min={ MIN }
+        max={ MAX }
+        step={ STEP }
+        value={ cantidad }
       />
 
-      <h2 className='text-2xl font-bold text-center mt-10'>
-        <span className='font-extrabold'>Cantidad</span>: { cantidad }
-      </h2>
+      <p className='text-center my-10 text-5xl font-extrabold text-indigo-600'>{ cantidad }</p>
     </div>
   )
 }
