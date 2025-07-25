@@ -13,9 +13,30 @@ function App() {
     setCantidad(Number(e.target.value));
   }
 
+  function handleClickDecremento() {
+    setCantidad(prev => Math.max(prev - STEP, MIN));
+  }
+
+  function handleClickIncremento() {
+    setCantidad(prev => Math.min(prev + STEP, MAX));
+  }
+
   return (
     <div className="my-20 max-w-lg mx-auto bg-white shadow p-10">
       <Header />
+
+      <div className='flex justify-between my-6'>
+        <button
+          className='h-10 w-10 flex items-center justify-center font-bold text-white text-2lg bg-lime-500 rounded-full hover:outline-none hover:ring-2 hover:ring-offset-2 hover:ring-lime-500'
+          onClick={ handleClickDecremento }>
+          -
+        </button>
+        <button
+          className='h-10 w-10 flex items-center justify-center font-bold text-white text-2lg bg-lime-500 rounded-full hover:outline-none hover:ring-2 hover:ring-offset-2 hover:ring-lime-500'
+          onClick={ handleClickIncremento}>
+          +
+        </button>
+      </div>
 
       <input 
         type="range"
