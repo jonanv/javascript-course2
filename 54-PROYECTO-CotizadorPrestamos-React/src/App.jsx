@@ -6,6 +6,7 @@ import { formatearDinero } from "./helpers/index";
 
 function App() {
     const [cantidad, setCantidad] = useState(10000);
+    const [meses, setMeses] = useState(6);
 
     const MIN = 0;
     const MAX = 20000;
@@ -21,6 +22,10 @@ function App() {
 
     function handleClickIncremento() {
         setCantidad(prev => Math.min(prev + STEP, MAX));
+    }
+
+    function handleChangeMeses(e) {
+        setMeses(Number(e.target.value));
     }
 
     return (
@@ -56,7 +61,9 @@ function App() {
             </h2>
 
             <select
-                className='mt-5 w-full bg-white border-gray-300 rounded-lg text-center text-xl font-bold text-gray-500'>
+                className='mt-5 w-full bg-white border-gray-300 rounded-lg text-center text-xl font-bold text-gray-500'
+                value={meses}
+                onChange={handleChangeMeses}>
                 <option value="6">6 Meses</option>
                 <option value="12">12 Meses</option>
                 <option value="24">24 Meses</option>
