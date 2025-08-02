@@ -49,7 +49,7 @@ function crmDB() {
 
 function crearCliente() {
     // Para trabajar con las diferentes operaciones se utizan las transacciones
-    // Una transaccion es cuando se revisan correctamente los pasos
+    // Una transaccion es cuando se realizan correctamente los pasos
     let transaction = DB.transaction(['crm'], 'readwrite');
 
     transaction.oncomplete = function() {
