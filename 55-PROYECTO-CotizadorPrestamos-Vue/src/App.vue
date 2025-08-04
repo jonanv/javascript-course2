@@ -14,6 +14,7 @@
 
     function handleChange(e) {
         cantidad.value = Number(e.target.value);
+        state.cantidad = Number(e.target.value);
     }
 </script>
 
@@ -33,6 +34,7 @@
             />
 
             {{ cantidad }}
+            {{ state.cantidad }}
         </div>
     </div>
 </template>
