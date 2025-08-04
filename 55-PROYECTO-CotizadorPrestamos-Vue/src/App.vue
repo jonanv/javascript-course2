@@ -2,7 +2,7 @@
     import { ref, reactive } from 'vue'; // la forma de manejar el estado en vue ref maneja los primitivos y reactive los objetos
     import Header from './components/Header.vue';
 
-    const cantidad = ref(0);
+    const cantidad = ref(10000);
     const state = reactive({
         cantidad: 0
     });
@@ -13,7 +13,7 @@
     
 
     function handleChange(e) {
-        console.log(e.target.value);
+        cantidad.value = Number(e.target.value);
     }
 </script>
 
@@ -31,6 +31,8 @@
                 step="100"
                 value="10000"
             />
+
+            {{ cantidad }}
         </div>
     </div>
 </template>
