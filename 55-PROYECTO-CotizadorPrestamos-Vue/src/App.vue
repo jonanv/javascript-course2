@@ -1,20 +1,17 @@
 <script setup>
-    import { ref, reactive } from 'vue'; // la forma de manejar el estado en vue ref maneja los primitivos y reactive los objetos
+    import { ref } from 'vue'; // la forma de manejar el estado en vue ref maneja los primitivos y reactive los objetos
     import Header from './components/Header.vue';
 
+    const MIN = 0;
+    const MAX = 20000;
+    const STEP = 100;
+
     const cantidad = ref(10000);
-    const state = reactive({
-        cantidad: 0
-    });
 
     console.log(cantidad.value);
-    console.log(state.cantidad);
-    
-    
 
     function handleChange(e) {
         cantidad.value = Number(e.target.value);
-        state.cantidad = Number(e.target.value);
     }
 </script>
 
@@ -27,14 +24,13 @@
                 type="range"
                 class="w-full bg-gray-500 accent-lime-500 hover:accent-lime-600"
                 v-on:input="handleChange"
-                min="0"
-                max="20000"
-                step="100"
-                value="10000"
+                :min="MIN"
+                :max="MAX"
+                :step="STEP"
+                :value="cantidad"
             />
 
-            {{ cantidad }}
-            {{ state.cantidad }}
+            <p>${{ cantidad }}</p>
         </div>
     </div>
 </template>
