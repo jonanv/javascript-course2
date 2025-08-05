@@ -1,11 +1,19 @@
 <script setup>
-    import { ref } from 'vue'; // la forma de manejar el estado en vue ref maneja los primitivos y reactive los objetos
+    import { computed, ref } from 'vue'; // la forma de manejar el estado en vue ref maneja los primitivos y reactive los objetos
     import Header from './components/Header.vue';
 
     const MIN = 0;
     const MAX = 20000;
     const STEP = 100;
     const cantidad = ref(10000);
+
+    const formatearDinero = computed(() => {
+        const formatter = new Intl.NumberFormat('en-US', {
+            style: 'currency',
+            currency: 'USD'
+        });
+        return formatter.format(cantidad.value);
+    });
 </script>
 
 <template>
@@ -22,7 +30,7 @@
                 v-model.number="cantidad"
             />
 
-            <p>${{ cantidad }}</p>
+            <p class="text-center my-10 text-5xl font-extrabold text-indigo-600">{{ formatearDinero }}</p>
         </div>
     </div>
 </template>
