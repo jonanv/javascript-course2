@@ -1,6 +1,7 @@
 <script setup>
     import { computed, ref } from 'vue'; // la forma de manejar el estado en vue ref maneja los primitivos y reactive los objetos
     import Header from './components/Header.vue';
+    import Button from './components/Button.vue';
 
     const MIN = 0;
     const MAX = 20000;
@@ -15,11 +16,11 @@
         return formatter.format(cantidad.value);
     });
 
-    const handlerChangeDecremento = () => {
+    const handleChangeDecremento = () => {
         cantidad.value = Math.max(cantidad.value - STEP, MIN);
     }
 
-    const handlerChangeIncremento = () => {
+    const handleChangeIncremento = () => {
         cantidad.value = Math.min(cantidad.value + STEP, MAX);
     }
 </script>
@@ -29,16 +30,14 @@
         <Header />
 
         <div class="flex justify-between mt-10">
-            <button 
-                class="h-10 w-10 flex items-center justify-center font-bold bg-lime-500 rounded-full hover:outline-none hover:ring-2 hover:ring-offset-2 hover:ring-lime-500 text-white text-2xl"
-                @click="handlerChangeDecremento">
-            -
-            </button>
-            <button 
-                class="h-10 w-10 flex items-center justify-center font-bold bg-lime-500 rounded-full hover:outline-none hover:ring-2 hover:ring-offset-2 hover:ring-lime-500 text-white text-2xl"
-                @click="handlerChangeIncremento">
-            +
-            </button>
+            <Button 
+                :operator="'-'"
+                :handleClick="handleChangeDecremento"
+            />
+            <Button 
+                :operator="'+'"
+                :handleClick="handleChangeIncremento"
+            />
         </div>
 
         <div class="my-5">
