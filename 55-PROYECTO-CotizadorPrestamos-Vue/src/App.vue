@@ -32,11 +32,11 @@
         <div class="flex justify-between mt-10">
             <Button 
                 :operator="'-'"
-                :handleClick="handleChangeDecremento"
+                @handleClick="handleChangeDecremento"
             />
             <Button 
                 :operator="'+'"
-                :handleClick="handleChangeIncremento"
+                @handleClick="handleChangeIncremento"
             />
         </div>
 
