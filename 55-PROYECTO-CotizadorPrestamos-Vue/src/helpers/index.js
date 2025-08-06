@@ -1,11 +1,11 @@
-// const formatearDinero = (valor) => {
-//     const formatter = new Intl.NumberFormat('en-US', {
-//         style: 'currency',
-//         currency: 'USD'
-//     });
+const formatearDinero = (valor) => {
+    const formatter = new Intl.NumberFormat('en-US', {
+        style: 'currency',
+        currency: 'USD'
+    });
 
-//     return formatter.format(valor);
-// }
+    return formatter.format(valor);
+}
 
 const calcularTotalPagar = (cantidad, plazo) => {
     let total;
@@ -36,6 +36,6 @@ const calcularTotalPagar = (cantidad, plazo) => {
 }
 
 export {
-    // formatearDinero,
+    formatearDinero,
     calcularTotalPagar
 }
