@@ -70,5 +70,15 @@
                 <option value="48">48 Meses</option>
             </select>
         </div>
+
+        <div class="my-5 space-y-3 bg-gray-50 p-5">
+            <h2 class="text-2xl font-extrabold text-gray-600 text-center">
+                Resumen <span class="text-indigo-600">de pagos</span>
+            </h2>
+
+            <p class="text-xl text-gray-500 text-center font-bold">{{ meses }} Meses</p>
+            <p class="text-xl text-gray-500 text-center font-bold">Total a pagar</p>
+            <p class="text-xl text-gray-500 text-center font-bold">Mensuales</p>
+        </div>
     </div>
 </template>
