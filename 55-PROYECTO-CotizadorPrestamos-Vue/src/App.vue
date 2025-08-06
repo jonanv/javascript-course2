@@ -3,10 +3,12 @@
     import Header from './components/Header.vue';
     import Button from './components/Button.vue';
 
+    const cantidad = ref(10000);
+    const meses = ref(6);
+
     const MIN = 0;
     const MAX = 20000;
     const STEP = 100;
-    const cantidad = ref(10000);
 
     const formatearDinero = computed(() => {
         const formatter = new Intl.NumberFormat('en-US', {
@@ -50,7 +52,23 @@
                 v-model.number="cantidad"
             />
 
-            <p class="text-center my-10 text-5xl font-extrabold text-indigo-600">{{ formatearDinero }}</p>
+            <p class="text-center my-10 text-5xl font-extrabold text-indigo-600">
+                {{ formatearDinero }}
+            </p>
+
+            <h2 class="text-2xl font-extrabold text-gray-500 text-center">
+                Elige un <span class="text-indigo-600">Plazo</span> a pagar
+            </h2>
+
+            <select 
+                class="w-full p-2 bg-white border border-gray-300 rounded-lg text-center text-xl font-bold text-gray-500 mt-5"
+                :value="meses"
+                v-model.number="meses">
+                <option value="6">6 Meses</option>
+                <option value="12">12 Meses</option>
+                <option value="24">24 Meses</option>
+                <option value="48">48 Meses</option>
+            </select>
         </div>
     </div>
 </template>
