@@ -1,16 +1,24 @@
 <script setup>
-    import { ref } from 'vue'; // la forma de manejar el estado en vue ref maneja los primitivos y reactive los objetos
+    import { computed, ref, watch } from 'vue'; // la forma de manejar el estado en vue ref maneja los primitivos y reactive los objetos
     import Header from './components/Header.vue';
     import Button from './components/Button.vue';
     import { calcularTotalPagar, formatearDinero } from './helpers';
 
     const cantidad = ref(10000);
     const meses = ref(6);
-    const total = ref(calcularTotalPagar(cantidad.value, meses.value));
+    const total = ref(0);
 
     const MIN = 0;
     const MAX = 20000;
     const STEP = 100;
+
+    watch([cantidad, meses], () => {
+        total.value = calcularTotalPagar(cantidad.value, meses.value);
+    }, { immediate: true });
+
+    const pagoMensual = computed(() => {
+        return total.value / meses.value;
+    });
 
     const handleChangeDecremento = () => {
         cantidad.value = Math.max(cantidad.value - STEP, MIN);
@@ -72,7 +80,7 @@
 
             <p class="text-xl text-gray-500 text-center font-bold">{{ meses }} Meses</p>
             <p class="text-xl text-gray-500 text-center font-bold">{{ formatearDinero(total) }} Total a pagar</p>
-            <p class="text-xl text-gray-500 text-center font-bold">Mensuales</p>
+            <p class="text-xl text-gray-500 text-center font-bold">{{ formatearDinero(pagoMensual) }} Mensuales</p>
         </div>
     </div>
 </template>
