@@ -14,6 +14,21 @@ npm uninstall <package>             // Uninstall package
 npm update <package>                // Update package
 npm update <package> --save-dev     // Update package as dev dependency
 npm update <package> --save         // Update package as dependency
+
+npm list <package>                  // List installed packages
+npm list -g <package>               // List globally installed packages
+
+npm outdated <package>              // Check for outdated packages
+npm audit                          // Check for vulnerabilities
+
+npm run <script>                    // Run script defined in package.json
+npm run dev                         // Run dev script defined in package.json
+npm start                           // Run start script defined in package.json
+npm test                            // Run test script defined in package.json
+npm t                               // Run test script defined in package.json
+npm t strings                       // Run test script defined in package.json with files strings
+npm stop                            // Run stop script defined in package.json
+npm restart                         // Run restart script defined in package.json
 ```
 
 ### JSON Server
