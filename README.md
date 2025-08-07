@@ -2,8 +2,14 @@
 
 ## JavaScript Moderno Guía Definitiva Construye +20 Proyectos
 
-### JSON Server
+### NPM 
+```javascript
+npm init -y                         // Create package.json
+npm install <package>               // Install package
 ```
+
+### JSON Server
+```javascript
 json-server --watch db.json --port 4000             // Run json-server
 ```
 
@@ -25,7 +31,7 @@ npm t strings          // Run test with files strings
 ```
 
 ### Vite
-```js
+```javascript
 npm create vite        // Create app vite
 npm run dev            // run app
 npm run build          // create app's dist
