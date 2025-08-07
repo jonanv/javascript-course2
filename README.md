@@ -43,9 +43,16 @@ npx tailwindcss init -D
 ```
 
 ### Importing modules
+enable `type: "module"` in package.json to use ES6 imports and exports, or use CommonJS syntax.
+
 ```javascript
 module.export = {}      // Export CommonJS 
 export default {}       // Export ES6 imports and exports
+```
+
+```javascript
+const myModule = require('./myModule.js');  // Import CommonJS
+import myModule from './myModule.js';       // Import ES6 imports and exports
 ```
 
 ### VUE
