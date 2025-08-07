@@ -5,7 +5,8 @@
   "description": "Aprendiendo JS FullStack",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js"
+    "start": "node index.js",
+    "dev": "nodemon index.js"
   },
   "author": "Johanny Vargas González",
   "license": "ISC",
