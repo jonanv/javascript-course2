@@ -1,9 +1,9 @@
 const registrar = (require, response) => {
-    response.json({url: 'Desde API/VETERINARIOS'});
+    response.json({ msg: 'Registrando usuario...' });
 };
 
 const perfil = (require, response) => {
-    response.json({url: 'Desde API/VETERINARIOS/PERFIl'});
+    response.json({ msg: 'Mostrando perfil' });
 };
 
 export {
