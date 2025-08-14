@@ -2,8 +2,37 @@
 
 ## JavaScript Moderno Guía Definitiva Construye +20 Proyectos
 
-### JSON Server
+### NPM 
+```javascript
+npm init -y                         // Create package.json
+npm install <package>               // Install package
+npm install <package> --save-dev    // Install package as dev dependency
+npm i --save-dev nodemon            // Install nodemon as dev dependency
+npm install <package> --save        // Install package as dependency
+npm install <package> --global      // Install package globally
+npm uninstall <package>             // Uninstall package
+npm update <package>                // Update package
+npm update <package> --save-dev     // Update package as dev dependency
+npm update <package> --save         // Update package as dependency
+
+npm list <package>                  // List installed packages
+npm list -g <package>               // List globally installed packages
+
+npm outdated <package>              // Check for outdated packages
+npm audit                          // Check for vulnerabilities
+
+npm run <script>                    // Run script defined in package.json
+npm run dev                         // Run dev script defined in package.json
+npm start                           // Run start script defined in package.json
+npm test                            // Run test script defined in package.json
+npm t                               // Run test script defined in package.json
+npm t strings                       // Run test script defined in package.json with files strings
+npm stop                            // Run stop script defined in package.json
+npm restart                         // Run restart script defined in package.json
 ```
+
+### JSON Server
+```javascript
 json-server --watch db.json --port 4000             // Run json-server
 ```
 
@@ -25,7 +54,7 @@ npm t strings          // Run test with files strings
 ```
 
 ### Vite
-```js
+```javascript
 npm create vite        // Create app vite
 npm run dev            // run app
 npm run build          // create app's dist
@@ -37,9 +66,16 @@ npx tailwindcss init -D
 ```
 
 ### Importing modules
+enable `type: "module"` in package.json to use ES6 imports and exports, or use CommonJS syntax.
+
 ```javascript
 module.export = {}      // Export CommonJS 
 export default {}       // Export ES6 imports and exports
+```
+
+```javascript
+const myModule = require('./myModule.js');  // Import CommonJS
+import myModule from './myModule.js';       // Import ES6 imports and exports
 ```
 
 ### VUE
