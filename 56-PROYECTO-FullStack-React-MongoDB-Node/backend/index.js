@@ -5,6 +5,7 @@ import conectarDB from './config/db.js';
 import veterinarioRoutes from "./routes/veterinarioRoutes.js";
 
 const app = express();
+app.use(express.json());    // Habilita el envio de información a la API
 
 dotenv.config();
 

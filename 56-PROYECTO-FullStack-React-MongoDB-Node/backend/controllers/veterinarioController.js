@@ -1,4 +1,5 @@
 const registrar = (require, response) => {
+    console.log(require.body);
     response.json({ msg: 'Registrando usuario...' });
 };
 
