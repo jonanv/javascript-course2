@@ -26,7 +26,13 @@ const perfil = (request, response) => {
     response.json({ msg: 'Mostrando perfil' });
 };
 
+const confirmar = (request, response) => {
+    console.log(request.params.token);
+    response.json({ msg: 'Confirmando cuenta...' });
+};
+
 export {
     registrar,
-    perfil
+    perfil,
+    confirmar
 }
