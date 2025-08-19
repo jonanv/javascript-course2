@@ -1,7 +1,7 @@
 import Veterinario from "../models/Veterinario.js";
 
-const registrar = async (require, response) => {
-    const { email } = require.body;
+const registrar = async (request, response) => {
+    const { email } = request.body;
 
     // Prevenir usuario duplicados
     const existeUsuario = await Veterinario.findOne({ email });
@@ -13,7 +13,7 @@ const registrar = async (require, response) => {
 
     try {
         // Guardar un nuevo Veterinario
-        const veterinario = new Veterinario(require.body);
+        const veterinario = new Veterinario(request.body);
         const veterinarioGuardado = await veterinario.save();
 
         response.json(veterinarioGuardado);
@@ -22,7 +22,7 @@ const registrar = async (require, response) => {
     }
 };
 
-const perfil = (require, response) => {
+const perfil = (request, response) => {
     response.json({ msg: 'Mostrando perfil' });
 };
 
