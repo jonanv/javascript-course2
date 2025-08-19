@@ -1,4 +1,5 @@
 import Veterinario from "../models/Veterinario.js";
+import generarJWT from "../helpers/generarJWT.js";
 
 const registrar = async (request, response) => {
     const { email } = request.body;
@@ -67,13 +68,12 @@ const autenticar = async (request, response) => {
 
     // Revisar password
     if (await existeUsuario.comprobarPassword(password)) {
-        console.log('Password correcto');
+        // Autenticar el usuario
+        response.json({ token: generarJWT(existeUsuario._id) });
     } else {
         const error = new Error('Datos de autenticacion incorrectos');
         return response.status(500).json({ message: error.message });
     }
-
-
 }
 
 export {
