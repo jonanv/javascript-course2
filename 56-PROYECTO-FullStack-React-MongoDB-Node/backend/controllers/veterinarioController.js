@@ -26,9 +26,26 @@ const perfil = (request, response) => {
     response.json({ msg: 'Mostrando perfil' });
 };
 
-const confirmar = (request, response) => {
-    console.log(request.params.token);
-    response.json({ msg: 'Confirmando cuenta...' });
+const confirmar = async (request, response) => {
+    const { token } = request.params;
+
+    const confirmarUsuario = await Veterinario.findOne({ token });
+
+    if (!confirmarUsuario) {
+        const error = new Error('Token no válido'); 
+        return response.status(404).json({ msg: error.message });
+    }
+
+    try {
+        confirmarUsuario.token = null;
+        confirmarUsuario.confirmado = true;
+        confirmarUsuario.save();
+
+        response.json({ msg: 'Usuario confirmado correctamente'});
+    } catch (error) {
+        response.json(error);
+    }
+
 };
 
 export {
