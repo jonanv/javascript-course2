@@ -8,7 +8,7 @@ const registrar = async (request, response) => {
 
     if (existeUsuario) {
         const error = new Error('Usuario ya registrado');
-        return response.status(400).json({ msg: error.message });
+        return response.status(400).json({ message: error.message });
     }
 
     try {
@@ -23,7 +23,7 @@ const registrar = async (request, response) => {
 };
 
 const perfil = (request, response) => {
-    response.json({ msg: 'Mostrando perfil' });
+    response.json({ message: 'Mostrando perfil' });
 };
 
 const confirmar = async (request, response) => {
@@ -33,7 +33,7 @@ const confirmar = async (request, response) => {
 
     if (!confirmarUsuario) {
         const error = new Error('Token no válido'); 
-        return response.status(404).json({ msg: error.message });
+        return response.status(404).json({ message: error.message });
     }
 
     try {
@@ -41,15 +41,26 @@ const confirmar = async (request, response) => {
         confirmarUsuario.confirmado = true;
         confirmarUsuario.save();
 
-        response.json({ msg: 'Usuario confirmado correctamente'});
+        response.json({ message: 'Usuario confirmado correctamente'});
     } catch (error) {
         response.json(error);
     }
 
 };
 
-const autenticar = (request, response) => {
-    response.json({ msg: 'Autenticando' });
+const autenticar = async (request, response) => {
+    const { email } = request.body;
+
+    // Comprobar si el usuario existe
+    const existeUsuario = await Veterinario.findOne({ email });
+
+    if (!existeUsuario) {
+        const error = new Error('El usuario no existe');
+        return response.status(404).json({ message: error.message });
+    }
+
+    // Comprobar si el usuario esta confirmado
+    
 }
 
 export {
