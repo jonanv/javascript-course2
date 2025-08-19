@@ -49,7 +49,7 @@ const confirmar = async (request, response) => {
 };
 
 const autenticar = async (request, response) => {
-    const { email } = request.body;
+    const { email, password } = request.body;
 
     // Comprobar si el usuario existe
     const existeUsuario = await Veterinario.findOne({ email });
@@ -65,7 +65,14 @@ const autenticar = async (request, response) => {
         return response.status(403).json({ message: error.message });
     }
 
-    //
+    // Revisar password
+    if (await existeUsuario.comprobarPassword(password)) {
+        console.log('Password correcto');
+    } else {
+        const error = new Error('Datos de autenticacion incorrectos');
+        return response.status(500).json({ message: error.message });
+    }
+
 
 }
 
