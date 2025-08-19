@@ -48,8 +48,13 @@ const confirmar = async (request, response) => {
 
 };
 
+const autenticar = (request, response) => {
+    response.json({ msg: 'Autenticando' });
+}
+
 export {
     registrar,
     perfil,
-    confirmar
+    confirmar,
+    autenticar
 }

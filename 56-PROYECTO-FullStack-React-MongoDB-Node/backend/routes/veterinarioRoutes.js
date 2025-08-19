@@ -1,6 +1,6 @@
 import express from "express";
 
-import { perfil, registrar, confirmar } from "../controllers/veterinarioController.js";
+import { perfil, registrar, confirmar, autenticar } from "../controllers/veterinarioController.js";
 
 const router = express.Router();
 
