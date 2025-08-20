@@ -1,7 +1,11 @@
 const checkAuth = (request, response, next) => {
-    console.log('Desde mi middleware');
+    if (request.headers.authorization && 
+        request.headers.authorization.startsWith('Bearer')) {
+        next();
+    }
 
-    next();
+    const error = new Error('Token no válido o inexistente');
+    response.status(403).json({ message: error.message });
 };
 
 export default checkAuth;
