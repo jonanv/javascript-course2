@@ -99,8 +99,23 @@ const olvidePassword = async (request, response) => {
     response.status(200).json({ message: 'Olvide contraseña...' });
 };
 
-const comprobarToken = (request, response) => {
+const comprobarToken = async (request, response) => {
+    const { token } = request.params;
 
+    const tokenValido = await Veterinario.findOne({ token });
+
+    if (!tokenValido) {
+        const error = new Error('Token inválido');
+        return response.status(400).json({ message: error.message });
+    }
+
+    try {
+        
+    } catch (error) {
+        console.error(error);
+    }
+
+    response.status(200).json({ message: 'Comprobar token...' });
 };
 
 const nuevoPassword = (request, response) => {
