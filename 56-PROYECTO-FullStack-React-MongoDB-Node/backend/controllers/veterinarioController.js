@@ -42,7 +42,7 @@ const confirmar = async (request, response) => {
     try {
         confirmarUsuario.token = null;
         confirmarUsuario.confirmado = true;
-        confirmarUsuario.save();
+        await confirmarUsuario.save();
 
         response.json({ message: 'Usuario confirmado correctamente'});
     } catch (error) {
