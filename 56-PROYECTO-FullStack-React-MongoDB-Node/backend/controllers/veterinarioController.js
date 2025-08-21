@@ -75,11 +75,26 @@ const autenticar = async (request, response) => {
         const error = new Error('Datos de autenticacion incorrectos');
         return response.status(500).json({ message: error.message });
     }
-}
+};
+
+const olvidePassword = (request, response) => {
+    
+};
+
+const comprobarToken = (request, response) => {
+
+};
+
+const nuevoPassword = (request, response) => {
+
+};
 
 export {
     registrar,
     perfil,
     confirmar,
-    autenticar
+    autenticar,
+    olvidePassword, 
+    comprobarToken,
+    nuevoPassword
 }
