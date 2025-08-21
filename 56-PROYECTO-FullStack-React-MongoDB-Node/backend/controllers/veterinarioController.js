@@ -48,7 +48,6 @@ const confirmar = async (request, response) => {
     } catch (error) {
         response.json(error);
     }
-
 };
 
 const autenticar = async (request, response) => {
@@ -113,8 +112,25 @@ const comprobarToken = async (request, response) => {
     }
 };
 
-const nuevoPassword = (request, response) => {
+const nuevoPassword = async (request, response) => {
+    const { token } = request.params; // Parametro de la URL
+    const { password } = request.body; // Parametro enviado por formulario
 
+    const veterinario = await Veterinario.findOne({ token });
+
+    if (!veterinario) {
+        const error = new Error('Hubo un error');
+        return response.status(400).json({ message: error.message });
+    }
+
+    try {
+        veterinario.password = password;
+        veterinario.token = null;
+        await veterinario.save();
+        return response.status(200).json({ message: 'Password modificado exitosamente' });
+    } catch (error) {
+        console.error(error);
+    }
 };
 
 export {
