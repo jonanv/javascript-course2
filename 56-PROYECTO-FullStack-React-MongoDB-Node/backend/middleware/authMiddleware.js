@@ -9,6 +9,7 @@ const checkAuth = async (request, response, next) => {
         try {
             token = request.headers.authorization.split(' ')[1];
             const decoded = jwt.verify(token, process.env.JWT_SECRET);
+            // Almacenando como si fuera la session con el request
             request.veterinario = await Veterinario.findById(decoded.id).select(
                 '-password -token -confirmado'
             );
