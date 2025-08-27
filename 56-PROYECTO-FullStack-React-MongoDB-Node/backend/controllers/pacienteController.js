@@ -14,8 +14,13 @@ const agregarPaciente = async (request, response) => {
     }
 };
 
-const obtenerPacientes = (request, response) => {
-    return response.status(200).json({ message: 'Lista de pacientes' });
+const obtenerPacientes = async (request, response) => {
+    try {
+        const pacientes = await Paciente.find({});
+        return response.status(200).json(pacientes);
+    } catch (error) {
+        response.json(error);
+    }
 };
 
 export {
