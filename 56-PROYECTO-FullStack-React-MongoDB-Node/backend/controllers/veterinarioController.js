@@ -1,3 +1,4 @@
+// Imports
 import Veterinario from "../models/Veterinario.js";
 import generarJWT from "../helpers/generarJWT.js";
 import generarId from "../helpers/generarId.js";
@@ -42,7 +43,7 @@ const confirmar = async (request, response) => {
     try {
         confirmarUsuario.token = null;
         confirmarUsuario.confirmado = true;
-        confirmarUsuario.save();
+        await confirmarUsuario.save();
 
         response.json({ message: 'Usuario confirmado correctamente'});
     } catch (error) {

@@ -1,5 +1,6 @@
 import express from "express";
 
+// Imports
 import { 
     perfil, 
     registrar, 
@@ -20,7 +21,9 @@ router.post('/login', autenticar);
 router.post('/olvide-password', olvidePassword);
 // router.get('/olvide-password/:token', comprobarToken);
 // router.post('/olvide-password/:token', nuevoPassword);
-router.route('/olvide-password/:token').get(comprobarToken).post(nuevoPassword);
+router.route('/olvide-password/:token')
+    .get(comprobarToken)
+    .post(nuevoPassword);
 
 // Área privada
 router.get('/perfil', checkAuth, perfil);
