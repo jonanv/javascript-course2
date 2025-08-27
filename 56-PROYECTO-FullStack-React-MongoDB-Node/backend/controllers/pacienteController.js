@@ -8,12 +8,10 @@ const agregarPaciente = async (request, response) => {
         paciente.veterinario = request.veterinario._id;
         const pacienteGuardado = await paciente.save();
 
-        response.json(pacienteGuardado);
+        response.status(201).json(pacienteGuardado);
     } catch (error) {
         response.json(error);
     }
-
-    // return response.status(200).json({ message: 'Paciente agregado con exito' });
 };
 
 const obtenerPacientes = (request, response) => {
