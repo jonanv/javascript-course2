@@ -16,7 +16,11 @@ const agregarPaciente = async (request, response) => {
 
 const obtenerPacientes = async (request, response) => {
     try {
-        const pacientes = await Paciente.find({});
+        const { veterinario } = request;
+        const pacientes = await Paciente.find()
+            .where('veterinario')   // Nombre del campo de la tabla
+            .equals(veterinario);   // Filtra por el veterinario
+
         return response.status(200).json(pacientes);
     } catch (error) {
         response.json(error);
