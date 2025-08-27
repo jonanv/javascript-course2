@@ -5,14 +5,15 @@ import {
     agregarPaciente, 
     obtenerPacientes 
 } from "../controllers/pacienteController.js";
+import checkAuth from "../middleware/authMiddleware.js";
 
 const router = express.Router();
 
 // Área pública
-router.route('/')
-    .post(agregarPaciente)
-    .get(obtenerPacientes);
 
 // Área privada
+router.route('/')
+    .post(checkAuth, agregarPaciente)
+    .get(checkAuth, obtenerPacientes);
 
 export default router;
