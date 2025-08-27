@@ -1,5 +1,19 @@
-const agregarPaciente = (request, response) => {
-    return response.status(200).json({ message: 'paciente' });
+// Imports
+import Paciente from "../models/Paciente.js";
+
+const agregarPaciente = async (request, response) => {
+    try {
+        // Guardar un nuevo paciente
+        const paciente = new Paciente(request.body);
+        paciente.veterinario = request.veterinario._id;
+        const pacienteGuardado = await paciente.save();
+
+        response.json(pacienteGuardado);
+    } catch (error) {
+        response.json(error);
+    }
+
+    // return response.status(200).json({ message: 'Paciente agregado con exito' });
 };
 
 const obtenerPacientes = (request, response) => {
