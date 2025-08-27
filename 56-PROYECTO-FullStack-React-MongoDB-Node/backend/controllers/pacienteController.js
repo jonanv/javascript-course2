@@ -27,7 +27,25 @@ const obtenerPacientes = async (request, response) => {
     }
 };
 
+const obtenerPacientePorId = async (request, response) => {
+    const { idPaciente } = request.params;
+
+    const paciente = await Paciente.findOne({ _id: idPaciente });
+
+    if (!paciente) {
+        const error = new Error('Paciente no existe');
+        return response.status(400).json({ message: error.message });
+    }
+
+    try {
+        return response.status(200).json(paciente);
+    } catch (error) {
+        response.json(error);
+    }
+};
+
 export {
     agregarPaciente,
-    obtenerPacientes
+    obtenerPacientes,
+    obtenerPacientePorId
 }
