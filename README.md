@@ -55,9 +55,12 @@ npm t strings          // Run test with files strings
 
 ### Vite
 ```javascript
-npm create vite        // Create app vite
-npm run dev            // run app
-npm run build          // create app's dist
+npm create vite             // Create app vite
+npm init vite               // Create app vite
+npm run dev                 // run app
+npm run dev -- --port 3000  // run app in specific port
+npm run dev -- -p 3000      // run app in specific port (short)
+npm run build               // create app's dist
 ```
 
 ### Generate files for tailwindcss with postcss and autoprefixer
