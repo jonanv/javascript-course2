@@ -32,13 +32,13 @@ const obtenerPacientePorId = async (request, response) => {
 
     const paciente = await Paciente.findById(idPaciente);
 
-    if (paciente.veterinario._id.toString() !== request.veterinario._id.toString()) {
-        return response.json({ message: 'Acción no válida' });
-    }
-
     if (!paciente) {
         const error = new Error('Paciente no existe');
-        return response.status(400).json({ message: error.message });
+        return response.status(404).json({ message: error.message });
+    }
+
+    if (paciente.veterinario._id.toString() !== request.veterinario._id.toString()) {
+        return response.json({ message: 'Acción no válida' });
     }
 
     try {
@@ -48,8 +48,43 @@ const obtenerPacientePorId = async (request, response) => {
     }
 };
 
+const actualizarPacientePorId = async (request, response) => {
+    const { idPaciente } = request.params;
+
+    const paciente = await Paciente.findById(idPaciente);
+
+    if (!paciente) {
+        const error = new Error('Paciente no existe');
+        return response.status(404).json({ message: error.message });
+    }
+
+    if (paciente.veterinario._id.toString() !== request.veterinario._id.toString()) {
+        return response.json({ message: 'Acción no válida' });
+    }
+
+    try {
+        // Actualizar paciente
+        paciente.nombre = request.body.nombre || paciente.nombre;
+        paciente.propietario = request.body.propietario || paciente.propietario;
+        paciente.email = request.body.email || paciente.email;
+        paciente.fecha = request.body.fecha || paciente.fecha;
+        paciente.sintomas = request.body.sintomas || paciente.sintomas;
+
+        const pacienteActualizado = await paciente.save();
+        return response.status(200).json(pacienteActualizado);
+    } catch (error) {
+        response.json(error);
+    }
+};
+
+const eliminarPacientePorId = (request, response) => {
+    response.status(200).json({ message: 'Eliminando paciente...' });
+};
+
 export {
     agregarPaciente,
     obtenerPacientes,
-    obtenerPacientePorId
+    obtenerPacientePorId,
+    actualizarPacientePorId,
+    eliminarPacientePorId
 }
