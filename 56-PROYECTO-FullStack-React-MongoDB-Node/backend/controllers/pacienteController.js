@@ -30,7 +30,11 @@ const obtenerPacientes = async (request, response) => {
 const obtenerPacientePorId = async (request, response) => {
     const { idPaciente } = request.params;
 
-    const paciente = await Paciente.findOne({ _id: idPaciente });
+    const paciente = await Paciente.findById(idPaciente);
+
+    if (paciente.veterinario._id.toString() !== request.veterinario._id.toString()) {
+        return response.json({ message: 'Acción no válida' });
+    }
 
     if (!paciente) {
         const error = new Error('Paciente no existe');
