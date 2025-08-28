@@ -4,7 +4,9 @@ import express from "express";
 import { 
     agregarPaciente, 
     obtenerPacientePorId, 
-    obtenerPacientes 
+    actualizarPacientePorId,
+    eliminarPacientePorId,
+    obtenerPacientes
 } from "../controllers/pacienteController.js";
 import checkAuth from "../middleware/authMiddleware.js";
 
@@ -16,6 +18,9 @@ const router = express.Router();
 router.route('/')
     .post(checkAuth, agregarPaciente)
     .get(checkAuth, obtenerPacientes);
-router.get('/paciente/:idPaciente', checkAuth, obtenerPacientePorId);
+router.route('/:idPaciente')
+    .get(checkAuth, obtenerPacientePorId)
+    .put(checkAuth, actualizarPacientePorId)
+    .delete(checkAuth, eliminarPacientePorId)
 
 export default router;
