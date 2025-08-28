@@ -65,7 +65,7 @@ npm run build               // create app's dist
 
 ### Generate files for tailwindcss with postcss and autoprefixer
 ```javascript
-npx tailwindcss init -D
+npx tailwindcss init -p
 ```
 
 ### Importing modules
