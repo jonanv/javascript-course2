@@ -1,8 +1,18 @@
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import AuthLayout from './layout/AuthLayout';
+import Login from "./pages/Login";
+
 function App() {
 
-  return (
-    <h1 className="font-bold text-2xl">Hola vite</h1>
-  );
+	return (
+		<BrowserRouter>
+			<Routes>
+				<Route path="/" element={<AuthLayout />}>
+					<Route index element={<Login />} />
+				</Route>
+			</Routes>
+		</BrowserRouter>
+	);
 }
 
 export default App;
