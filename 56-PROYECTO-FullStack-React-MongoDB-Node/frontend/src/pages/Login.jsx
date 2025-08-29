@@ -10,7 +10,7 @@ const Login = () => {
             </div>
             <div className="mt-20 md:mt-5 shadow-lg px-5 py-10 rounded-xl bg-white">
                 <form>
-                    <div>
+                    <div className="my-5">
                         <label 
                             htmlFor="email"
                             className="uppercase text-gray-600 block text-xl font-bold">
@@ -20,11 +20,10 @@ const Login = () => {
                             type="email"
                             placeholder="Email de Registro"
                             name="email" 
-                            id="" 
                             className="border border-gray-300 w-full p-3 mt-3 bg-gray-50 rounded-xl"
                         />
                     </div>
-                    <div>
+                    <div className="my-5">
                         <label 
                             htmlFor="password"
                             className="uppercase text-gray-600 block text-xl font-bold">
@@ -34,7 +33,6 @@ const Login = () => {
                             type="password"
                             placeholder="Tu Password"
                             name="password" 
-                            id="" 
                             className="border border-gray-300 w-full p-3 mt-3 bg-gray-50 rounded-xl"
                         />
                     </div>
