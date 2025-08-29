@@ -8,8 +8,8 @@ const Login = () => {
                     Inicia sesión y Administra tus <span className="text-black">Pacientes</span>
                 </h1>
             </div>
-            <div>
-                <form className="my-5">
+            <div className="mt-20 md:mt-5 shadow-lg px-5 py-10 rounded-xl bg-white">
+                <form>
                     <div>
                         <label 
                             htmlFor="email"
@@ -21,7 +21,7 @@ const Login = () => {
                             placeholder="Email de Registro"
                             name="email" 
                             id="" 
-                            className="border w-full p-3 mt-3 bg-gray-50 rounded-xl"
+                            className="border border-gray-300 w-full p-3 mt-3 bg-gray-50 rounded-xl"
                         />
                     </div>
                     <div>
@@ -35,7 +35,7 @@ const Login = () => {
                             placeholder="Tu Password"
                             name="password" 
                             id="" 
-                            className="border w-full p-3 mt-3 bg-gray-50 rounded-xl"
+                            className="border border-gray-300 w-full p-3 mt-3 bg-gray-50 rounded-xl"
                         />
                     </div>
                     <input 
