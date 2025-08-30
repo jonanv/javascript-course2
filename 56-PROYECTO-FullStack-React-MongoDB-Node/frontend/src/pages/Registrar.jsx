@@ -1,6 +1,12 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 
 const Registrar = () => {
+    const [nombre, setNombre] = useState('');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [confirmarPassword, setConfirmarPassword] = useState('');
+
     return (
         <>
             <div>
@@ -22,6 +28,8 @@ const Registrar = () => {
                             placeholder="Nombre"
                             name="nombre" 
                             className="border border-gray-300 w-full p-3 mt-3 bg-gray-50 rounded-xl"
+                            value={nombre}
+                            onChange={e => setNombre(e.target.value.toString())}
                         />
                     </div>
                     <div className="my-5">
@@ -35,6 +43,8 @@ const Registrar = () => {
                             placeholder="Email de Registro"
                             name="email" 
                             className="border border-gray-300 w-full p-3 mt-3 bg-gray-50 rounded-xl"
+                            value={email}
+                            onChange={e => setEmail(e.target.value.toString())}
                         />
                     </div>
                     <div className="my-5">
@@ -48,19 +58,23 @@ const Registrar = () => {
                             placeholder="Tu Password"
                             name="password" 
                             className="border border-gray-300 w-full p-3 mt-3 bg-gray-50 rounded-xl"
+                            value={password}
+                            onChange={e => setPassword(e.target.value.toString())}
                         />
                     </div>
                     <div className="my-5">
                         <label 
-                            htmlFor="confirmar-password"
+                            htmlFor="confirmarPassword"
                             className="uppercase text-gray-600 block text-xl font-bold">
                             Confirmar Password
                         </label>
                         <input 
                             type="password"
                             placeholder="Confirma Tu Password"
-                            name="confirmar-password" 
+                            name="confirmarPassword" 
                             className="border border-gray-300 w-full p-3 mt-3 bg-gray-50 rounded-xl"
+                            value={confirmarPassword}
+                            onChange={e => setConfirmarPassword(e.target.value.toString())}
                         />
                     </div>
                     <input 
