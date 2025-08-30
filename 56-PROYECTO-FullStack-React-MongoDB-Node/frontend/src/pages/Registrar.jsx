@@ -7,6 +7,28 @@ const Registrar = () => {
     const [password, setPassword] = useState('');
     const [confirmarPassword, setConfirmarPassword] = useState('');
 
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        const fields = [nombre, email, password, confirmarPassword];
+
+        if (fields.includes('')) {
+            console.log('Hay campos vacios');
+            return;
+        }
+
+        if (password !== confirmarPassword) {
+            console.log('Los passwords no son iguales');
+            return;
+        }
+
+        if (password.length < 6) {
+            console.log('El password es muy corto, agrega minimo 6 caracteres');
+        }
+
+        console.log('Registro exitoso');
+        fields.forEach(value => value = '');
+    }
+
     return (
         <>
             <div>
@@ -16,81 +38,81 @@ const Registrar = () => {
                 </h1>
             </div>
             <div className="mt-20 md:mt-5 shadow-lg px-5 py-10 rounded-xl bg-white">
-                <form>
+                <form onSubmit={handleSubmit}>
                     <div className="my-5">
-                        <label 
+                        <label
                             htmlFor="nombre"
                             className="uppercase text-gray-600 block text-xl font-bold">
                             Nombre
                         </label>
-                        <input 
+                        <input
                             type="text"
                             placeholder="Nombre"
-                            name="nombre" 
+                            name="nombre"
                             className="border border-gray-300 w-full p-3 mt-3 bg-gray-50 rounded-xl"
                             value={nombre}
                             onChange={e => setNombre(e.target.value.toString())}
                         />
                     </div>
                     <div className="my-5">
-                        <label 
+                        <label
                             htmlFor="email"
                             className="uppercase text-gray-600 block text-xl font-bold">
                             Email
                         </label>
-                        <input 
+                        <input
                             type="email"
                             placeholder="Email de Registro"
-                            name="email" 
+                            name="email"
                             className="border border-gray-300 w-full p-3 mt-3 bg-gray-50 rounded-xl"
                             value={email}
                             onChange={e => setEmail(e.target.value.toString())}
                         />
                     </div>
                     <div className="my-5">
-                        <label 
+                        <label
                             htmlFor="password"
                             className="uppercase text-gray-600 block text-xl font-bold">
                             Password
                         </label>
-                        <input 
+                        <input
                             type="password"
                             placeholder="Tu Password"
-                            name="password" 
+                            name="password"
                             className="border border-gray-300 w-full p-3 mt-3 bg-gray-50 rounded-xl"
                             value={password}
                             onChange={e => setPassword(e.target.value.toString())}
                         />
                     </div>
                     <div className="my-5">
-                        <label 
+                        <label
                             htmlFor="confirmarPassword"
                             className="uppercase text-gray-600 block text-xl font-bold">
                             Confirmar Password
                         </label>
-                        <input 
+                        <input
                             type="password"
                             placeholder="Confirma Tu Password"
-                            name="confirmarPassword" 
+                            name="confirmarPassword"
                             className="border border-gray-300 w-full p-3 mt-3 bg-gray-50 rounded-xl"
                             value={confirmarPassword}
                             onChange={e => setConfirmarPassword(e.target.value.toString())}
                         />
                     </div>
-                    <input 
-                        type="submit" 
+                    <input
+                        type="submit"
                         value="Registrarse"
                         className="bg-indigo-700 w-full text-white uppercase font-bold border rounded-xl py-3 px-10 mt-5 hover:cursor-pointer hover:bg-indigo-800 md:w-auto"
                     />
                 </form>
 
                 <nav className="mt-10 lg:flex lg:justify-between">
-                    <Link 
+                    <Link
                         to="/"
                         className="block text-center my-5 text-gray-500 hover:text-gray-600">
                         ¿Ya tienes una cuenta? Inicia Sesión
                     </Link>
-                    <Link 
+                    <Link
                         to="/olvide-password"
                         className="block text-center my-5 text-gray-500 hover:text-gray-600">
                         Olvidé mi Password
