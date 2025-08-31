@@ -1,33 +1,45 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
+// Imports
+import Alerta from "../components/Alerta";
+
 const Registrar = () => {
     const [nombre, setNombre] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [confirmarPassword, setConfirmarPassword] = useState('');
 
+    const [alerta, setAlerta] = useState({});
+
     const handleSubmit = (e) => {
         e.preventDefault();
         const fields = [nombre, email, password, confirmarPassword];
 
         if (fields.includes('')) {
-            console.log('Hay campos vacios');
+            setAlerta({ mensaje: 'Hay campos vacíos', error: true });
             return;
         }
 
         if (password !== confirmarPassword) {
-            console.log('Los passwords no son iguales');
+            setAlerta({ mensaje: 'Los passwords no son iguales', error: true });
             return;
         }
 
         if (password.length < 6) {
-            console.log('El password es muy corto, agrega minimo 6 caracteres');
+            setAlerta({ mensaje: 'El password es muy corto, agrega mínimo 6 caracteres', error: true });
+            return;
         }
 
-        console.log('Registro exitoso');
-        fields.forEach(value => value = '');
+        setAlerta({});
+
+        setNombre('');
+        setEmail('');
+        setPassword('');
+        setConfirmarPassword('');
     }
+
+    const { mensaje } = alerta;
 
     return (
         <>
@@ -38,6 +50,11 @@ const Registrar = () => {
                 </h1>
             </div>
             <div className="mt-20 md:mt-5 shadow-lg px-5 py-10 rounded-xl bg-white">
+
+                {mensaje && <Alerta
+                    alerta={alerta}
+                />}
+
                 <form onSubmit={handleSubmit}>
                     <div className="my-5">
                         <label
