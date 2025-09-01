@@ -33,6 +33,8 @@ const Registrar = () => {
 
         setAlerta({});
 
+        // Crear el usuario en la API
+
         setNombre('');
         setEmail('');
         setPassword('');
