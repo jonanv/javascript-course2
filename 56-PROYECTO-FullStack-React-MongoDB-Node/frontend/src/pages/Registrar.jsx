@@ -73,9 +73,11 @@ const Registrar = () => {
             </div>
             <div className="mt-20 md:mt-5 shadow-lg px-5 py-10 rounded-xl bg-white">
 
-                {mensaje && <Alerta
-                    alerta={alerta}
-                />}
+                {mensaje && 
+                    <Alerta
+                        alerta={alerta}
+                    />
+                }
 
                 <form onSubmit={handleSubmit}>
                     <div className="my-5">
