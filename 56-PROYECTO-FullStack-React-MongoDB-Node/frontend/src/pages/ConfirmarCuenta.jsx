@@ -19,12 +19,12 @@ const ConfirmarCuenta = () => {
                 const { data } = await axios.get(`${ URL }/veterinarios/confirmar/${ token }`);
                 setCuentaConfirmada(true);
                 setAlerta({
-                    mensaje: data.message,
+                    message: data.message,
                     error: false
                 });
             } catch (error) {
                 setAlerta({
-                    mensaje: error.response.data.message,
+                    message: error.response.data.message,
                     error: true
                 });
             }
