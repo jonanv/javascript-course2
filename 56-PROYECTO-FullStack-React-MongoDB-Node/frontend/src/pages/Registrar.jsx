@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 
 // Imports
+import axios from "axios";
 import Alerta from "../components/Alerta";
 
 const Registrar = () => {
@@ -12,34 +13,55 @@ const Registrar = () => {
 
     const [alerta, setAlerta] = useState({});
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         const fields = [nombre, email, password, confirmarPassword];
 
         if (fields.includes('')) {
-            setAlerta({ mensaje: 'Hay campos vacíos', error: true });
+            setAlerta({ message: 'Hay campos vacíos', error: true });
             return;
         }
 
         if (password !== confirmarPassword) {
-            setAlerta({ mensaje: 'Los passwords no son iguales', error: true });
+            setAlerta({ message: 'Los passwords no son iguales', error: true });
             return;
         }
 
         if (password.length < 6) {
-            setAlerta({ mensaje: 'El password es muy corto, agrega mínimo 6 caracteres', error: true });
+            setAlerta({ message: 'El password es muy corto, agrega mínimo 6 caracteres', error: true });
             return;
         }
 
         setAlerta({});
 
-        setNombre('');
-        setEmail('');
-        setPassword('');
-        setConfirmarPassword('');
+        // Crear el usuario en la API
+        try {
+            const URL = import.meta.env.VITE_BACKEND_URL;
+            const body = {
+                nombre,
+                email,
+                password,
+                confirmarPassword
+            };
+            await axios.post(`${ URL }/api/veterinarios`, body);
+            setAlerta({ 
+                message: 'Creado correctamente, revisa tu email', 
+                error: false 
+            });
+
+            setNombre('');
+            setEmail('');
+            setPassword('');
+            setConfirmarPassword('');
+        } catch (error) {
+            setAlerta({
+                message: error.response.data.message,
+                error: true
+            })
+        }
     }
 
-    const { mensaje } = alerta;
+    const { message } = alerta;
 
     return (
         <>
@@ -51,9 +73,11 @@ const Registrar = () => {
             </div>
             <div className="mt-20 md:mt-5 shadow-lg px-5 py-10 rounded-xl bg-white">
 
-                {mensaje && <Alerta
-                    alerta={alerta}
-                />}
+                {message && 
+                    <Alerta
+                        alerta={alerta}
+                    />
+                }
 
                 <form onSubmit={handleSubmit}>
                     <div className="my-5">
