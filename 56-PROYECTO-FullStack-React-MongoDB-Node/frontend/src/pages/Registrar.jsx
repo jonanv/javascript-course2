@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 
 // Imports
-import axios from "axios";
+import clienteAxios from "../config/axios";
 import Alerta from "../components/Alerta";
 
 const Registrar = () => {
@@ -36,14 +36,13 @@ const Registrar = () => {
 
         // Crear el usuario en la API
         try {
-            const URL = import.meta.env.VITE_BACKEND_URL;
             const body = {
                 nombre,
                 email,
                 password,
                 confirmarPassword
             };
-            await axios.post(`${ URL }/api/veterinarios`, body);
+            await clienteAxios.post(`/veterinarios`, body);
             setAlerta({ 
                 message: 'Creado correctamente, revisa tu email', 
                 error: false 
