@@ -92,7 +92,7 @@ export const NuevoPassword = () => {
                 }
 
                 {tokenValido && (
-                    <form>
+                    <form onSubmit={handleSubmit}>
                         <div className="my-5">
                             <label
                                 htmlFor="nuevoPassword"
@@ -127,7 +127,6 @@ export const NuevoPassword = () => {
                             type="submit" 
                             value="Guardar nuevo password"
                             className="bg-indigo-700 w-full text-white uppercase font-bold border rounded-xl py-3 px-10 mt-5 hover:cursor-pointer hover:bg-indigo-800 md:w-auto"
-                            onClick={handleSubmit}
                         />
                     </form>
                 )}
