@@ -11,6 +11,7 @@ export const NuevoPassword = () => {
     const [confirmarPassword, setConfirmarPassword] = useState('');
     const [loading, setLoading] = useState(false);
     const [tokenValido, setTokenValido] = useState(false);
+    const [passwordModificado, setPasswordModificado] = useState(false);
 
     const [alerta, setAlerta] = useState({});
 
@@ -66,6 +67,7 @@ export const NuevoPassword = () => {
             });
             setNuevoPassword('');
             setConfirmarPassword('');
+            setPasswordModificado(true);
         } catch (error) {
             setAlerta({
                 message: error.response.data.message,
@@ -133,18 +135,20 @@ export const NuevoPassword = () => {
                     </form>
                 )}
 
-                <nav className="mt-10 lg:flex lg:justify-between">
-                    <Link 
-                        to="/"
-                        className="block text-center my-5 text-gray-500 hover:text-gray-600">
-                        ¿Ya tienes una cuenta? Inicia Sesión
-                    </Link>
-                    <Link 
-                        to="/registrar"
-                        className="block text-center my-5 text-gray-500 hover:text-gray-600">
-                        ¿No tienes una cuenta? Registrate
-                    </Link>
-                </nav>
+                {passwordModificado && (
+                    <nav className="mt-10 lg:flex lg:justify-between">
+                        <Link 
+                            to="/"
+                            className="block text-center my-5 text-gray-500 hover:text-gray-600">
+                            ¿Ya tienes una cuenta? Inicia Sesión
+                        </Link>
+                        <Link 
+                            to="/registrar"
+                            className="block text-center my-5 text-gray-500 hover:text-gray-600">
+                            ¿No tienes una cuenta? Registrate
+                        </Link>
+                    </nav>
+                )}
 
             </div>
         </>
