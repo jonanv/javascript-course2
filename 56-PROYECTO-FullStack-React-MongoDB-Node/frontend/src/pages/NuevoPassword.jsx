@@ -4,12 +4,12 @@ import { Link, useParams } from "react-router-dom";
 // Imports
 import clienteAxios from "../config/axios";
 import Alerta from "../components/Alerta";
-
+import Loading from "../components/Loading";
 
 export const NuevoPassword = () => {
     const [nuevoPassword, setNuevoPassword] = useState('');
     const [confirmarPassword, setConfirmarPassword] = useState('');
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(true);
     const [tokenValido, setTokenValido] = useState(false);
     const [passwordModificado, setPasswordModificado] = useState(false);
 
@@ -32,7 +32,9 @@ export const NuevoPassword = () => {
                     error: true
                 });
             }
-            setLoading(false);
+            setTimeout(() => {
+                setLoading(false);
+            }, 3000);
         }
         validarToken();
     }, []);
@@ -89,11 +91,11 @@ export const NuevoPassword = () => {
 
             <div className="mt-20 md:mt-5 shadow-lg px-5 py-10 rounded-xl bg-white">
 
-                {message && 
-                    <Alerta
-                        alerta={alerta}
-                    />
-                }
+                {loading ? (
+                    <Loading />
+                ) : (
+                    message && <Alerta alerta={alerta} />
+                )}
 
                 {tokenValido && (
                     <form onSubmit={handleSubmit}>
