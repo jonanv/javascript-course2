@@ -56,7 +56,7 @@ const Registrar = () => {
             setAlerta({
                 message: error.response.data.message,
                 error: true
-            })
+            });
         }
     }
 
