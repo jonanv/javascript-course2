@@ -110,7 +110,7 @@ const olvidePassword = async (request, response) => {
 
         response.status(200).json({ message: 'Hemos enviado un email con las instrucciones' });
     } catch (error) {
-        console.error(error);
+        response.json(error);
     }
     
     response.status(200).json({ message: 'Olvide contraseña...' });
@@ -147,7 +147,7 @@ const nuevoPassword = async (request, response) => {
         await veterinario.save();
         return response.status(200).json({ message: 'Password modificado exitosamente' });
     } catch (error) {
-        console.error(error);
+        response.json(error);
     }
 };
 
