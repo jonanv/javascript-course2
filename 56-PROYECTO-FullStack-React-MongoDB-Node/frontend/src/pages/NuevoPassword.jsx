@@ -58,12 +58,14 @@ export const NuevoPassword = () => {
         setAlerta({});
 
         try {
-            const body = { nuevoPassword };
-            await clienteAxios.post(`/veterinarios/olvide-password/${ token }`, body);
+            const body = { password: nuevoPassword };
+            const { data } = await clienteAxios.post(`/veterinarios/olvide-password/${ token }`, body);
             setAlerta({
-                message: 'Nueva contrase cambiada correctamente',
+                message: data.message,
                 error: false
             });
+            setNuevoPassword('');
+            setConfirmarPassword('');
         } catch (error) {
             setAlerta({
                 message: error.response.data.message,
@@ -100,7 +102,7 @@ export const NuevoPassword = () => {
                                 Nuevo password
                             </label>
                             <input
-                                type="nuevoPassword"
+                                type="password"
                                 placeholder="Tu nuevo Password"
                                 name="nuevoPassword"
                                 className="border border-gray-300 w-full p-3 mt-3 bg-gray-50 rounded-xl"
