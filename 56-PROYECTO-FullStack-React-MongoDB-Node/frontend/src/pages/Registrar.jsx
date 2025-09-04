@@ -159,6 +159,7 @@ const Registrar = () => {
                         Olvidé mi Password
                     </Link>
                 </nav>
+                
             </div>
         </>
     );

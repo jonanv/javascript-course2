@@ -43,6 +43,7 @@ const OlvidePassword = () => {
                         ¿No tienes una cuenta? Registrate
                     </Link>
                 </nav>
+                
             </div>
         </>
     );
