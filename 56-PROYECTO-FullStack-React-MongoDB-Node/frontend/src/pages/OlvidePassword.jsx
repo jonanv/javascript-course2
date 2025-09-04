@@ -1,6 +1,39 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 
+// Imports
+import clienteAxios from "../config/axios";
+import Alerta from "../components/Alerta";
+
 const OlvidePassword = () => {
+    const [email, setEmail] = useState('');
+    const [alerta, setAlerta] = useState({});
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
+        if (email === '') {
+            setAlerta({ message: 'Email es obligatorio', error: true });
+            return;
+        }
+        
+        try {
+            const body = { email };
+            await clienteAxios.post('/veterinarios/olvide-password', body);
+            setAlerta({
+                message: 'Se enviaron las intrucciones al email',
+                error: false
+            });
+        } catch (error) {
+            setAlerta({
+                message: error.response.data.message,
+                error: true
+            });
+        }
+    };
+
+    const { message } = alerta;
+
     return (
         <>
             <div>
@@ -9,8 +42,16 @@ const OlvidePassword = () => {
                     <span className="text-black">tus Paciente</span>
                 </h1>
             </div>
+
             <div className="mt-20 md:mt-5 shadow-lg px-5 py-10 rounded-xl bg-white">
-                <form>
+
+                {message && 
+                    <Alerta
+                        alerta={alerta}
+                    />
+                }
+
+                <form onSubmit={handleSubmit}>
                     <div className="my-5">
                         <label 
                             htmlFor="email"
@@ -22,6 +63,7 @@ const OlvidePassword = () => {
                             placeholder="Email de Registro"
                             name="email" 
                             className="border border-gray-300 w-full p-3 mt-3 bg-gray-50 rounded-xl"
+                            onChange={e => setEmail(e.target.value)}
                         />
                     </div>
                     <input 
@@ -43,7 +85,7 @@ const OlvidePassword = () => {
                         ¿No tienes una cuenta? Registrate
                     </Link>
                 </nav>
-                
+
             </div>
         </>
     );
