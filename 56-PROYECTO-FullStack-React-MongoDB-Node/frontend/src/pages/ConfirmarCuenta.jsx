@@ -7,7 +7,7 @@ import Alerta from "../components/Alerta";
 
 const ConfirmarCuenta = () => {
     const [alerta, setAlerta] = useState({});
-    const [cargando, setCargando] = useState(true);
+    const [loading, setLoading] = useState(true);
     const [cuentaConfirmada, setCuentaConfirmada] = useState(false);
 
     const { token } = useParams();
@@ -27,7 +27,7 @@ const ConfirmarCuenta = () => {
                     error: true
                 });
             }
-            setCargando(false);
+            setLoading(false);
         };
         confirmarCuenta();
     }, []);
@@ -42,7 +42,7 @@ const ConfirmarCuenta = () => {
             </div>
             
             <div className="mt-20 md:mt-5 shadow-lg px-5 py-10 rounded-xl bg-white">
-                {!cargando && 
+                {!loading && 
                     <Alerta
                         alerta={alerta}
                     />
