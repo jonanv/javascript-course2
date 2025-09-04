@@ -2,12 +2,12 @@ import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 
 // Imports
-import axios from "axios";
+import clienteAxios from "../config/axios";
 import Alerta from "../components/Alerta";
 
 const ConfirmarCuenta = () => {
     const [alerta, setAlerta] = useState({});
-    const [cargando, setCargando] = useState(true);
+    const [loading, setLoading] = useState(true);
     const [cuentaConfirmada, setCuentaConfirmada] = useState(false);
 
     const { token } = useParams();
@@ -15,8 +15,7 @@ const ConfirmarCuenta = () => {
     useEffect(() => {
         const confirmarCuenta = async () => {
             try {
-                const URL = import.meta.env.VITE_BACKEND_URL;
-                const { data } = await axios.get(`${ URL }/api/veterinarios/confirmar/${ token }`);
+                const { data } = await clienteAxios.get(`/veterinarios/confirmar/${ token }`);
                 setCuentaConfirmada(true);
                 setAlerta({
                     message: data.message,
@@ -28,7 +27,7 @@ const ConfirmarCuenta = () => {
                     error: true
                 });
             }
-            setCargando(false);
+            setLoading(false);
         };
         confirmarCuenta();
     }, []);
@@ -41,8 +40,9 @@ const ConfirmarCuenta = () => {
                     <span className="text-black">tus Paciente</span>
                 </h1>
             </div>
+            
             <div className="mt-20 md:mt-5 shadow-lg px-5 py-10 rounded-xl bg-white">
-                {!cargando && 
+                {!loading && 
                     <Alerta
                         alerta={alerta}
                     />

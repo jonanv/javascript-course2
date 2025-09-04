@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 
 // Imports
-import axios from "axios";
+import clienteAxios from "../config/axios";
 import Alerta from "../components/Alerta";
 
 const Registrar = () => {
@@ -36,14 +36,13 @@ const Registrar = () => {
 
         // Crear el usuario en la API
         try {
-            const URL = import.meta.env.VITE_BACKEND_URL;
             const body = {
                 nombre,
                 email,
                 password,
                 confirmarPassword
             };
-            await axios.post(`${ URL }/api/veterinarios`, body);
+            await clienteAxios.post(`/veterinarios`, body);
             setAlerta({ 
                 message: 'Creado correctamente, revisa tu email', 
                 error: false 
@@ -57,7 +56,7 @@ const Registrar = () => {
             setAlerta({
                 message: error.response.data.message,
                 error: true
-            })
+            });
         }
     }
 
@@ -71,6 +70,7 @@ const Registrar = () => {
                     <span className="text-black">tus Paciente</span>
                 </h1>
             </div>
+            
             <div className="mt-20 md:mt-5 shadow-lg px-5 py-10 rounded-xl bg-white">
 
                 {message && 
@@ -159,6 +159,7 @@ const Registrar = () => {
                         Olvidé mi Password
                     </Link>
                 </nav>
+                
             </div>
         </>
     );

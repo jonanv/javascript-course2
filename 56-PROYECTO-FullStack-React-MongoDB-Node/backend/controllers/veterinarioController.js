@@ -3,6 +3,7 @@ import Veterinario from "../models/Veterinario.js";
 import generarJWT from "../helpers/generarJWT.js";
 import generarId from "../helpers/generarId.js";
 import emailRegistro from "../helpers/emailRegistro.js";
+import emailOlvidePassword from "../helpers/emailOlvidePassword.js";
 
 const registrar = async (request, response) => {
     const { email, nombre } = request.body;
@@ -87,21 +88,29 @@ const autenticar = async (request, response) => {
 };
 
 const olvidePassword = async (request, response) => {
-    const { email } = request.body;
+    const { email, nombre } = request.body;
 
-    const existeUsuario = await Veterinario.findOne({ email });
+    const existeVeterinario = await Veterinario.findOne({ email });
     
-    if (!existeUsuario) {
+    if (!existeVeterinario) {
         const error = new Error('El usuario no existe');
         return response.status(400).json({ message: error.message });
     }
 
     try {
-        existeUsuario.token = generarId();
-        await existeUsuario.save();
+        existeVeterinario.token = generarId();
+        await existeVeterinario.save();
+
+        // Enviar Email con instrucciones
+        emailOlvidePassword({
+            email,
+            nombre,
+            token: existeVeterinario.token
+        });
+
         response.status(200).json({ message: 'Hemos enviado un email con las instrucciones' });
     } catch (error) {
-        console.error(error);
+        response.json(error);
     }
     
     response.status(200).json({ message: 'Olvide contraseña...' });
@@ -138,7 +147,7 @@ const nuevoPassword = async (request, response) => {
         await veterinario.save();
         return response.status(200).json({ message: 'Password modificado exitosamente' });
     } catch (error) {
-        console.error(error);
+        response.json(error);
     }
 };
 
