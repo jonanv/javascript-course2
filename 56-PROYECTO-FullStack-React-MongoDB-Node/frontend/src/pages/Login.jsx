@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 // Imports
 import useAuth from "../hooks/useAuth";
@@ -13,7 +13,7 @@ const Login = () => {
     const [alerta, setAlerta] = useState({});
     const [submitting, setSubmitting] = useState(false);
 
-    const { auth } = useAuth();
+    const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -34,6 +34,8 @@ const Login = () => {
 
             setEmail('');
             setPassword('');
+
+            navigate('/admin');
         } catch (error) {
             setAlerta({
                 message: error.response.data.message,
