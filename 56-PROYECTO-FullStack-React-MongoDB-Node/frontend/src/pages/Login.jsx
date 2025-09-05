@@ -28,16 +28,12 @@ const Login = () => {
         setSubmitting(true); // 🔥 deshabilita el botón
 
         try {
-            console.log('Autenticando...');
-            // const body = { email, password };
-            // const { data } = await clienteAxios.post('/veterinarios/login', body);
-            // setAlerta({
-            //     message: data.message,
-            //     error: false
-            // });
+            const body = { email, password };
+            const { data } = await clienteAxios.post('/veterinarios/login', body);
+            localStorage.setItem('token', data.token);
 
-            // setEmail('');
-            // setPassword('');
+            setEmail('');
+            setPassword('');
         } catch (error) {
             setAlerta({
                 message: error.response.data.message,
