@@ -4,10 +4,12 @@ import { Link } from "react-router-dom";
 // Imports
 import clienteAxios from "../config/axios";
 import Alerta from "../components/Alerta";
+import Loading from "../components/Loading";
 
 const OlvidePassword = () => {
     const [email, setEmail] = useState('');
     const [alerta, setAlerta] = useState({});
+    const [submitting, setSubmitting] = useState(false);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -16,6 +18,9 @@ const OlvidePassword = () => {
             setAlerta({ message: 'Email es obligatorio', error: true });
             return;
         }
+
+        setAlerta({});
+        setSubmitting(true);
         
         try {
             const body = { email };
@@ -29,6 +34,10 @@ const OlvidePassword = () => {
                 message: error.response.data.message,
                 error: true
             });
+        } finally {
+            setTimeout(() => {
+                setSubmitting(false);
+            }, 3000);
         }
     };
 
@@ -45,7 +54,7 @@ const OlvidePassword = () => {
 
             <div className="mt-20 md:mt-5 shadow-lg px-5 py-10 rounded-xl bg-white">
 
-                {message && 
+                {!submitting && message && 
                     <Alerta
                         alerta={alerta}
                     />
@@ -66,11 +75,21 @@ const OlvidePassword = () => {
                             onChange={e => setEmail(e.target.value)}
                         />
                     </div>
-                    <input 
+                    <button 
                         type="submit" 
-                        value="Enviar Instrucciones"
-                        className="bg-indigo-700 w-full text-white uppercase font-bold border rounded-xl py-3 px-10 mt-5 hover:cursor-pointer hover:bg-indigo-800 md:w-auto"
-                    />
+                        disabled={submitting}
+                        className={`bg-indigo-700 w-full text-white uppercase font-bold border rounded-xl py-3 px-10  mt-5 md:w-auto flex items-center justify-center gap-2
+                            ${submitting ? "opacity-60 cursor-not-allowed" : "hover:cursor-pointer hover:bg-indigo-800"}`}
+                    >
+                        {submitting ? (
+                            <>
+                                Enviando Instrucciones...
+                                <Loading />
+                            </>
+                        ) : (
+                            "Enviar Instrucciones"
+                        )}
+                    </button>
                 </form>
 
                 <nav className="mt-10 lg:flex lg:justify-between">
