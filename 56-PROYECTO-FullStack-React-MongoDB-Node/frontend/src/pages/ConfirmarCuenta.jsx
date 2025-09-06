@@ -4,11 +4,12 @@ import { Link, useParams } from "react-router-dom";
 // Imports
 import clienteAxios from "../config/axios";
 import Alerta from "../components/Alerta";
+import Loading from "../components/Loading";
 
 const ConfirmarCuenta = () => {
-    const [alerta, setAlerta] = useState({});
     const [loading, setLoading] = useState(true);
     const [cuentaConfirmada, setCuentaConfirmada] = useState(false);
+    const [alerta, setAlerta] = useState({});
 
     const { token } = useParams();
 
@@ -26,8 +27,11 @@ const ConfirmarCuenta = () => {
                     message: error.response.data.message,
                     error: true
                 });
+            } finally {
+                setTimeout(() => {
+                    setLoading(false);
+                }, 3000);
             }
-            setLoading(false);
         };
         confirmarCuenta();
     }, []);
@@ -42,13 +46,19 @@ const ConfirmarCuenta = () => {
             </div>
             
             <div className="mt-20 md:mt-5 shadow-lg px-5 py-10 rounded-xl bg-white">
-                {!loading && 
-                    <Alerta
-                        alerta={alerta}
-                    />
-                }
+                {loading ? (
+                    <div className="flex items-center justify-center gap-2">
+                        <span>Validando...</span>
+                        <Loading color="text-black" />
+                    </div>
+                ) : (
+                    !loading &&
+                        <Alerta
+                            alerta={alerta}
+                        />
+                )}
 
-                {cuentaConfirmada && (
+                {!loading && cuentaConfirmada && (
                     <Link
                         to="/"
                         className="block text-center my-5 text-gray-500 hover:text-gray-600">

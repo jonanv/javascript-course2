@@ -12,8 +12,8 @@ export const NuevoPassword = () => {
     const [loading, setLoading] = useState(true);
     const [tokenValido, setTokenValido] = useState(false);
     const [passwordModificado, setPasswordModificado] = useState(false);
-
     const [alerta, setAlerta] = useState({});
+    const [submitting, setSubmitting] = useState(false);
 
     const { token } = useParams();
 
@@ -31,10 +31,11 @@ export const NuevoPassword = () => {
                     message: 'Hubo un error con el enlace',
                     error: true
                 });
+            } finally {
+                setTimeout(() => {
+                    setLoading(false);
+                }, 3000);
             }
-            setTimeout(() => {
-                setLoading(false);
-            }, 3000);
         }
         validarToken();
     }, []);
@@ -59,6 +60,7 @@ export const NuevoPassword = () => {
         }
 
         setAlerta({});
+        setSubmitting(true);
 
         try {
             const body = { password: nuevoPassword };
@@ -75,6 +77,10 @@ export const NuevoPassword = () => {
                 message: error.response.data.message,
                 error: true
             });
+        } finally {
+            setTimeout(() => {
+                setSubmitting(false);
+            }, 3000);
         }
     };
 
@@ -92,12 +98,18 @@ export const NuevoPassword = () => {
             <div className="mt-20 md:mt-5 shadow-lg px-5 py-10 rounded-xl bg-white">
 
                 {loading ? (
-                    <Loading />
+                    <div className="flex items-center justify-center gap-2">
+                        <span>Validando...</span>
+                        <Loading color="text-black" />
+                    </div>
                 ) : (
-                    message && <Alerta alerta={alerta} />
+                    !submitting && message && 
+                        <Alerta
+                            alerta={alerta}
+                        />
                 )}
 
-                {tokenValido && (
+                {!loading && tokenValido && (
                     <form onSubmit={handleSubmit}>
                         <div className="my-5">
                             <label
@@ -129,11 +141,21 @@ export const NuevoPassword = () => {
                                 onChange={e => setConfirmarPassword(e.target.value.toString())}
                             />
                         </div>
-                        <input 
+                        <button 
                             type="submit" 
-                            value="Guardar nuevo password"
-                            className="bg-indigo-700 w-full text-white uppercase font-bold border rounded-xl py-3 px-10 mt-5 hover:cursor-pointer hover:bg-indigo-800 md:w-auto"
-                        />
+                            disabled={submitting}
+                            className={`bg-indigo-700 w-full text-white uppercase font-bold border rounded-xl py-3 px-10  mt-5 md:w-auto flex items-center justify-center gap-2
+                                ${submitting ? "opacity-60 cursor-not-allowed" : "hover:cursor-pointer hover:bg-indigo-800"}`}
+                        >
+                            {submitting ? (
+                                <>
+                                    Guardando...
+                                    <Loading />
+                                </>
+                            ) : (
+                                "Guardar nuevo password"
+                            )}
+                        </button>
                     </form>
                 )}
 

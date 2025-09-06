@@ -1,6 +1,55 @@
-import { Link } from "react-router-dom";
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+
+// Imports
+import useAuth from "../hooks/useAuth";
+import Alerta from "../components/Alerta";
+import Loading from "../components/Loading";
+import clienteAxios from "../config/axios";
 
 const Login = () => {
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [alerta, setAlerta] = useState({});
+    const [submitting, setSubmitting] = useState(false);
+
+    const navigate = useNavigate();
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        const fields = [email, password];
+
+        if (fields.includes('')) {
+            setAlerta({ message: 'Hay campos vacíos', error: true });
+            return;
+        }
+
+        setAlerta({});
+        setSubmitting(true); // 🔥 deshabilita el botón
+
+        try {
+            const body = { email, password };
+            const { data } = await clienteAxios.post('/veterinarios/login', body);
+            localStorage.setItem('token', data.token);
+
+            setEmail('');
+            setPassword('');
+
+            navigate('/admin');
+        } catch (error) {
+            setAlerta({
+                message: error.response.data.message,
+                error: true
+            });
+        } finally {
+            setTimeout(() => {
+                setSubmitting(false); // 🔥 re-habilita el botón
+            }, 3000);
+        }
+    };
+
+    const { message } = alerta;
+
     return (
         <>
             <div>
@@ -9,8 +58,16 @@ const Login = () => {
                     <span className="text-black">Pacientes</span>
                 </h1>
             </div>
+
             <div className="mt-20 md:mt-5 shadow-lg px-5 py-10 rounded-xl bg-white">
-                <form>
+
+                {!submitting && message && 
+                    <Alerta 
+                        alerta={alerta}
+                    />
+                }
+
+                <form onSubmit={handleSubmit}>
                     <div className="my-5">
                         <label 
                             htmlFor="email"
@@ -22,6 +79,7 @@ const Login = () => {
                             placeholder="Email de Registro"
                             name="email" 
                             className="border border-gray-300 w-full p-3 mt-3 bg-gray-50 rounded-xl"
+                            onChange={e => setEmail(e.target.value.toString())}
                         />
                     </div>
                     <div className="my-5">
@@ -35,13 +93,24 @@ const Login = () => {
                             placeholder="Tu Password"
                             name="password" 
                             className="border border-gray-300 w-full p-3 mt-3 bg-gray-50 rounded-xl"
+                            onChange={e => setPassword(e.target.value.toString())}
                         />
                     </div>
-                    <input 
+                    <button 
                         type="submit" 
-                        value="Iniciar Sesión"
-                        className="bg-indigo-700 w-full text-white uppercase font-bold border rounded-xl py-3 px-10 mt-5 hover:cursor-pointer hover:bg-indigo-800 md:w-auto"
-                    />
+                        disabled={submitting}
+                        className={`bg-indigo-700 w-full text-white uppercase font-bold border rounded-xl py-3 px-10  mt-5 md:w-auto flex items-center justify-center gap-2
+                            ${submitting ? "opacity-60 cursor-not-allowed" : "hover:cursor-pointer hover:bg-indigo-800"}`}
+                    >
+                        {submitting ? (
+                            <>
+                                Iniciando...
+                                <Loading />
+                            </>
+                        ) : (
+                            "Iniciar Sesión"
+                        )}
+                    </button>
                 </form>
 
                 <nav className="mt-10 lg:flex lg:justify-between">
@@ -56,6 +125,7 @@ const Login = () => {
                         Olvidé mi Password
                     </Link>
                 </nav>
+
             </div>
         </>
     );

@@ -4,14 +4,15 @@ import { Link } from "react-router-dom";
 // Imports
 import clienteAxios from "../config/axios";
 import Alerta from "../components/Alerta";
+import Loading from "../components/Loading";
 
 const Registrar = () => {
     const [nombre, setNombre] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [confirmarPassword, setConfirmarPassword] = useState('');
-
     const [alerta, setAlerta] = useState({});
+    const [submitting, setSubmitting] = useState(false);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -33,6 +34,7 @@ const Registrar = () => {
         }
 
         setAlerta({});
+        setSubmitting(true);
 
         // Crear el usuario en la API
         try {
@@ -57,6 +59,10 @@ const Registrar = () => {
                 message: error.response.data.message,
                 error: true
             });
+        } finally {
+            setTimeout(() => {
+                setSubmitting(false);
+            }, 3000);
         }
     }
 
@@ -73,7 +79,7 @@ const Registrar = () => {
             
             <div className="mt-20 md:mt-5 shadow-lg px-5 py-10 rounded-xl bg-white">
 
-                {message && 
+                {!submitting && message && 
                     <Alerta
                         alerta={alerta}
                     />
@@ -140,11 +146,21 @@ const Registrar = () => {
                             onChange={e => setConfirmarPassword(e.target.value.toString())}
                         />
                     </div>
-                    <input
-                        type="submit"
-                        value="Registrarse"
-                        className="bg-indigo-700 w-full text-white uppercase font-bold border rounded-xl py-3 px-10 mt-5 hover:cursor-pointer hover:bg-indigo-800 md:w-auto"
-                    />
+                    <button 
+                        type="submit" 
+                        disabled={submitting}
+                        className={`bg-indigo-700 w-full text-white uppercase font-bold border rounded-xl py-3 px-10  mt-5 md:w-auto flex items-center justify-center gap-2
+                            ${submitting ? "opacity-60 cursor-not-allowed" : "hover:cursor-pointer hover:bg-indigo-800"}`}
+                    >
+                        {submitting ? (
+                            <>
+                                Registrando...
+                                <Loading />
+                            </>
+                        ) : (
+                            "Registrarse"
+                        )}
+                    </button>
                 </form>
 
                 <nav className="mt-10 lg:flex lg:justify-between">
