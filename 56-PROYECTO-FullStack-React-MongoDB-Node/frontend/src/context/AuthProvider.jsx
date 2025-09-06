@@ -5,12 +5,16 @@ const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
     const [auth, setAuth] = useState({});
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         const autenticarUsuario = async () => {
             const token = localStorage.getItem('token');
             
-            if (!token) return;
+            if (!token) {
+                setLoading(false);
+                return;
+            }
 
             const config = {
                 headers: {
@@ -25,6 +29,10 @@ const AuthProvider = ({ children }) => {
             } catch (error) {
                 console.error(error.response.data.message);
                 setAuth({});
+            } finally {
+                setTimeout(() => {
+                    setLoading(false);
+                }, 3000);
             }
         };
         autenticarUsuario();
@@ -34,7 +42,8 @@ const AuthProvider = ({ children }) => {
         <AuthContext.Provider
             value={{
                 auth, 
-                setAuth
+                setAuth,
+                loading
             }}>
             { children }
         </AuthContext.Provider>
