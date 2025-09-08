@@ -3,7 +3,7 @@ import Footer from "../components/Footer";
 const AdministrarPacientes = () => {
     return (
         <>
-            <Footer></Footer>
+            <div>Desde Administrador de Pacientes</div>
         </>
     );
 }

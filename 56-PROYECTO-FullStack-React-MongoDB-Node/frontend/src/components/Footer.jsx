@@ -1,6 +1,11 @@
 const Footer = () => {
     return (
-        <div>Footer</div>
+        <footer className="py-10">
+            <p className="text-center font-bold">
+                APV - Adminstrador de Pacientes de {''}
+                <span className="text-indigo-600">Veterinaria</span>
+            </p>
+        </footer>
     );
 }
 
