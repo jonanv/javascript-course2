@@ -77,6 +77,7 @@ const Login = () => {
                             Email
                         </label>
                         <input 
+                            id="email"
                             type="email"
                             placeholder="Email de Registro"
                             name="email" 
@@ -91,6 +92,7 @@ const Login = () => {
                             Password
                         </label>
                         <input 
+                            id="password"
                             type="password"
                             placeholder="Tu Password"
                             name="password" 
