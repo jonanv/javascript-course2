@@ -46,7 +46,7 @@ const AuthProvider = ({ children }) => {
     return (
         <AuthContext.Provider
             value={{
-                auth, 
+                auth,
                 setAuth,
                 loading,
                 cerrarSesion
