@@ -22,10 +22,12 @@ const RutaProtegida = () => {
     return (
         <>
             <Header />
-                {auth?._id 
-                    ? <Outlet />
-                    : <Navigate to="/" />
-                }
+                <main className="container mx-auto mt-10">
+                    {auth?._id 
+                        ? <Outlet />
+                        : <Navigate to="/" />
+                    }
+                </main>
             <Footer />
         </>
     );
