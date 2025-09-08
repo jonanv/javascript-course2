@@ -2,7 +2,6 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 // Imports
-import useAuth from "../hooks/useAuth";
 import Alerta from "../components/Alerta";
 import Loading from "../components/Loading";
 import clienteAxios from "../config/axios";
