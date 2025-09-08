@@ -1,6 +1,10 @@
+import Footer from "../components/Footer";
+
 const AdministrarPacientes = () => {
     return (
-        <div>AdministrarPacientes</div>
+        <>
+            <Footer></Footer>
+        </>
     );
 }
 
