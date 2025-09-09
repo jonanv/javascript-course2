@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 // Imports
-import clienteAxios from "../config/axios";
+import usePacientes from "../hooks/usePacientes";
 import Loading from "./Loading";
 import Alerta from "./Alerta";
 
@@ -14,6 +14,8 @@ const Formulario = () => {
     const [alerta, setAlerta] = useState({});
     const [submitting, setSubmitting] = useState(false);
 
+    const { guardarPaciente } = usePacientes();
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         const fields = [nombre, propietario, email, fecha, sintomas];
@@ -25,32 +27,14 @@ const Formulario = () => {
 
         setAlerta({});
         setSubmitting(true);
-
         // Registrando pacientes
-        try {
-            const body = {
-                nombre, 
-                propietario, 
-                email, 
-                fecha, 
-                sintomas
-            };
-            const { data } = await clienteAxios.post('/pacientes/', body);
-            console.log(data);
-            setAlerta({
-                message: data.message,
-                error: false
-            });
-        } catch (error) {
-            setAlerta({
-                message: error.response.data.message,
-                error: true
-            });
-        } finally {
-            setTimeout(() => {
-                setSubmitting(false);
-            }, 3000);
-        }
+        guardarPaciente({ 
+            nombre, 
+            propietario, 
+            email, 
+            fecha, 
+            sintomas
+        });
     }
 
     const { message } = alerta;
