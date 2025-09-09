@@ -35,7 +35,7 @@ const Formulario = () => {
                 fecha, 
                 sintomas
             };
-            const data = await clienteAxios.post('/pacientes/', body);
+            const { data } = await clienteAxios.post('/pacientes/', body);
             console.log(data);
             setAlerta({
                 message: data.message,
@@ -43,7 +43,7 @@ const Formulario = () => {
             });
         } catch (error) {
             setAlerta({
-                message: error.response.data.error,
+                message: error.response.data.message,
                 error: true
             });
         } finally {
@@ -61,12 +61,6 @@ const Formulario = () => {
                 Añade tus pacientes y {''}
                 <span className="text-indigo-600 font-bold">Administralos</span>
             </p>
-
-            {!submitting && message && 
-                <Alerta 
-                    alerta={alerta}
-                />
-            }
 
             <form onSubmit={handleSubmit}
                 className="bg-white py-10 px-5 mb-10 lg:mb-0 shadow-md rounded-md">
@@ -159,6 +153,12 @@ const Formulario = () => {
                     )}
                 </button>
             </form>
+
+            {!submitting && message && 
+                <Alerta 
+                    alerta={alerta}
+                />
+            }
         </>
     );
 }
