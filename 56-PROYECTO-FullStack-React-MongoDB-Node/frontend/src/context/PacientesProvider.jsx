@@ -41,6 +41,10 @@ const PacientesProvider = ({ children }) => {
     }, []);
 
     const guardarPaciente = async (paciente) => {
+
+    const editarPaciente = async (paciente) => {
+        console.log(paciente);
+    }
         const token = localStorage.getItem('token');
             
         if (!token) {

@@ -1,4 +1,8 @@
+// Imports
+import usePacientes from "../hooks/usePacientes";
+
 const Paciente = ({ paciente }) => {
+    const { editarPaciente } = usePacientes();
 
     const { nombre, propietario, email, fecha, sintomas, _id } = paciente;
 
@@ -33,7 +37,8 @@ const Paciente = ({ paciente }) => {
             <div className="flex justify-around my-5">
                 <button 
                     type="button"
-                    className="py-2 px-10 bg-indigo-600 hover:bg-indigo-700 text-white uppercase font-bold rounded-lg">
+                    className="py-2 px-10 bg-indigo-600 hover:bg-indigo-700 text-white uppercase font-bold rounded-lg"
+                    onClick={() => editarPaciente(paciente)}>
                     Editar
                 </button>
                 <button 
