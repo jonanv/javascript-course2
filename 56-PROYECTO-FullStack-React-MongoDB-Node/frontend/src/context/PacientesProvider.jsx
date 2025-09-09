@@ -6,6 +6,7 @@ import clienteAxios from "../config/axios";
 const PacientesContext = createContext();
 
 const PacientesProvider = ({ children }) => {
+    const [pacientes, setPacientes] = useState([]);
 
     useEffect(() => {
 
@@ -14,7 +15,7 @@ const PacientesProvider = ({ children }) => {
     return (
         <PacientesContext.Provider
             value={{
-
+                pacientes
             }}>
             { children }
         </PacientesContext.Provider>
