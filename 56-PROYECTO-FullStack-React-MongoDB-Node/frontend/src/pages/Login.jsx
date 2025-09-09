@@ -14,6 +14,7 @@ const Login = () => {
     const [submitting, setSubmitting] = useState(false);
 
     const navigate = useNavigate();
+    const { setAuth } = useAuth();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -31,6 +32,7 @@ const Login = () => {
             const body = { email, password };
             const { data } = await clienteAxios.post('/veterinarios/login', body);
             localStorage.setItem('token', data.token);
+            setAuth(data);
 
             setEmail('');
             setPassword('');
@@ -75,6 +77,7 @@ const Login = () => {
                             Email
                         </label>
                         <input 
+                            id="email"
                             type="email"
                             placeholder="Email de Registro"
                             name="email" 
@@ -89,6 +92,7 @@ const Login = () => {
                             Password
                         </label>
                         <input 
+                            id="password"
                             type="password"
                             placeholder="Tu Password"
                             name="password" 

@@ -80,7 +80,14 @@ const autenticar = async (request, response) => {
     // Revisar password
     if (await existeUsuario.comprobarPassword(password)) {
         // Autenticar el usuario
-        response.json({ token: generarJWT(existeUsuario._id) });
+        response.json({
+            _id: existeUsuario._id,
+            nombre: existeUsuario.nombre,
+            email: existeUsuario.email,
+            token: generarJWT(existeUsuario._id),
+            telefono: existeUsuario.telefono,
+            web: existeUsuario.web
+        });
     } else {
         const error = new Error('Datos de autenticacion incorrectos');
         return response.status(500).json({ message: error.message });
