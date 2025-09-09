@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 // Imports
 import usePacientes from "../hooks/usePacientes";
@@ -11,10 +11,22 @@ const Formulario = () => {
     const [email, setEmail] = useState('');
     const [fecha, setFecha] = useState('');
     const [sintomas, setSintomas] = useState('');
+    const [id, setId] = useState('');
     const [alerta, setAlerta] = useState({});
     const [submitting, setSubmitting] = useState(false);
 
-    const { guardarPaciente } = usePacientes();
+    const { guardarPaciente, paciente } = usePacientes();
+
+    useEffect(() => {
+        if (paciente?.nombre) {
+            setNombre(paciente.nombre);
+            setPropietario(paciente.propietario);
+            setEmail(paciente.email);
+            setFecha(paciente.fecha);
+            setSintomas(paciente.sintomas);
+            setId(paciente._id);
+        }
+    }, [paciente]);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -33,7 +45,8 @@ const Formulario = () => {
             propietario, 
             email, 
             fecha, 
-            sintomas
+            sintomas,
+            id
         });
     }
 
@@ -62,6 +75,7 @@ const Formulario = () => {
                         placeholder="Nombre de la mascota"
                         name="nombre" 
                         className="border border-gray-300 w-full p-2 mt-2 bg-gray-50 rounded-md"
+                        value={nombre}
                         onChange={e => setNombre(e.target.value.toString())}
                     />
                 </div>
@@ -77,6 +91,7 @@ const Formulario = () => {
                         placeholder="Nombre del propietario"
                         name="propietario" 
                         className="border border-gray-300 w-full p-2 mt-2 bg-gray-50 rounded-md"
+                        value={propietario}
                         onChange={e => setPropietario(e.target.value.toString())}
                     />
                 </div>
@@ -92,6 +107,7 @@ const Formulario = () => {
                         placeholder="Email propietario"
                         name="email" 
                         className="border border-gray-300 w-full p-2 mt-2 bg-gray-50 rounded-md"
+                        value={email}
                         onChange={e => setEmail(e.target.value.toString())}
                     />
                 </div>
@@ -106,6 +122,7 @@ const Formulario = () => {
                         type="date"
                         name="fecha" 
                         className="border border-gray-300 w-full p-2 mt-2 bg-gray-50 rounded-md"
+                        value={fecha}
                         onChange={e => setFecha(e.target.value.toString())}
                     />
                 </div>
@@ -120,6 +137,7 @@ const Formulario = () => {
                         name="sintomas" 
                         placeholder="Describe los sintomas"
                         className="border border-gray-300 w-full p-2 mt-2 bg-gray-50 rounded-md"
+                        value={sintomas}
                         onChange={e => setSintomas(e.target.value.toString())}
                     />
                 </div>
@@ -131,11 +149,11 @@ const Formulario = () => {
                 >
                     {submitting ? (
                         <>
-                            Agregando paciente...
+                            ({id ? "Editando paciente..." : "Agregando paciente..."})
                             <Loading />
                         </>
                     ) : (
-                        "Agregar Paciente"
+                        id ? "Editar Paciente" : "Agregar Paciente"
                     )}
                 </button>
             </form>

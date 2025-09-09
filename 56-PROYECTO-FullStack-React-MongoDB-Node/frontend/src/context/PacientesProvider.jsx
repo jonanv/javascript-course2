@@ -7,6 +7,7 @@ const PacientesContext = createContext();
 
 const PacientesProvider = ({ children }) => {
     const [pacientes, setPacientes] = useState([]);
+    const [paciente, setPaciente] = useState({});
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
@@ -27,22 +28,37 @@ const PacientesProvider = ({ children }) => {
     }, []);
 
     const guardarPaciente = async (paciente) => {
-        try {
-            const { data } = await clienteAxios.post('/pacientes', paciente, cargarConfig());
-            const { createdAt, updatedAt, __v, ...pacienteAlmacenado } = data; // Crea un nuevo objeto sin los valores de la izquierda
-            setPacientes([pacienteAlmacenado, ...pacientes]);
-        } catch (error) {
-            console.log(error.response.data.message);
-            setPacientes([]);
-        } finally {
-            setTimeout(() => {
-                setLoading(false);
-            }, 3000);
+        if (!paciente.id) {
+            try {
+                const { data } = await clienteAxios.post('/pacientes', paciente, cargarConfig());
+                const { createdAt, updatedAt, __v, ...pacienteAlmacenado } = data; // Crea un nuevo objeto sin los valores de la izquierda
+                setPacientes([pacienteAlmacenado, ...pacientes]);
+            } catch (error) {
+                console.log(error.response.data.message);
+                setPacientes([]);
+            } finally {
+                setTimeout(() => {
+                    setLoading(false);
+                }, 3000);
+            }
+        } else {
+
         }
     }
 
     const editarPaciente = async (paciente) => {
-        console.log(paciente);
+        setPaciente(paciente);
+        // try {
+        //     const { data } = await clienteAxios.get(`pacientes/${ id }`, cargarConfig());
+        //     setPaciente(data);
+        // } catch (error) {
+        //     console.error(error.response.data.message);
+        //     setPaciente({});
+        // } finally {
+        //     setTimeout(() => {
+        //         setLoading(false);
+        //     }, 3000);
+        // }
     }
 
     const cargarConfig = () => {
@@ -68,7 +84,9 @@ const PacientesProvider = ({ children }) => {
             value={{
                 pacientes,
                 guardarPaciente,
-                loading
+                loading,
+                editarPaciente,
+                paciente
             }}>
             { children }
         </PacientesContext.Provider>
