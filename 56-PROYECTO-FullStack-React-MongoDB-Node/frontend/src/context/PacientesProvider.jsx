@@ -28,7 +28,10 @@ const PacientesProvider = ({ children }) => {
     }, []);
 
     const guardarPaciente = async (paciente) => {
-        if (!paciente.id) {
+        const { id } = paciente;
+
+        if (!id) {
+            // Guardar paciente
             try {
                 const { data } = await clienteAxios.post('/pacientes', paciente, cargarConfig());
                 const { createdAt, updatedAt, __v, ...pacienteAlmacenado } = data; // Crea un nuevo objeto sin los valores de la izquierda
@@ -42,23 +45,24 @@ const PacientesProvider = ({ children }) => {
                 }, 3000);
             }
         } else {
-
+            // Editar paciente
+            try {
+                const { data } = await clienteAxios.put(`pacientes/${ id }`, paciente, cargarConfig());
+                const pacientesActualizado = pacientes.map((pacienteState) => pacienteState._id === data._id ? data : pacienteState);
+                setPacientes(pacientesActualizado);
+            } catch (error) {
+                console.error(error.response.data.message);
+                setPaciente({});
+            } finally {
+                setTimeout(() => {
+                    setLoading(false);
+                }, 3000);
+            }
         }
     }
 
     const editarPaciente = async (paciente) => {
         setPaciente(paciente);
-        // try {
-        //     const { data } = await clienteAxios.get(`pacientes/${ id }`, cargarConfig());
-        //     setPaciente(data);
-        // } catch (error) {
-        //     console.error(error.response.data.message);
-        //     setPaciente({});
-        // } finally {
-        //     setTimeout(() => {
-        //         setLoading(false);
-        //     }, 3000);
-        // }
     }
 
     const cargarConfig = () => {

@@ -38,7 +38,7 @@ const Formulario = () => {
         }
 
         setAlerta({});
-        setSubmitting(true);
+        // setSubmitting(true);
         // Registrando pacientes
         guardarPaciente({ 
             nombre, 
@@ -48,6 +48,16 @@ const Formulario = () => {
             sintomas,
             id
         });
+        setAlerta({
+            message: 'Guardado correctamente',
+            error: false
+        });
+        setNombre('');
+        setPropietario('');
+        setEmail('');
+        setFecha('');
+        setSintomas('');
+        setId('');
     }
 
     const { message } = alerta;
@@ -62,7 +72,7 @@ const Formulario = () => {
             </p>
 
             <form onSubmit={handleSubmit}
-                className="bg-white py-10 px-5 mb-10 lg:mb-0 shadow-md rounded-md">
+                className="bg-white py-10 px-5 mb-10 lg:mb-2 shadow-md rounded-md">
                 <div className="mb-5">
                     <label 
                         htmlFor="nombre"
@@ -149,7 +159,7 @@ const Formulario = () => {
                 >
                     {submitting ? (
                         <>
-                            ({id ? "Editando paciente..." : "Agregando paciente..."})
+                            {id ? "Editando paciente..." : "Agregando paciente..."}
                             <Loading />
                         </>
                     ) : (
