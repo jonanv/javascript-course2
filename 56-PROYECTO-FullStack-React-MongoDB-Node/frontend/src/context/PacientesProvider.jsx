@@ -61,8 +61,28 @@ const PacientesProvider = ({ children }) => {
         }
     }
 
-    const editarPaciente = async (paciente) => {
+    const setEdicion = async (paciente) => {
         setPaciente(paciente);
+    }
+
+    const eliminarPaciente = async (id) => {
+        const confirmar = confirm(`¿Estas seguro que deseas eliminar el paciente?`);
+
+        if (confirmar) {
+            try {
+                const { data } = await clienteAxios.delete(`/pacientes/${ id }`, cargarConfig());
+                console.log(data);
+    
+                const pacientesActualizados = pacientes.filter((pacienteState) => pacienteState._id !== id);
+                setPacientes(pacientesActualizados);
+            } catch (error) {
+                console.error(error);
+            } finally {
+                setTimeout(() => {
+                    setLoading(false);
+                }, 3000);
+            }
+        }
     }
 
     const cargarConfig = () => {
@@ -89,8 +109,9 @@ const PacientesProvider = ({ children }) => {
                 pacientes,
                 guardarPaciente,
                 loading,
-                editarPaciente,
-                paciente
+                setEdicion,
+                paciente,
+                eliminarPaciente
             }}>
             { children }
         </PacientesContext.Provider>
