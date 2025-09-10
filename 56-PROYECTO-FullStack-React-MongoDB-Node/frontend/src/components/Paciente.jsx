@@ -8,7 +8,10 @@ const Paciente = ({ paciente }) => {
 
     const formatearFecha = (fecha) => {
         const nuevaFecha = new Date(fecha);
-        return new Intl.DateTimeFormat('es-CO', {dateStyle: 'long'}).format(nuevaFecha);  //es:español co:colombia
+        return new Intl.DateTimeFormat('es-CO', {
+            dateStyle: 'long',
+            timeZone: "UTC"
+        }).format(nuevaFecha);  //es:español co:colombia
     }
 
     return (

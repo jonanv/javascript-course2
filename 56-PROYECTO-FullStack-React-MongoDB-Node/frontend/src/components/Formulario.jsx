@@ -132,7 +132,7 @@ const Formulario = () => {
                         type="date"
                         name="fecha" 
                         className="border border-gray-300 w-full p-2 mt-2 bg-gray-50 rounded-md"
-                        value={fecha}
+                        value={fecha ? fecha.split("T")[0] : ""}
                         onChange={e => setFecha(e.target.value.toString())}
                     />
                 </div>
