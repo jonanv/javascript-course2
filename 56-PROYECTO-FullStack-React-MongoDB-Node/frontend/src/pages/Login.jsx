@@ -34,9 +34,7 @@ const Login = () => {
             localStorage.setItem('token', data.token);
             setAuth(data);
 
-            setEmail('');
-            setPassword('');
-
+            resetForm();
             navigate('/admin');
         } catch (error) {
             setAlerta({
@@ -49,6 +47,11 @@ const Login = () => {
             }, 3000);
         }
     };
+
+    const resetForm = () => {
+        setEmail('');
+        setPassword('');
+    }
 
     const { message } = alerta;
 
