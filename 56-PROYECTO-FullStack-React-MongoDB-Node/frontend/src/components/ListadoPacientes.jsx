@@ -1,10 +1,11 @@
 // Imports
 import usePacientes from "../hooks/usePacientes";
+import Loading from "./Loading";
 import Paciente from "./Paciente";
 
 const ListadoPacientes = () => {
 
-    const { pacientes } = usePacientes();
+    const { pacientes, loading } = usePacientes();
 
     return (
         <>
@@ -19,12 +20,19 @@ const ListadoPacientes = () => {
                                 <span className="text-indigo-600 font-bold">Pacientes y Citas</span>
                             </p>
 
-                            {pacientes.map((paciente) => (
-                                <Paciente 
-                                    key={paciente._id}
-                                    paciente={paciente}
-                                />
-                            ))}
+                            {loading ? (
+                                <div className="flex items-center justify-center gap-2">
+                                    <span>Listado de Pacientes...</span>
+                                    <Loading color="text-black" />
+                                </div>
+                            ) : (
+                                pacientes.map((paciente) => (
+                                    <Paciente 
+                                        key={paciente._id}
+                                        paciente={paciente}
+                                    />
+                                ))
+                            )}
                         </>
                     )
                 : 

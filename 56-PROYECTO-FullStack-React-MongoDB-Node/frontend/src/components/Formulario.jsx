@@ -14,7 +14,7 @@ const Formulario = () => {
     const [id, setId] = useState('');
     const [alerta, setAlerta] = useState({});
     const [submitting, setSubmitting] = useState(false);
-
+    
     const { guardarPaciente, paciente } = usePacientes();
 
     useEffect(() => {
@@ -38,7 +38,7 @@ const Formulario = () => {
         }
 
         setAlerta({});
-        // setSubmitting(true);
+        setSubmitting(true);
         // Registrando pacientes
         guardarPaciente({ 
             nombre, 
@@ -52,15 +52,24 @@ const Formulario = () => {
             message: 'Guardado correctamente',
             error: false
         });
+        
+        setTimeout(() => {
+            setSubmitting(false);
+            resetForm();
+        }, 3000);
+    }
+
+    const resetForm = () => {
         setNombre('');
         setPropietario('');
         setEmail('');
         setFecha('');
         setSintomas('');
         setId('');
-    }
+    };
 
     const { message } = alerta;
+    const isEditing = Boolean(id);
 
     return (
         <>
@@ -159,11 +168,11 @@ const Formulario = () => {
                 >
                     {submitting ? (
                         <>
-                            {id ? "Editando paciente..." : "Agregando paciente..."}
+                            {isEditing ? "Editando paciente..." : "Agregando paciente..."}
                             <Loading />
                         </>
                     ) : (
-                        id ? "Editar Paciente" : "Agregar Paciente"
+                        isEditing ? "Editar Paciente" : "Agregar Paciente"
                     )}
                 </button>
             </form>

@@ -30,6 +30,7 @@ const PacientesProvider = ({ children }) => {
     const guardarPaciente = async (paciente) => {
         const { id } = paciente;
 
+        setLoading(true);
         if (!id) {
             // Guardar paciente
             try {
@@ -69,6 +70,7 @@ const PacientesProvider = ({ children }) => {
         const confirmar = confirm(`¿Estas seguro que deseas eliminar el paciente?`);
 
         if (confirmar) {
+            setLoading(true);
             try {
                 const { data } = await clienteAxios.delete(`/pacientes/${ id }`, cargarConfig());
                 console.log(data);
