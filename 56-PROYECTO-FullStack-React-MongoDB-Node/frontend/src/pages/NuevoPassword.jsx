@@ -69,8 +69,7 @@ export const NuevoPassword = () => {
                 message: data.message,
                 error: false
             });
-            setNuevoPassword('');
-            setConfirmarPassword('');
+            resetForm();
             setPasswordModificado(true);
         } catch (error) {
             setAlerta({
@@ -82,6 +81,11 @@ export const NuevoPassword = () => {
                 setSubmitting(false);
             }, 3000);
         }
+    };
+
+    const resetForm = () => {
+        setNuevoPassword('');
+        setConfirmarPassword('');
     };
 
     const { message } = alerta;

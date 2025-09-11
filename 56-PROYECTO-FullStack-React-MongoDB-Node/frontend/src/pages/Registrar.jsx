@@ -50,10 +50,7 @@ const Registrar = () => {
                 error: false 
             });
 
-            setNombre('');
-            setEmail('');
-            setPassword('');
-            setConfirmarPassword('');
+            resetForm();
         } catch (error) {
             setAlerta({
                 message: error.response.data.message,
@@ -65,6 +62,13 @@ const Registrar = () => {
             }, 3000);
         }
     }
+
+    const resetForm = () => {
+        setNombre('');
+        setEmail('');
+        setPassword('');
+        setConfirmarPassword('');
+    };
 
     const { message } = alerta;
 
