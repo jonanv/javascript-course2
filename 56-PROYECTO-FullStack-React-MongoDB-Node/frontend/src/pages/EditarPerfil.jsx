@@ -3,18 +3,38 @@ import { useState } from "react";
 // Imports
 import AdminNav from "../components/AdminNav";
 import Loading from "../components/Loading";
+import Alerta from "../components/Alerta";
 
 const EditarPerfil = () => {
+    const [nombre, setNombre] = useState('');
+    const [web, setWeb] = useState('');
+    const [telefono, setTelefono] = useState('');
+    const [email, setEmail] = useState('');
+    const [alerta, setAlerta] = useState({});
     const [submitting, setSubmitting] = useState(false);
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        const fields = [nombre, web, telefono, email];
+
+        if (fields.includes('')) {
+            setAlerta({ message: 'Hay campos vacíos', error: true });
+            return;
+        }
 
         setSubmitting(true);
-        setTimeout(() => {
-            setSubmitting(false);
-        }, 3000);
+        try {
+            
+        } catch (error) {
+            console.error(error);
+        } finally {
+            setTimeout(() => {
+                setSubmitting(false);
+            }, 3000);
+        }
     };
+
+    const { message } = alerta;
 
     return (
         <>
@@ -28,6 +48,13 @@ const EditarPerfil = () => {
 
             <div className="flex justify-center">
                 <div className="w-full md:w-1/2 bg-white shadow rounded-lg p-5">
+
+                    {!submitting && message && 
+                        <Alerta 
+                            alerta={alerta}
+                        />
+                    }
+
                     <form onSubmit={handleSubmit}>
                         <div className="my-3">
                             <label 
@@ -36,10 +63,13 @@ const EditarPerfil = () => {
                                 Nombre
                             </label>
                             <input 
-                                type="text" 
-                                name="nombre" 
                                 id="nombre" 
+                                type="text" 
+                                placeholder="Nombre veterinario"
+                                name="nombre" 
                                 className="border border-gray-300 bg-gray-50 w-full p-2 mt-5 rounded-lg"
+                                value={nombre}
+                                onChange={e => setNombre(e.target.value.toString())}
                             />
                         </div>
                         <div className="my-3">
@@ -49,10 +79,13 @@ const EditarPerfil = () => {
                                 Sitio Web
                             </label>
                             <input 
-                                type="text" 
+                                id="web"
+                                type="text"
+                                placeholder="Sitio Web"
                                 name="web" 
-                                id="web" 
                                 className="border border-gray-300 bg-gray-50 w-full p-2 mt-5 rounded-lg"
+                                value={web}
+                                onChange={e => setWeb(e.target.value.toString())}
                             />
                         </div>
                         <div className="my-3">
@@ -62,10 +95,13 @@ const EditarPerfil = () => {
                                 Teléfono
                             </label>
                             <input 
-                                type="text" 
-                                name="telefono" 
                                 id="telefono" 
+                                type="text"
+                                placeholder="Teléfono"
+                                name="telefono" 
                                 className="border border-gray-300 bg-gray-50 w-full p-2 mt-5 rounded-lg"
+                                value={telefono}
+                                onChange={e => setTelefono(e.target.value.toString())}
                             />
                         </div>
                         <div className="my-3">
@@ -75,10 +111,13 @@ const EditarPerfil = () => {
                                 Email
                             </label>
                             <input 
-                                type="email" 
+                                id="email"
+                                type="email"
+                                placeholder="Email"
                                 name="email" 
-                                id="email" 
                                 className="border border-gray-300 bg-gray-50 w-full p-2 mt-5 rounded-lg"
+                                value={email}
+                                onChange={e => setEmail(e.target.value.toString())}
                             />
                         </div>
                         <button 
