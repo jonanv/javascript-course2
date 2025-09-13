@@ -1,17 +1,21 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 // Imports
 import AdminNav from "../components/AdminNav";
 import Loading from "../components/Loading";
 import Alerta from "../components/Alerta";
+import useAuth from "../hooks/useAuth";
 
 const EditarPerfil = () => {
-    const [nombre, setNombre] = useState('');
-    const [web, setWeb] = useState('');
-    const [telefono, setTelefono] = useState('');
-    const [email, setEmail] = useState('');
+    const [perfil, setPerfil] = useState({});
     const [alerta, setAlerta] = useState({});
     const [submitting, setSubmitting] = useState(false);
+
+    const { auth } = useAuth();
+
+    useEffect(() => {
+        setPerfil(auth);
+    }, [auth]);
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -68,8 +72,11 @@ const EditarPerfil = () => {
                                 placeholder="Nombre veterinario"
                                 name="nombre" 
                                 className="border border-gray-300 bg-gray-50 w-full p-2 mt-5 rounded-lg"
-                                value={nombre}
-                                onChange={e => setNombre(e.target.value.toString())}
+                                value={perfil.nombre || ''}
+                                onChange={e => setPerfil({
+                                    ...perfil, 
+                                    [e.target.name]: e.target.value.toString()
+                                })}
                             />
                         </div>
                         <div className="my-3">
@@ -84,8 +91,11 @@ const EditarPerfil = () => {
                                 placeholder="Sitio Web"
                                 name="web" 
                                 className="border border-gray-300 bg-gray-50 w-full p-2 mt-5 rounded-lg"
-                                value={web}
-                                onChange={e => setWeb(e.target.value.toString())}
+                                value={perfil.web || ''}
+                                onChange={e => setPerfil({
+                                    ...perfil, 
+                                    [e.target.name]: e.target.value.toString()
+                                })}
                             />
                         </div>
                         <div className="my-3">
@@ -100,8 +110,11 @@ const EditarPerfil = () => {
                                 placeholder="Teléfono"
                                 name="telefono" 
                                 className="border border-gray-300 bg-gray-50 w-full p-2 mt-5 rounded-lg"
-                                value={telefono}
-                                onChange={e => setTelefono(e.target.value.toString())}
+                                value={perfil.telefono || ''}
+                                onChange={e => setPerfil({
+                                    ...perfil, 
+                                    [e.target.name]: e.target.value.toString()
+                                })}
                             />
                         </div>
                         <div className="my-3">
@@ -116,8 +129,11 @@ const EditarPerfil = () => {
                                 placeholder="Email"
                                 name="email" 
                                 className="border border-gray-300 bg-gray-50 w-full p-2 mt-5 rounded-lg"
-                                value={email}
-                                onChange={e => setEmail(e.target.value.toString())}
+                                value={perfil.email || ''}
+                                onChange={e => setPerfil({
+                                    ...perfil, 
+                                    [e.target.name]: e.target.value.toString()
+                                })}
                             />
                         </div>
                         <button 
