@@ -11,31 +11,34 @@ const EditarPerfil = () => {
     const [alerta, setAlerta] = useState({});
     const [submitting, setSubmitting] = useState(false);
 
-    const { auth } = useAuth();
+    const { auth, actualizarPerfil } = useAuth();
 
     useEffect(() => {
         setPerfil(auth);
     }, [auth]);
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        const fields = [nombre, web, telefono, email];
+        const { nombre, email } = perfil;
 
-        if (fields.includes('')) {
-            setAlerta({ message: 'Hay campos vacíos', error: true });
+        if ([nombre, email].includes('')) {
+            setAlerta({ message: 'Nombre y Email son obligatorios', error: true });
             return;
         }
 
+        setAlerta({});
         setSubmitting(true);
-        try {
-            
-        } catch (error) {
-            console.error(error);
-        } finally {
-            setTimeout(() => {
-                setSubmitting(false);
-            }, 3000);
-        }
+
+        actualizarPerfil({...perfil});
+
+        setAlerta({
+            message: 'Guardado correctamente',
+            error: false
+        });
+
+        setTimeout(() => {
+            setSubmitting(false);
+        }, 3000);
     };
 
     const { message } = alerta;

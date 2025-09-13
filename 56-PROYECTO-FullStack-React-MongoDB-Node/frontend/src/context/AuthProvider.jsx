@@ -45,13 +45,28 @@ const AuthProvider = ({ children }) => {
         setAuth({});
     }
 
+    const actualizarPerfil = async (perfil) => {
+        console.log(perfil);
+        // try {
+        //     const { data } = await clienteAxios.put();
+            
+        // } catch (error) {
+        //     console.error(error);
+        // } finally {
+        //     setTimeout(() => {
+        //         setLoading(false);
+        //     }, 3000);
+        // }
+    }
+
     return (
         <AuthContext.Provider
             value={{
                 auth,
                 setAuth,
                 loading,
-                cerrarSesion
+                cerrarSesion,
+                actualizarPerfil
             }}>
             { children }
         </AuthContext.Provider>
