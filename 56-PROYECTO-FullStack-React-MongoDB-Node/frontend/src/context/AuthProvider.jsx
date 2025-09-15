@@ -11,22 +11,8 @@ const AuthProvider = ({ children }) => {
 
     useEffect(() => {
         const autenticarUsuario = async () => {
-            const token = localStorage.getItem('token');
-            
-            if (!token) {
-                setLoading(false);
-                return;
-            }
-
-            const config = {
-                headers: {
-                    "Content-Type": "application/json",
-                    "Authorization": `Bearer ${ token }`
-                }
-            }
-
             try {
-                const { data } = await clienteAxios.get('/veterinarios/perfil', config);
+                const { data } = await clienteAxios.get('/veterinarios/perfil', cargarConfig());
                 setAuth(data);
             } catch (error) {
                 console.error(error.response.data.message);
@@ -46,18 +32,44 @@ const AuthProvider = ({ children }) => {
     }
 
     const actualizarPerfil = async (perfil) => {
-        console.log(perfil);
-        // try {
-        //     const { data } = await clienteAxios.put();
-            
-        // } catch (error) {
-        //     console.error(error);
-        // } finally {
-        //     setTimeout(() => {
-        //         setLoading(false);
-        //     }, 3000);
-        // }
+        const { _id } = perfil;
+
+        try {
+            const { data } = await clienteAxios.put(`/veterinarios/perfil/${ _id }`, perfil, cargarConfig());
+            setAuth(data);
+            return {
+                message: 'Almacenado correctamente',
+                error: false
+            };
+        } catch (error) {
+            return {
+                message: error.response.data.message,
+                error: true
+            };
+        } finally {
+            setTimeout(() => {
+                setLoading(false);
+            }, 3000);
+        }
     }
+
+    const cargarConfig = () => {
+        const token = localStorage.getItem('token');
+
+        if (!token) {
+            setLoading(false);
+            return;
+        }
+
+        const config = {
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${ token }`
+            }
+        }
+
+        return config;
+}
 
     return (
         <AuthContext.Provider
