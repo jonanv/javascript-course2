@@ -39,6 +39,42 @@ const perfil = (request, response) => {
     response.json(veterinario);
 };
 
+const actualizarPerfil = async (request, response) => {
+    const { idVeterinario } = request.params;
+
+    const veterinario = await Veterinario.findById(idVeterinario).select(
+        '-password -token -confirmado'
+    );
+
+    if (!veterinario) {
+        const error = new Error('Veterinario no existe');
+        return response.status(404).json({ message: error.message });
+    }
+
+    const { email } = request.body;
+    if (veterinario.email !== request.body.email) {
+        const existeEmail = await Veterinario.findOne({ email });
+
+        if (existeEmail) {
+            const error = new Error('Ese email ya esta en uso');
+            return response.status(404).json({ message: error.message });
+        }
+    }
+
+    try {
+        // Actualizar veterinario
+        veterinario.nombre = request.body.nombre;
+        veterinario.web = request.body.web;
+        veterinario.telefono = request.body.telefono;
+        veterinario.email = request.body.email;
+
+        const veterinarioActualizado = await veterinario.save();
+        return response.status(200).json(veterinarioActualizado);
+    } catch (error) {
+        response.json(error);
+    }
+}
+
 const confirmar = async (request, response) => {
     const { token } = request.params;
 
@@ -165,5 +201,6 @@ export {
     autenticar,
     olvidePassword, 
     comprobarToken,
-    nuevoPassword
+    nuevoPassword,
+    actualizarPerfil
 }
