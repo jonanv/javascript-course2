@@ -4,31 +4,46 @@ import { useState } from "react";
 import AdminNav from "../components/AdminNav";
 import Loading from "../components/Loading";
 import Alerta from "../components/Alerta";
+import useAuth from "../hooks/useAuth";
 
 const CambiarPassword = () => {
-    const [password, setPassword] = useState('');
-    const [nuevoPassword, setNuevoPassword] = useState('');
-    const [confirmarPassword, setConfirmarPassword] = useState('');
+    const [password, setPassword] = useState({
+        actualPassword: '',
+        nuevoPassword: '',
+        confirmarPassword: ''
+    });
     const [submitting, setSubmitting] = useState(false);
     const [alerta, setAlerta] = useState({});
 
-    const handleSubmit = (e) => {
+    const { guardarPassword } = useAuth();
+
+    const handleSubmit = async (e) => {
         e.preventDefault();
 
-        console.log('Cambiando password...');
+        if (Object.values(password).some(campo => campo.trim() === '')) {
+            setAlerta({ message: 'Todos los campos son obligatorios', error: true });
+            return;
+        }
+
+        if (password.nuevoPassword !== password.confirmarPassword) {
+            setAlerta({ message: 'Los passwords no son iguales', error: true });
+            return;
+        }
+
+        if (password.nuevoPassword.length < 6) {
+            setAlerta({ message: 'El password nuevo es muy corto, agrega mínimo 6 caracteres', error: true });
+            return;
+        }
 
         setAlerta({});
         setSubmitting(true);
 
-        try {
-            
-        } catch (error) {
-            console.log(error);
-        } finally {
-            setTimeout(() => {
-                setSubmitting(false);
-            }, 3000);
-        }
+        const resultado = await guardarPassword(password);
+        setAlerta(resultado);
+
+        setTimeout(() => {
+            setSubmitting(false);
+        }, 3000);
     };
 
     const { message } = alerta;
@@ -60,13 +75,15 @@ const CambiarPassword = () => {
                                 Password Actual
                             </label>
                             <input 
-                                id="password" 
+                                id="actualPassword" 
                                 type="password" 
                                 placeholder="Escribe tu password actual"
-                                name="password" 
+                                name="actualPassword" 
                                 className="border border-gray-300 bg-gray-50 w-full p-2 mt-5 rounded-lg"
-                                value={password}
-                                onChange={e => setPassword(e.target.value.toString())}
+                                onChange={e => setPassword({
+                                    ...password,
+                                    [e.target.name]: e.target.value.toString() 
+                                })}
                             />
                         </div>
                         <div className="my-3">
@@ -81,8 +98,10 @@ const CambiarPassword = () => {
                                 placeholder="Escribe tu nuevo password"
                                 name="nuevoPassword" 
                                 className="border border-gray-300 bg-gray-50 w-full p-2 mt-5 rounded-lg"
-                                value={nuevoPassword}
-                                onChange={e => setNuevoPassword(e.target.value.toString())}
+                                onChange={e => setPassword({
+                                    ...password,
+                                    [e.target.name]: e.target.value.toString() 
+                                })}
                             />
                         </div>
                         <div className="my-3">
@@ -97,8 +116,10 @@ const CambiarPassword = () => {
                                 placeholder="Confirmar tu nuevo password"
                                 name="confirmarPassword" 
                                 className="border border-gray-300 bg-gray-50 w-full p-2 mt-5 rounded-lg"
-                                value={confirmarPassword}
-                                onChange={e => setConfirmarPassword(e.target.value.toString())}
+                                onChange={e => setPassword({
+                                    ...password,
+                                    [e.target.name]: e.target.value.toString() 
+                                })}
                             />
                         </div>
                         <button 
@@ -109,11 +130,11 @@ const CambiarPassword = () => {
                         >
                             {submitting ? (
                                 <>
-                                    Cambiando password..
+                                    Actualizando password..
                                     <Loading />
                                 </>
                             ) : (
-                                "Cambiar Password"
+                                "Actualizar Password"
                             )}
                         </button>
                     </form>

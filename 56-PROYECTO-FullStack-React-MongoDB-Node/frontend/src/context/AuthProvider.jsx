@@ -53,6 +53,10 @@ const AuthProvider = ({ children }) => {
         }
     }
 
+    const guardarPassword = async (password) => {
+        console.log(password);
+    }
+
     const cargarConfig = () => {
         const token = localStorage.getItem('token');
 
@@ -78,7 +82,8 @@ const AuthProvider = ({ children }) => {
                 setAuth,
                 loading,
                 cerrarSesion,
-                actualizarPerfil
+                actualizarPerfil,
+                guardarPassword
             }}>
             { children }
         </AuthContext.Provider>
