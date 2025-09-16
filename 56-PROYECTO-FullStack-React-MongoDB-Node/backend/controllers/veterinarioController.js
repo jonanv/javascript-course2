@@ -39,6 +39,67 @@ const perfil = (request, response) => {
     response.json(veterinario);
 };
 
+const actualizarPerfil = async (request, response) => {
+    const { idVeterinario } = request.params;
+
+    const veterinario = await Veterinario.findById(idVeterinario).select(
+        '-password -token -confirmado'
+    );
+
+    if (!veterinario) {
+        const error = new Error('Veterinario no existe');
+        return response.status(404).json({ message: error.message });
+    }
+
+    const { email } = request.body;
+    if (veterinario.email !== request.body.email) {
+        const existeEmail = await Veterinario.findOne({ email });
+
+        if (existeEmail) {
+            const error = new Error('Ese email ya esta en uso');
+            return response.status(404).json({ message: error.message });
+        }
+    }
+
+    try {
+        // Actualizar veterinario
+        veterinario.nombre = request.body.nombre;
+        veterinario.web = request.body.web;
+        veterinario.telefono = request.body.telefono;
+        veterinario.email = request.body.email;
+
+        const veterinarioActualizado = await veterinario.save();
+        return response.status(200).json(veterinarioActualizado);
+    } catch (error) {
+        response.json(error);
+    }
+}
+
+const actualizarPassword = async (request, response) => {
+    // Leer los datos
+    const { id } = request.veterinario;
+    const { actualPassword, nuevoPassword } = request.body;
+
+    // Comprobar que el veterinario exista
+    const veterinario = await Veterinario.findById(id);
+
+    if (!veterinario) {
+        const error = new Error('Veterinario no existe');
+        return response.status(404).json({ message: error.message });
+    }
+
+    // Comprobar su password
+    if (await veterinario.comprobarPassword(actualPassword)) {
+        // Almacenar el nuevo password
+        veterinario.password = nuevoPassword;
+        await veterinario.save();
+        return response.status(200).json({ message: 'Password Actualizado Correctamente' });
+    } else {
+        const error = new Error('El Password Actual es Incorrecto');
+        return response.status(404).json({ message: error.message });
+    }
+}
+
 const confirmar = async (request, response) => {
     const { token } = request.params;
 
@@ -165,5 +226,7 @@ export {
     autenticar,
     olvidePassword, 
     comprobarToken,
-    nuevoPassword
+    nuevoPassword,
+    actualizarPerfil,
+    actualizarPassword
 }

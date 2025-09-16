@@ -29,12 +29,8 @@ const EditarPerfil = () => {
         setAlerta({});
         setSubmitting(true);
 
-        actualizarPerfil({...perfil});
-
-        setAlerta({
-            message: 'Guardado correctamente',
-            error: false
-        });
+        const resultado = await actualizarPerfil({...perfil});
+        setAlerta(resultado);
 
         setTimeout(() => {
             setSubmitting(false);
