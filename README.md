@@ -58,8 +58,10 @@ npm t strings          // Run test with files strings
 npm create vite             // Create app vite
 npm init vite               // Create app vite
 npm run dev                 // run app
-npm run dev -- --port 3000  // run app in specific port
-npm run dev -- -p 3000      // run app in specific port (short)
+npm run dev -- --port 3000  // run app in specific port -> "vite": "^6.2.0"
+npm run dev -- -p 3000      // run app in specific port (short) ->  "vite": "^6.2.0"
+npm run dev --port 3000  // run app in specific port -> "vite": "^7.1.6"
+npm run dev -p 3000      // run app in specific port (short) ->  "vite": "^7.1.6"
 npm run build               // create app's dist
 ```
 
