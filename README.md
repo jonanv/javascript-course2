@@ -14,6 +14,7 @@ npm uninstall <package>             // Uninstall package
 npm update <package>                // Update package
 npm update <package> --save-dev     // Update package as dev dependency
 npm update <package> --save         // Update package as dependency
+npm i -D tailwind@3 postcss autoprefixer  // Install multiple packages as dev dependencies
 
 npm list <package>                  // List installed packages
 npm list -g <package>               // List globally installed packages
