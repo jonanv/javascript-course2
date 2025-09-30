@@ -1,6 +1,6 @@
 import './style.css';
-import { pacienteInput, propietarioInput, emailInput, fechaInput, sintomasInput, formulario } from "./selectores.js";
-import { llenarCampoCita, enviarFormulario } from "./funciones.js";
+import { pacienteInput, propietarioInput, emailInput, fechaInput, sintomasInput, formulario } from "./selectores";
+import { llenarCampoCita, enviarFormulario } from "./funciones";
 
 // Events
 pacienteInput.addEventListener('change', llenarCampoCita);
