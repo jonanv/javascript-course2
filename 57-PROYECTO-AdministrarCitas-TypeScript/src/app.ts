@@ -3,10 +3,10 @@ import { pacienteInput, propietarioInput, emailInput, fechaInput, sintomasInput,
 import { llenarCampoCita, enviarFormulario } from "./funciones";
 
 // Events
-pacienteInput.addEventListener('change', llenarCampoCita);
-propietarioInput.addEventListener('change', llenarCampoCita);
-emailInput.addEventListener('change', llenarCampoCita);
-fechaInput.addEventListener('change', llenarCampoCita);
-sintomasInput.addEventListener('change', llenarCampoCita);
+pacienteInput?.addEventListener('change', llenarCampoCita);
+propietarioInput?.addEventListener('change', llenarCampoCita);
+emailInput?.addEventListener('change', llenarCampoCita);
+fechaInput?.addEventListener('change', llenarCampoCita);
+sintomasInput?.addEventListener('change', llenarCampoCita);
 
-formulario.addEventListener('submit', enviarFormulario);
+formulario?.addEventListener('submit', enviarFormulario);
