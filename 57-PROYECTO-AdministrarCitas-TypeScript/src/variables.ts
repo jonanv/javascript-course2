@@ -38,6 +38,12 @@ export {
 //     disponible: boolean;
 // }
 
+type Producto = {
+    precio: number;
+    nombre: string;
+    disponible: boolean;
+}
+
 // const producto: Producto = {
 //     precio: 300,
 //     nombre: 'Monitor 24 Pulgadas',
