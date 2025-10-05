@@ -1,40 +1,52 @@
 import { contenedorCitas } from "../selectores";
 import { cargarEdicion } from "../funciones";
 
+interface Cita {
+    id?: string;
+    paciente: string;
+    propietario: string;
+    email: string;
+    fecha: string;
+    sintomas: string;
+};
+
 export default class AdminCitas {
+
+    citas: Cita[];
+
     constructor() {
         this.citas = [];
     }
 
-    agregarCita(cita) {
+    agregarCita(cita: Cita) {
         this.citas = [...this.citas, cita];
         this.mostrarCitas();
     }
 
-    editarCita(citaActualizada) {
+    editarCita(citaActualizada: Cita) {
         this.citas = this.citas.map((cita) => cita.id === citaActualizada.id ? citaActualizada : cita);
         this.mostrarCitas();
     }
 
-    eliminarCita(id) {
+    eliminarCita(id: string) {
         this.citas = this.citas.filter((cita) => cita.id !== id);
         this.mostrarCitas();
     }
 
     mostrarCitas() {
         // Limpiar el HTML
-        while(contenedorCitas.firstChild) {
+        while(contenedorCitas?.firstChild) {
             contenedorCitas.removeChild(contenedorCitas.firstChild);
         }
 
         // Si no hay citas
-        if(this.citas.length === 0) {
+        if(this.citas.length === 0 && contenedorCitas) {
             contenedorCitas.innerHTML = '<p class="text-xl mt-5 mb-10 text-center">No Hay Pacientes</p>';
             return;
         }
 
         // Generando las citas
-        this.citas.forEach((cita) => {
+        this.citas.forEach((cita: Cita) => {
             const divCita = document.createElement('div');
             divCita.classList.add('mx-5', 'my-10', 'bg-white', 'shadow-md', 'px-5', 'py-10', 'rounded-xl', 'p-3');
 
@@ -69,7 +81,7 @@ export default class AdminCitas {
             btnEliminar.classList.add('py-2', 'px-10', 'bg-red-600', 'hover:bg-red-700', 'text-white', 'font-bold', 'uppercase', 'rounded-lg', 'flex', 'items-center', 'gap-2');
             btnEliminar.innerHTML = 'Eliminar <svg fill="none" class="h-5 w-5" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor"><path d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>';
             // Event handler
-            btnEliminar.onclick = () => eliminarCita(cita);
+            btnEliminar.onclick = () => this.eliminarCita(cita.id!);
 
             const contenedorBotones = document.createElement('div');
             contenedorBotones.classList.add('flex', 'justify-between', 'mt-10');
@@ -85,7 +97,7 @@ export default class AdminCitas {
             divCita.appendChild(sintomas);
             divCita.appendChild(contenedorBotones);
             // Agregar div al contenedor
-            contenedorCitas.appendChild(divCita);
+            contenedorCitas?.appendChild(divCita);
         });
     }
 }
