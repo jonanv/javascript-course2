@@ -28,7 +28,7 @@ export default class AdminCitas {
         this.mostrarCitas();
     }
 
-    eliminarCita(id: string) {
+    eliminarCita(id: Cita['id']) {
         this.citas = this.citas.filter((cita) => cita.id !== id);
         this.mostrarCitas();
     }
