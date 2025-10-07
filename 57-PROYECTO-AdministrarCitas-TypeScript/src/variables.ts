@@ -1,12 +1,21 @@
 import { generarId } from "./funciones";
 
+interface Cita {
+    id: string;
+    paciente: string;
+    propietario: string;
+    email: string;
+    fecha: string;
+    sintomas: string;
+};
+
 let editando = {
     value: false
 };
 
 // Objecto de la cita
 // Object literal
-const citaObj = {
+const citaObj: Cita = {
     id: generarId(),
     paciente: '',
     propietario: '',
