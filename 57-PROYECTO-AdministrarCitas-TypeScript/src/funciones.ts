@@ -6,8 +6,9 @@ import { citaObj, editando } from "./variables";
 const adminCitas = new AdminCitas();
 
 // Functions
-export function llenarCampoCita(e) {
-    citaObj[e.target.name] = e.target.value;
+export function llenarCampoCita(e: Event) {
+    const target = e.target as HTMLInputElement;
+    citaObj[target.name] = target.value;
     // console.log(citaObj);
 }
 
