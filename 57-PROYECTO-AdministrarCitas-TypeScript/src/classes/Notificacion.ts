@@ -2,7 +2,7 @@ import { formulario } from "../selectores";
 
 type NotificacionType = {
     texto: string;
-    tipo: 'error' | 'exito' | '';
+    tipo: 'error' | 'success' | '';
 };
 
 export default class Notificacion {
