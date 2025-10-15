@@ -1,6 +1,7 @@
 import AdminCitas from "./classes/AdminCitas";
 import Notificacion from "./classes/Notificacion";
 import { pacienteInput, propietarioInput, emailInput, fechaInput, sintomasInput, formulario, btnFormulario } from "./selectores";
+import type { Cita } from "./types";
 import { citaObj, editando } from "./variables";
 
 const adminCitas = new AdminCitas();
@@ -12,7 +13,7 @@ export function llenarCampoCita(e: Event) {
     // console.log(citaObj);
 }
 
-export function enviarFormulario(e) {
+export function enviarFormulario(e: SubmitEvent) {
     e.preventDefault();
 
     if (Object.values(citaObj).some(value => value.trim() === '')) {
@@ -29,7 +30,7 @@ export function enviarFormulario(e) {
             texto: 'Guardado correctamente', 
             tipo: 'success'
         });
-        btnFormulario.value = 'Registrar Paciente';
+        if (btnFormulario) btnFormulario.value = 'Registrar Paciente';
         editando.value = false;
     } else {
         adminCitas.agregarCita({...citaObj});
@@ -64,14 +65,14 @@ export function reiniciarObjectoCita() {
     }
     citaObj.id = generarId();
 
-    formulario.reset();
+    formulario?.reset();
 }
 
 export function generarId() {
     return Math.random().toString(36).substring(2) + Date.now();
 }
 
-export function cargarEdicion(cita) {
+export function cargarEdicion(cita: Cita) {
     Object.assign(citaObj, cita);
     
     pacienteInput.value = cita.paciente;
@@ -81,9 +82,9 @@ export function cargarEdicion(cita) {
     sintomasInput.value = cita.sintomas;
 
     editando.value = true;
-    btnFormulario.value = 'Guardar cambios';
+    if (btnFormulario) btnFormulario.value = 'Guardar cambios';
 }
 
-export function eliminarCita(cita) {
+export function eliminarCita(cita: Cita) {
     adminCitas.eliminarCita(cita.id);
 }
