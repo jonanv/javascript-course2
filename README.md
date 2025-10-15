@@ -20,7 +20,7 @@ npm list <package>                  // List installed packages
 npm list -g <package>               // List globally installed packages
 
 npm outdated <package>              // Check for outdated packages
-npm audit                          // Check for vulnerabilities
+npm audit                           // Check for vulnerabilities
 
 npm run <script>                    // Run script defined in package.json
 npm run dev                         // Run dev script defined in package.json
@@ -61,8 +61,8 @@ npm init vite               // Create app vite
 npm run dev                 // run app
 npm run dev -- --port 3000  // run app in specific port -> "vite": "^6.2.0"
 npm run dev -- -p 3000      // run app in specific port (short) ->  "vite": "^6.2.0"
-npm run dev --port 3000  // run app in specific port -> "vite": "^7.1.6"
-npm run dev -p 3000      // run app in specific port (short) ->  "vite": "^7.1.6"
+npm run dev --port 3000     // run app in specific port -> "vite": "^7.1.6"
+npm run dev -p 3000         // run app in specific port (short) ->  "vite": "^7.1.6"
 npm run build               // create app's dist
 ```
 
