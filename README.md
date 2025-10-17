@@ -4,16 +4,16 @@
 
 ### NPM 
 ```javascript
-npm init -y                         // Create package.json
-npm install <package>               // Install package
-npm install <package> --save-dev    // Install package as dev dependency
-npm i --save-dev nodemon            // Install nodemon as dev dependency
-npm install <package> --save        // Install package as dependency
-npm install <package> --global      // Install package globally
-npm uninstall <package>             // Uninstall package
-npm update <package>                // Update package
-npm update <package> --save-dev     // Update package as dev dependency
-npm update <package> --save         // Update package as dependency
+npm init -y                             // Create package.json
+npm install <package>                   // Install package
+npm install <package> --save-dev        // Install package as dev dependency
+npm i --save-dev nodemon                // Install nodemon as dev dependency
+npm install <package> --save            // Install package as dependency
+npm install <package> --global          // Install package globally
+npm uninstall <package>                 // Uninstall package
+npm update <package>                    // Update package
+npm update <package> --save-dev         // Update package as dev dependency
+npm update <package> --save             // Update package as dependency
 pnpm i -D tailwindcss@3 postcss autoprefixer  // Install multiple packages as dev dependencies
 
 npm list <package>                  // List installed packages
