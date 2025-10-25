@@ -1,4 +1,9 @@
 import './style.css'
+import { createOpenRouter } from "@openrouter/ai-sdk-provider";
+
+const openrouter = createOpenRouter({
+    apiKey: import.meta.env.VITE_OPENROUTER_KEY
+});
 
 const form = document.querySelector('#prompt-form');
 
