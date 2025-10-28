@@ -30,6 +30,10 @@ form.addEventListener('submit', async (e) => {
         prompt
     });
 
+    while (app.firstChild) {
+        app.removeChild(app.firstChild)    
+    }
+
     for await (const text of result.textStream) {
         app.append(text);
     }
