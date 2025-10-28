@@ -8,7 +8,7 @@ const openrouter = createOpenRouter({
 
 const form = document.querySelector('#prompt-form');
 
-form.addEventListener('submit', (e) => {
+form.addEventListener('submit', async (e) => {
     e.preventDefault();
 
     const prompt = document.querySelector('#prompt').value;
@@ -18,13 +18,16 @@ form.addEventListener('submit', (e) => {
         return;
     }
 
-    const result = generateText({
-        model: openrouter('deepseek/deepseek-chat-v3.1:free'),
-        model: openrouter('openai/gpt-oss-20b:free'),
-        model: openrouter('google/gemma-3n-e2b-it:free'),
-        model: openrouter('deepseek/deepseek-r1-0528-qwen3-8b:free'),
-        model: openrouter('qwen/qwen3-coder:free'),
-        model: openrouter('meta-llama/llama-3.3-8b-instruct:free'),
+    const result = await generateText({
+        model: openrouter('google/gemma-3n-e4b-it:free'),
+        // model: openrouter('deepseek/deepseek-chat-v3.1:free'),
+        // model: openrouter('openai/gpt-oss-20b:free'),
+        // model: openrouter('google/gemma-3n-e2b-it:free'),
+        // model: openrouter('deepseek/deepseek-r1-0528-qwen3-8b:free'),
+        // model: openrouter('qwen/qwen3-coder:free'),
+        // model: openrouter('meta-llama/llama-3.3-8b-instruct:free'),
         prompt
     });
+
+    console.log(result.text);
 });
