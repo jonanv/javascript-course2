@@ -31,7 +31,9 @@ form.addEventListener('submit', async (e) => {
         // model: openrouter('deepseek/deepseek-r1-0528-qwen3-8b:free'),
         // model: openrouter('qwen/qwen3-coder:free'),
         // model: openrouter('meta-llama/llama-3.3-8b-instruct:free'),
-        prompt
+        prompt,
+        // system: 'Eres un niño de 3 años'
+        // system: 'Eres un abuelo de 90 años'
     });
 
     while (app.firstChild) {
