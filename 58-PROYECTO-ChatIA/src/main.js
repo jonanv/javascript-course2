@@ -7,6 +7,7 @@ const openrouter = createOpenRouter({
 });
 
 const form = document.querySelector('#prompt-form');
+const btnSubmit = document.querySelector('#prompt-form button[type="submit"]');
 const app = document.querySelector('#app');
 
 form.addEventListener('submit', async (e) => {
@@ -18,6 +19,9 @@ form.addEventListener('submit', async (e) => {
         alert('La consulta no puede ir vacía');
         return;
     }
+
+    btnSubmit.classList.add('opacity-50');
+    btnSubmit.disabled = true;
 
     const result = streamText({
         model: openrouter('google/gemma-3n-e4b-it:free'),
@@ -37,4 +41,7 @@ form.addEventListener('submit', async (e) => {
     for await (const text of result.textStream) {
         app.append(text);
     }
+
+    btnSubmit.classList.remove('opacity-50');
+    btnSubmit.disabled = false;
 });
