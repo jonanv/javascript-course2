@@ -1,6 +1,6 @@
 import './style.css'
 import { createOpenRouter } from "@openrouter/ai-sdk-provider";
-import { generateText } from "ai";
+import { streamText } from "ai";
 
 const openrouter = createOpenRouter({
     apiKey: import.meta.env.VITE_OPENROUTER_KEY
@@ -18,7 +18,7 @@ form.addEventListener('submit', async (e) => {
         return;
     }
 
-    const result = await generateText({
+    const result = streamText({
         model: openrouter('google/gemma-3n-e4b-it:free'),
         // model: openrouter('deepseek/deepseek-chat-v3.1:free'),
         // model: openrouter('openai/gpt-oss-20b:free'),
@@ -29,5 +29,7 @@ form.addEventListener('submit', async (e) => {
         prompt
     });
 
-    console.log(result.text);
+    for await (const text of result.textStream) {
+        console.log(text);
+    }
 });
