@@ -7,6 +7,7 @@ const openrouter = createOpenRouter({
 });
 
 const form = document.querySelector('#prompt-form');
+const app = document.querySelector('#app');
 
 form.addEventListener('submit', async (e) => {
     e.preventDefault();
@@ -30,6 +31,6 @@ form.addEventListener('submit', async (e) => {
     });
 
     for await (const text of result.textStream) {
-        console.log(text);
+        app.append(text);
     }
 });
