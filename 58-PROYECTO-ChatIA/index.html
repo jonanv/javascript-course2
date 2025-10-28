@@ -12,15 +12,24 @@
   <div class=" max-w-2xl mx-auto flex flex-col space-y-3">
     <h1
       class="inline-block text-8xl font-bold bg-gradient-to-r from-purple-500 to-purple-800 bg-clip-text text-transparent text-center my-10">
-      AI Nucleus</h1>
-    <form class='flex flex-col space-y-3'>
+      AI Nucleus
+    </h1>
+
+    <form class='flex flex-col space-y-3'
+      id="prompt-form">
       <label htmlFor="prompt" class='text-white font-bold text-2xl text-center'>
         ¿Cómo puedo ayudarte?
       </label>
       <div class="relative">
-        <input name="prompt" id="prompt" class="border bg-white p-4 rounded-lg w-full"
-          placeholder="Pregunta lo que quieras" />
-        <button type="submit" aria-label="Enviar"
+        <input 
+          name="prompt" 
+          id="prompt" 
+          class="border bg-white p-4 rounded-lg w-full"
+          placeholder="Pregunta lo que quieras" 
+        />
+        <button 
+          type="submit" 
+          aria-label="Enviar"
           class=" cursor-pointer absolute top-1/2 right-5 transform -translate-x-1/2 -translate-y-1/2">
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5"
             stroke="currentColor" class="w-10 h-10">
@@ -30,7 +39,9 @@
         </button>
       </div>
     </form>
+
     <div id="app" class="text-white py-10 whitespace-break-spaces text-lg"></div>
+    
   </div>
   <div id="app"></div>
   <script type="module" src="/src/main.js"></script>
