@@ -76,7 +76,7 @@ npx tailwindcss init -p
 enable `type: "module"` in package.json to use ES6 imports and exports, or use CommonJS syntax.
 
 ```javascript
-module.export = {}      // Export CommonJS 
+module.exports = {}      // Export CommonJS 
 export default {}       // Export ES6 imports and exports
 ```
 
